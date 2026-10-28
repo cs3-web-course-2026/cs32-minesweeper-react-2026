@@ -1,0 +1,36 @@
+/* Повідомлення як інтертитр німого кіно */
+
+.status {
+  min-height: 3rem;
+  margin: 1rem 0 0;
+  padding: 0.7rem 1rem;
+  font-size: 0.95rem;
+  text-align: center;
+  border: var(--ink-line) double var(--ink);
+  border-radius: var(--radius-tile);
+}
+
+.finale {
+  font-family: var(--font-title);
+  font-size: clamp(1.2rem, 5vw, 1.6rem);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: var(--paper);
+  background: var(--ink);
+  box-shadow:
+    inset 0 0 0 0.3rem var(--ink),
+    inset 0 0 0 0.4rem var(--paper);
+  animation: iris var(--iris-duration) var(--frame-steps);
+}
+
+/* Класичний «ірис»: кадр розкривається колом із центру */
+@keyframes iris {
+  from { clip-path: circle(0% at 50% 50%); }
+  to { clip-path: circle(75% at 50% 50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .finale {
+    animation: none;
+  }
+}
