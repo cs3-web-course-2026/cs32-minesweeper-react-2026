@@ -4,7 +4,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Game from './pages/Game';
 import MockGame from './pages/MockGame';
-import PrychynaDashaGame from './pages/PrychynaDasha';
+import PrychynaDashaGame from './pages/PrychynaDasha'; // 1. Імпорт компонента
 
 function App() {
   return (
@@ -14,6 +14,8 @@ function App() {
         <Route path="about" element={<About />} />
         <Route path="game" element={<Game />} />
         <Route path="mock-game" element={<MockGame />} />
+        
+        {/* 2. Важливий рядок: реєстрація вашого роуту */}
         <Route path="prychyna-dasha" element={<PrychynaDashaGame />} />
       </Route>
     </Routes>
