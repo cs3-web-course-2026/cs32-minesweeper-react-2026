@@ -1,0 +1,16 @@
+.gameStatus {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+  min-height: 1.4rem;
+  margin-bottom: 10px;
+  color: #eceff4;
+}
+
+.win {
+  color: #4ade80;
+}
+
+.lose {
+  color: #f87171;
+}

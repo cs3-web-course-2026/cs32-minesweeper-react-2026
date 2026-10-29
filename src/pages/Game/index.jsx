@@ -89,6 +89,16 @@ function Game() {
       difficulty: 'Advanced',
       status: 'Planning',
     },
+    {
+      id: 6,
+      title: 'Звичайний Сапер (Minesweeper)',
+      description:
+        'React-версія Сапера з звичайним flood-fill відкриттям, таймером, лічильником прапорців та повною підтримкою доступності й клавіатури.',
+      author: 'Chernous Valerii',
+      link: 'chernous-valerii',
+      difficulty: 'Intermediate',
+      status: 'Complete',
+    },
   ];
 
   return (
