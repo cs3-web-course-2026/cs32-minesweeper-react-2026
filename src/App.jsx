@@ -4,7 +4,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Game from './pages/Game';
 import MockGame from './pages/MockGame';
-import PrychynaDariaGame from './pages/PrychynaDasha';
+import PrychynaDashaGame from './pages/PrychynaDasha';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         <Route path="about" element={<About />} />
         <Route path="game" element={<Game />} />
         <Route path="mock-game" element={<MockGame />} />
-        <Route path="prychyna-daria" element={<PrychynaDariaGame />} />
+        <Route path="prychyna-dasha" element={<PrychynaDashaGame />} />
       </Route>
     </Routes>
   );
