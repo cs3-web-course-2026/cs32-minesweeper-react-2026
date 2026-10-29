@@ -9,7 +9,7 @@
   font-family: 'Courier New', Courier, monospace;
   font-size: 1.15rem;
   font-weight: 700;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 2px 4px rgb(0 0 0 / 60%);
 }
 
 .statIcon {
@@ -28,7 +28,7 @@
   color: #f87171;
 }
 
-@media (max-width: 600px) {
+@media (width <= 600px) {
   .statBox {
     padding: 4px 8px;
     font-size: 1rem;

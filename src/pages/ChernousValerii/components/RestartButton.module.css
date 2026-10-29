@@ -10,7 +10,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 5px rgb(0 0 0 / 30%);
   transition: all 0.15s ease;
   font-family: inherit;
 }
@@ -18,12 +18,12 @@
 .btnStart:hover {
   background: linear-gradient(180deg, #5e81ac 0%, #434c5e 100%);
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 8px rgb(0 0 0 / 40%);
 }
 
 .btnStart:active {
   transform: translateY(1px);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 2px 4px rgb(0 0 0 / 40%);
 }
 
 .btnIcon {
@@ -34,7 +34,7 @@
   display: inline;
 }
 
-@media (max-width: 600px) {
+@media (width <= 600px) {
   .btnText {
     display: none;
   }
