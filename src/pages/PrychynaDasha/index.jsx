@@ -54,7 +54,7 @@ function initializeBoard() {
   return board;
 }
 
-export default function MinesweeperGame() {
+export default function PrychynaDashaGame() {
   const [board, setBoard] = useState(initializeBoard);
   const [status, setStatus] = useState('playing');
   const [timer, setTimer] = useState(0);
