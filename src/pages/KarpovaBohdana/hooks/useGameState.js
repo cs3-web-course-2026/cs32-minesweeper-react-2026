@@ -99,7 +99,12 @@ export function useGameState(config = DEFAULT_CONFIG) {
     board: state.board,
     status: state.status,
     gameTime: state.gameTime,
-    flagsLeft: state.config.minesCount - countFlaggedCells(state.board),
+    // Зайві прапорці не роблять лічильник від'ємним,
+    // тож табло й aria-label показують однакове число
+    flagsLeft: Math.max(
+      0,
+      state.config.minesCount - countFlaggedCells(state.board),
+    ),
     isFinished: isGameOver(state.status),
     openCell,
     flagCell,
