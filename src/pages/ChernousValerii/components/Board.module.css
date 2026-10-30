@@ -1,0 +1,28 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(9, 38px);
+  grid-template-rows: repeat(9, 38px);
+  gap: 4px;
+  background-color: #161922;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #2e3440;
+  user-select: none;
+}
+
+@media (width <= 600px) {
+  .board {
+    grid-template-columns: repeat(9, 32px);
+    grid-template-rows: repeat(9, 32px);
+    gap: 2px;
+    padding: 4px;
+  }
+}
+
+@media (width <= 360px) {
+  .board {
+    grid-template-columns: repeat(9, 28px);
+    grid-template-rows: repeat(9, 28px);
+    gap: 1px;
+  }
+}
