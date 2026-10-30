@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import {
   ROWS,
   COLS,
@@ -28,6 +28,13 @@ function ChernousValerii() {
   const [gameTime, setGameTime] = useState(0);
   const [timerActive, setTimerActive] = useState(false);
   const [explodedCell, setExplodedCell] = useState(null);
+
+  const cellRefs = useRef({});
+
+  // Реєстрація DOM-посилань на кнопки клітинок для клавіатурної навігації
+  const handleRegisterCell = useCallback((element, row, col) => {
+    cellRefs.current[`${row}-${col}`] = element;
+  }, []);
 
   // Таймер
   useEffect(() => {
@@ -164,15 +171,44 @@ function ChernousValerii() {
     [board, gameStatus, timerActive],
   );
 
-  // Керування з клавіатури (Space для прапорця)
+  // Керування з клавіатури: Space для прапорця, Enter для відкриття, стрілочки для переміщення
   const handleCellKeyDown = useCallback(
     (event, row, col) => {
       if (event.code === 'Space' || event.key === ' ') {
         event.preventDefault();
+        if (event.repeat) return;
         handleCellContextMenu(event, row, col);
+        return;
+      }
+
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        handleCellClick(row, col);
+        return;
+      }
+
+      let nextRow = row;
+      let nextCol = col;
+
+      if (event.key === 'ArrowUp') {
+        nextRow = Math.max(0, row - 1);
+      } else if (event.key === 'ArrowDown') {
+        nextRow = Math.min(ROWS - 1, row + 1);
+      } else if (event.key === 'ArrowLeft') {
+        nextCol = Math.max(0, col - 1);
+      } else if (event.key === 'ArrowRight') {
+        nextCol = Math.min(COLS - 1, col + 1);
+      } else {
+        return;
+      }
+
+      event.preventDefault();
+      const targetCell = cellRefs.current[`${nextRow}-${nextCol}`];
+      if (targetCell) {
+        targetCell.focus();
       }
     },
-    [handleCellContextMenu],
+    [handleCellContextMenu, handleCellClick],
   );
 
   return (
@@ -203,6 +239,7 @@ function ChernousValerii() {
             board={board}
             gameStatus={gameStatus}
             explodedCell={explodedCell}
+            onRegisterCell={handleRegisterCell}
             onCellClick={handleCellClick}
             onCellContextMenu={handleCellContextMenu}
             onCellKeyDown={handleCellKeyDown}

@@ -40,9 +40,13 @@ export function countNeighbourMines(field) {
   if (rowCount === 0) return field;
   const colCount = field[0].length;
 
+  const newField = field.map((rowCells) =>
+    rowCells.map((cell) => ({ ...cell })),
+  );
+
   for (let row = 0; row < rowCount; row++) {
     for (let col = 0; col < colCount; col++) {
-      if (field[row][col].type === CELL_TYPE.MINE) continue;
+      if (newField[row][col].type === CELL_TYPE.MINE) continue;
 
       let count = 0;
       for (const [offsetRow, offsetCol] of DIRECTIONS) {
@@ -53,16 +57,16 @@ export function countNeighbourMines(field) {
           neighborRow < rowCount &&
           neighborCol >= 0 &&
           neighborCol < colCount &&
-          field[neighborRow][neighborCol].type === CELL_TYPE.MINE
+          newField[neighborRow][neighborCol].type === CELL_TYPE.MINE
         ) {
           count++;
         }
       }
-      field[row][col].neighborMines = count;
+      newField[row][col].neighborMines = count;
     }
   }
 
-  return field;
+  return newField;
 }
 
 export function floodFillReveal(board, startRow, startCol) {

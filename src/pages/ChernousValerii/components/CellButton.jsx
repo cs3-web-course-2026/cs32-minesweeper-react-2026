@@ -7,6 +7,7 @@ function CellButton({
   col,
   gameStatus,
   isExploded,
+  buttonRef,
   onClick,
   onContextMenu,
   onKeyDown,
@@ -60,6 +61,7 @@ function CellButton({
 
   return (
     <button
+      ref={buttonRef}
       type="button"
       className={cellClass}
       title={title}

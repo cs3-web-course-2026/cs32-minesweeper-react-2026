@@ -5,6 +5,7 @@ function Board({
   board,
   gameStatus,
   explodedCell,
+  onRegisterCell,
   onCellClick,
   onCellContextMenu,
   onCellKeyDown,
@@ -26,6 +27,7 @@ function Board({
               col={colIndex}
               gameStatus={gameStatus}
               isExploded={isExploded}
+              buttonRef={(el) => onRegisterCell?.(el, rowIndex, colIndex)}
               onClick={onCellClick}
               onContextMenu={onCellContextMenu}
               onKeyDown={onCellKeyDown}
