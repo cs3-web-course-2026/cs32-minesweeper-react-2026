@@ -1,0 +1,37 @@
+/* Табличка-інтертитр німого кіно: чорне поле з тонкою білою облямівкою */
+
+.counter {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 5.5rem;
+  padding: 0.35rem 0.6rem 0.45rem;
+  color: var(--paper);
+  background: var(--ink);
+  border-radius: var(--radius-tile);
+  box-shadow:
+    inset 0 0 0 0.2rem var(--ink),
+    inset 0 0 0 0.3rem var(--paper);
+}
+
+.caption {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.value {
+  font-family: var(--font-title);
+  font-size: clamp(1.4rem, 6vw, 1.9rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (width <= 420px) {
+  .counter {
+    min-width: 4.4rem;
+    padding-inline: 0.35rem;
+  }
+}
