@@ -96,6 +96,12 @@ function Game() {
         'React-версія Сапера з звичайним flood-fill відкриттям, таймером, лічильником прапорців та повною підтримкою доступності й клавіатури.',
       author: 'Chernous Valerii',
       link: 'chernous-valerii',
+      id: 5,
+      title: 'Сапер у стилі мультфільмів 1930-х',
+      description:
+        'React-версія Сапера з таймером, лічильником мін, прапорцями та flood-fill; «гумові» анімації в дусі старих мультфільмів.',
+      author: 'Karpova Bohdana',
+      link: 'karpova-bohdana',
       difficulty: 'Intermediate',
       status: 'Complete',
     },
