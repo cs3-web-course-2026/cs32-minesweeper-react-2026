@@ -10,9 +10,9 @@ export default function Header({ time, flagsLeft, status, onRestart }) {
     if (status === 'lose') btnFace = '😵';
 
     return (
-        <header type="button" className={styles.gameHeader}>
+        <header className={styles.gameHeader}>
             <div className={styles.timer}>⏱{timeFormatted}</div>
-            <button className={styles.startBtn} onClick={onRestart} title="Start new game">
+            <button type="button" className={styles.startBtn} onClick={onRestart} title="Start new game">
                 {btnFace}
             </button>
             <div className={styles.flagCounter}>🚩 {flagsFormatted}</div>
