@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styles from './Minesweeper.module.css';
 import Board from './components/Board';
-import Timer from './components/Timer';
+import Header from './components/Header';
 import GameStatus from './components/GameStatus';
 import RestartButton from './components/RestartButton';
 import { 
