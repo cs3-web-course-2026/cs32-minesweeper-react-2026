@@ -55,10 +55,38 @@ export default function KovtunOleksandra() {
   };
 
   const openCell = (row, col, isOriginal = true) => {
-    if (gameState !== 'process') return;
-    if (isOriginal) {
-      setActiveCell({ row, col });
-    }
+  if (gameState !== 'process') return;
+  if (isOriginal) {
+    setActiveCell({ row, col });
+  }
+
+  const currentCell = board[row][col];
+  if (currentCell.state === 'opened' || currentCell.state === 'flagged') return;
+
+  if (currentCell.type === 'mine') {
+    setClickedMine({ row, col });
+    setGameState('lose');
+    setBoard((prevBoard) => {
+      const newBoard = prevBoard.map(r => r.map(c => ({ ...c })));
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          if (newBoard[r][c].type === 'mine') {
+            newBoard[r][c].state = 'opened';
+          }
+        }
+      }
+      return newBoard;
+    });
+    return;
+  }
+
+ 
+  const newBoard = revealEmptyCells(board, row, col, rows, cols);
+  setBoard(newBoard);
+
+  if (isOriginal) {
+    checkWin(newBoard);
+  }
 
     setBoard((prevBoard) => {
       const newBoard = prevBoard.map(r => r.map(cell => ({ ...cell })));
