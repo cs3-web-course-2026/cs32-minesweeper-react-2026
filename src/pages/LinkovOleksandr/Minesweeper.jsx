@@ -77,7 +77,7 @@ export default function Minesweeper() {
         let currentBoard = board;
         let currentStatus = status;
 
-        // На першому кліці генеруємо міни так, щоб клітинка та її сусіди були безпечними
+        // На першому кліці генеруємо міни так, щоб клітинка була безпечною
         if (isFirstClick) {
             const generatedBoard = generateBoardWithMines(row, col);
             currentBoard = generatedBoard.map((generatedRow, rowIndex) =>
