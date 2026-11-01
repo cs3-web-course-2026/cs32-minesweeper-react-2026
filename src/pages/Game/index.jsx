@@ -105,6 +105,15 @@ function Game() {
         'React-версія Сапера з звичайним flood-fill відкриттям, таймером, лічильником прапорців та повною підтримкою доступності й клавіатури.',
       author: 'Chernous Valerii',
       link: 'chernous-valerii',
+    },
+    {
+      id: 7,
+      title: 'React Minesweeper 90-s style',
+      description: 'Рефакторинг класичного Сапера з використанням React-компонентів, управління станом та CSS Modules.',
+      author: 'Linkov Oleksandr',
+      link: 'linkov-oleksandr',
+      difficulty: 'Beginner',
+      status: 'Complete',
     }
   ];
 
