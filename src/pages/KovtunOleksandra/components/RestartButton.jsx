@@ -11,7 +11,7 @@ export default function RestartButton({ gameState, initGame }) {
   };
 
   return (
-    <button className={styles.resetBtn} onClick={initGame} aria-label="Нова гра">
+    <button type="button" className={styles.resetBtn} onClick={initGame} aria-label="Нова гра">
       {getEmoji()}
     </button>
   );

@@ -1,7 +1,7 @@
 import { DIRECTIONS } from '../constants/game';
 
 export function createInitialBoard(rows, cols, minesCount) {
-  let board = Array.from({ length: rows }, () =>
+  const board = Array.from({ length: rows }, () =>
     Array.from({ length: cols }, () => ({
       type: 'empty',
       state: 'closed',

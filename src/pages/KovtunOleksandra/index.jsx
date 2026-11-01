@@ -13,7 +13,7 @@ export default function KovtunOleksandra() {
   const [cols] = useState(10);
   const [minesCount] = useState(15);
   
-  const [board, setBoard] = useState([]);
+  const [board, setBoard] = useState(() => createInitialBoard(10, 10, 15));
   const [gameState, setGameState] = useState('process');
   const [flagsCount, setFlagsCount] = useState(15);
   const [gameTime, setGameTime] = useState(0);
@@ -29,10 +29,6 @@ export default function KovtunOleksandra() {
     setClickedMine(null);
     setActiveCell(null);
   }, [rows, cols, minesCount]);
-
-  useEffect(() => {
-    initGame();
-  }, [initGame]);
 
   useEffect(() => {
     let timer = null;
