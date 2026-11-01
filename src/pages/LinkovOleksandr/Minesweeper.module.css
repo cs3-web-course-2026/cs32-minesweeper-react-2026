@@ -8,6 +8,7 @@
 
 .minesweeperContainer {
     --cell-size: 40px;
+
     background-color: #bdbdbd;
     padding: 15px;
     border: 3px solid;
@@ -19,9 +20,10 @@
 }
 
 /* Автоматичне зменшення клітинок на вузьких екранах (менше 450px) */
-@media (max-width: 450px) {
+@media (width <= 450px) {
     .minesweeperContainer {
         --cell-size: 30px; 
+
         padding: 10px;
     }
 }
