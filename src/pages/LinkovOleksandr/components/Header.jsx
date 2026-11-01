@@ -12,7 +12,13 @@ export default function Header({ time, flagsLeft, status, onRestart }) {
     return (
         <header className={styles.gameHeader}>
             <div className={styles.timer}>⏱{timeFormatted}</div>
-            <button type="button" className={styles.startBtn} onClick={onRestart} title="Start new game">
+            <button
+                type="button"
+                className={styles.startBtn}
+                onClick={onRestart}
+                aria-label="Start new game"
+                title="Start new game"
+            >
                 {btnFace}
             </button>
             <div className={styles.flagCounter}>🚩 {flagsFormatted}</div>

@@ -79,7 +79,14 @@ export default function Minesweeper() {
 
         // На першому кліці генеруємо міни так, щоб клітинка та її сусіди були безпечними
         if (isFirstClick) {
-            currentBoard = generateBoardWithMines(row, col);
+            const generatedBoard = generateBoardWithMines(row, col);
+            currentBoard = generatedBoard.map((generatedRow, rowIndex) =>
+                generatedRow.map((generatedCell, colIndex) =>
+                    board[rowIndex][colIndex].state === 'flagged'
+                        ? { ...generatedCell, state: 'flagged' }
+                        : generatedCell
+                )
+            );
             setIsFirstClick(false);
             currentStatus = 'process';
             setStatus('process');
@@ -169,7 +176,7 @@ export default function Minesweeper() {
                     rows={ROWS}
                     cols={COLS}
                 />
-                <RestartButton onRestart={initGame} />
+                <RestartButton onRestart={initGame} status={status}/>
             </div>
         </div>
     );
