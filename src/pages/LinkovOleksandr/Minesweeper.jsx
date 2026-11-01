@@ -9,8 +9,30 @@ const ROWS = 10;
 const COLS = 10;
 const MINES_COUNT = 10;
 
+// функція для генерації початкового стану поля гри
+const generateInitialBoard = () => {
+    const newBoard = Array(ROWS).fill(null).map(() => 
+        Array(COLS).fill(null).map(() => ({
+            type: 'empty',
+            neighborMines: 0,
+            state: 'closed',
+        }))
+    );
+
+    let placedMines = 0;
+    while (placedMines < MINES_COUNT) {
+        const r = Math.floor(Math.random() * ROWS);
+        const c = Math.floor(Math.random() * COLS);
+        if (newBoard[r][c].type !== 'mine') {
+            newBoard[r][c].type = 'mine';
+            placedMines++;
+        }
+    }
+    return newBoard;
+};
+
 export default function Minesweeper() {
-    const [board, setBoard] = useState([]);
+    const [board, setBoard] = useState(generateInitialBoard);
     const [status, setStatus] = useState('idle'); // idle, process, win, lose
     const [flagsUsed, setFlagsUsed] = useState(0);
     const [gameTime, setGameTime] = useState(0);
@@ -18,34 +40,12 @@ export default function Minesweeper() {
 
     // Ініціалізація поля
     const initGame = useCallback(() => {
-        let newBoard = Array(ROWS).fill(null).map(() => 
-            Array(COLS).fill(null).map(() => ({
-                type: 'empty',
-                neighborMines: 0,
-                state: 'closed',
-            }))
-        );
-
-        let placedMines = 0;
-        while (placedMines < MINES_COUNT) {
-            const r = Math.floor(Math.random() * ROWS);
-            const c = Math.floor(Math.random() * COLS);
-            if (newBoard[r][c].type !== 'mine') {
-                newBoard[r][c].type = 'mine';
-                placedMines++;
-            }
-        }
-
-        setBoard(newBoard);
+        setBoard(generateInitialBoard());
         setStatus('idle');
         setFlagsUsed(0);
         setGameTime(0);
         setClickedMine(null);
     }, []);
-
-    useEffect(() => {
-        initGame();
-    }, [initGame]);
 
     // Таймер
     useEffect(() => {
@@ -79,7 +79,7 @@ export default function Minesweeper() {
     const handleCellClick = (r, c) => {
         if (status === 'win' || status === 'lose') return;
 
-        let newBoard = board.map(row => row.map(cell => ({ ...cell })));
+        const newBoard = board.map(row => row.map(cell => ({ ...cell })));
         let currentStatus = status;
 
         if (currentStatus === 'idle') {
@@ -113,7 +113,7 @@ export default function Minesweeper() {
         // Flood-fill відкриття
         const reveal = (row, col) => {
             if (row < 0 || row >= ROWS || col < 0 || col >= COLS) return;
-            let target = newBoard[row][col];
+            const target = newBoard[row][col];
             if (target.state !== 'closed') return;
             
             target.state = 'opened';
@@ -156,7 +156,7 @@ export default function Minesweeper() {
         e.preventDefault();
         if (status !== 'process') return;
 
-        let newBoard = board.map(row => row.map(cell => ({ ...cell })));
+        const newBoard = board.map(row => row.map(cell => ({ ...cell })));
         const cell = newBoard[r][c];
 
         if (cell.state === 'opened') return;

@@ -7,7 +7,7 @@ export default function RestartButton({ status, onRestart }) {
     if (status === 'lose') btnFace = '😵';
 
     return (
-        <button className={styles.startBtn} onClick={onRestart} title="Start new game">
+        <button type="button" className={styles.startBtn} onClick={onRestart} title="Start new game">
             {btnFace}
         </button>
     );
