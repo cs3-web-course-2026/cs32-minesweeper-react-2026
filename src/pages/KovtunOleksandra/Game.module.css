@@ -18,6 +18,7 @@
   0% {
     background-position: 0 0;
   }
+
   100% {
     background-position: 80px 80px;
   }
@@ -100,9 +101,11 @@
   100% {
     transform: rotate(0deg);
   }
+
   25% {
     transform: rotate(-8deg);
   }
+
   75% {
     transform: rotate(8deg);
   }
@@ -136,7 +139,7 @@
   transition: all 0.2s ease;
 }
 
-.cell:hover:not(.open):not(.flagged) {
+.cell:hover {
   background-color: #fceee3;
   transform: translateY(-3px) scale(1.05);
   box-shadow: 0 6px 12px rgb(194 125 84 / 20%);
@@ -166,35 +169,35 @@
   background-color: #f5e1de;
 }
 
-.num-1 {
+.num1 {
   color: #5c85b8;
 }
 
-.num-2 {
+.num2 {
   color: #528c6e;
 }
 
-.num-3 {
+.num3 {
   color: #d97757;
 }
 
-.num-4 {
+.num4 {
   color: #936fc3;
 }
 
-.num-5 {
+.num5 {
   color: #c48c36;
 }
 
-.num-6 {
+.num6 {
   color: #439f99;
 }
 
-.num-7 {
+.num7 {
   color: #555;
 }
 
-.num-8 {
+.num8 {
   color: #888;
 }
 
@@ -218,6 +221,7 @@
     transform: scale(0.9);
     opacity: 0;
   }
+
   100% {
     transform: scale(1);
     opacity: 1;
@@ -229,9 +233,11 @@
     transform: scale(0.4) rotate(-20deg);
     opacity: 0;
   }
+
   70% {
     transform: scale(1.2) rotate(10deg);
   }
+
   100% {
     transform: scale(1) rotate(0);
     opacity: 1;
@@ -243,9 +249,11 @@
   100% {
     transform: translateX(0);
   }
+
   25% {
     transform: translateX(-4px);
   }
+
   75% {
     transform: translateX(4px);
   }

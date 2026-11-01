@@ -14,7 +14,7 @@ export default function CellButton({ cell, rIdx, cIdx, _gameState, clickedMine, 
       }
       content = '🐈‍';
     } else if (cell.neighborMines > 0) {
-      cellClass += ` ${styles[`num-${cell.neighborMines}`]}`;
+      cellClass += ` ${styles[`num${cell.neighborMines}`]}`;
       content = cell.neighborMines;
     }
   } else if (cell.state === 'flagged') {
