@@ -41,9 +41,9 @@ export default function KovtunOleksandra() {
 
   const checkWin = (currentBoard) => {
     let closedSafe = 0;
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        if (currentBoard[r][c].type !== 'mine' && currentBoard[r][c].state !== 'opened') {
+    for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
+      for (let colIndex = 0; colIndex < cols; colIndex++) {
+        if (currentBoard[rowIndex][colIndex].type !== 'mine' && currentBoard[rowIndex][colIndex].state !== 'opened') {
           closedSafe++;
         }
       }
@@ -66,11 +66,11 @@ export default function KovtunOleksandra() {
       setClickedMine({ row, col });
       setGameState('lose');
       setBoard((prevBoard) => {
-        const newBoard = prevBoard.map(r => r.map(c => ({ ...c })));
-        for (let r = 0; r < rows; r++) {
-          for (let c = 0; c < cols; c++) {
-            if (newBoard[r][c].type === 'mine') {
-              newBoard[r][c].state = 'opened';
+        const newBoard = prevBoard.map(rowArray => rowArray.map(cell => ({ ...cell })));
+        for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
+          for (let colIndex = 0; colIndex < cols; colIndex++) {
+            if (newBoard[rowIndex][colIndex].type === 'mine') {
+              newBoard[rowIndex][colIndex].state = 'opened';
             }
           }
         }
@@ -79,7 +79,6 @@ export default function KovtunOleksandra() {
       return;
     }
 
-    // Використовуємо чисту функцію flood-fill для відкриття клітинок
     const newBoard = revealEmptyCells(board, row, col, rows, cols);
     setBoard(newBoard);
 
@@ -88,8 +87,8 @@ export default function KovtunOleksandra() {
     }
   };
 
-  const toggleFlag = (e, row, col) => {
-    e.preventDefault();
+  const toggleFlag = (event, row, col) => {
+    event.preventDefault();
     if (gameState !== 'process') return;
 
     const cell = board[row][col];
@@ -103,7 +102,7 @@ export default function KovtunOleksandra() {
     setFlagsCount((prev) => prev + flagChange);
 
     setBoard((prevBoard) => {
-      const newBoard = prevBoard.map(r => r.map(c => ({ ...c })));
+      const newBoard = prevBoard.map(rowArray => rowArray.map(cellItem => ({ ...cellItem })));
       newBoard[row][col].state = newFlagState;
       return newBoard;
     });

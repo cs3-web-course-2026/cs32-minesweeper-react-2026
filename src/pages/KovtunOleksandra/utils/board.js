@@ -11,36 +11,35 @@ export function createInitialBoard(rows, cols, minesCount) {
 
   let minesPlaced = 0;
   while (minesPlaced < minesCount) {
-    const r = Math.floor(Math.random() * rows);
-    const c = Math.floor(Math.random() * cols);
-    if (board[r][c].type !== 'mine') {
-      board[r][c].type = 'mine';
+    const randomRow = Math.floor(Math.random() * rows);
+    const randomCol = Math.floor(Math.random() * cols);
+    if (board[randomRow][randomCol].type !== 'mine') {
+      board[randomRow][randomCol].type = 'mine';
       minesPlaced++;
     }
   }
 
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      if (board[r][c].type === 'mine') continue;
+  for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
+    for (let colIndex = 0; colIndex < cols; colIndex++) {
+      if (board[rowIndex][colIndex].type === 'mine') continue;
       let mines = 0;
-      for (const [dr, dc] of DIRECTIONS) {
-        const nr = r + dr;
-        const nc = c + dc;
-        if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
-          if (board[nr][nc].type === 'mine') mines++;
+      for (const [rowOffset, colOffset] of DIRECTIONS) {
+        const neighborRow = rowIndex + rowOffset;
+        const neighborCol = colIndex + colOffset;
+        if (neighborRow >= 0 && neighborRow < rows && neighborCol >= 0 && neighborCol < cols) {
+          if (board[neighborRow][neighborCol].type === 'mine') mines++;
         }
       }
-      board[r][c].neighborMines = mines;
+      board[rowIndex][colIndex].neighborMines = mines;
     }
   }
 
   return board;
 }
 
-export function revealEmptyCells(board, startR, startC, rows, cols) {
- 
-  const newBoard = board.map(r => r.map(cell => ({ ...cell })));
-  const cell = newBoard[startR][startC];
+export function revealEmptyCells(board, startRow, startCol, rows, cols) {
+  const newBoard = board.map(rowArray => rowArray.map(cell => ({ ...cell })));
+  const cell = newBoard[startRow][startCol];
 
   if (cell.state === 'opened' || cell.state === 'flagged') {
     return newBoard;
@@ -49,26 +48,26 @@ export function revealEmptyCells(board, startR, startC, rows, cols) {
   cell.state = 'opened';
 
   if (cell.type === 'empty' && cell.neighborMines === 0) {
-    const queue = [[startR, startC]];
-    const visited = new Set([`${startR},${startC}`]);
+    const queue = [[startRow, startCol]];
+    const visited = new Set([`${startRow},${startCol}`]);
 
     while (queue.length > 0) {
-      const [r, c] = queue.shift();
+      const [currentRow, currentCol] = queue.shift();
 
-      for (const [dr, dc] of DIRECTIONS) {
-        const nr = r + dr;
-        const nc = c + dc;
+      for (const [rowOffset, colOffset] of DIRECTIONS) {
+        const neighborRow = currentRow + rowOffset;
+        const neighborCol = currentCol + colOffset;
 
-        if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
-          const neighbor = newBoard[nr][nc];
-          const key = `${nr},${nc}`;
+        if (neighborRow >= 0 && neighborRow < rows && neighborCol >= 0 && neighborCol < cols) {
+          const neighbor = newBoard[neighborRow][neighborCol];
+          const key = `${neighborRow},${neighborCol}`;
 
           if (!visited.has(key) && neighbor.state === 'closed') {
             visited.add(key);
             neighbor.state = 'opened';
 
             if (neighbor.type === 'empty' && neighbor.neighborMines === 0) {
-              queue.push([nr, nc]);
+              queue.push([neighborRow, neighborCol]);
             }
           }
         }
