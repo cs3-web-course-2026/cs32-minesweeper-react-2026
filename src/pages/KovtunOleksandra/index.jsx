@@ -1,0 +1,152 @@
+import React, { useState, useEffect, useCallback } from 'react';
+import Board from './components/Board';
+import RestartButton from './components/RestartButton';
+import Timer from './components/Timer';
+import FlagCounter from './components/FlagCounter';
+import GameStatus from './components/GameStatus';
+import { createInitialBoard } from './utils/board';
+import { DIRECTIONS } from './constants/game';
+import styles from './Game.module.css';
+
+export default function KovtunOleksandra() {
+  const [rows] = useState(10);
+  const [cols] = useState(10);
+  const [minesCount] = useState(15);
+  
+  const [board, setBoard] = useState([]);
+  const [gameState, setGameState] = useState('process');
+  const [flagsCount, setFlagsCount] = useState(15);
+  const [gameTime, setGameTime] = useState(0);
+  const [clickedMine, setClickedMine] = useState(null);
+  const [activeCell, setActiveCell] = useState(null);
+
+  const initGame = useCallback(() => {
+    const newBoard = createInitialBoard(rows, cols, minesCount);
+    setBoard(newBoard);
+    setGameState('process');
+    setFlagsCount(minesCount);
+    setGameTime(0);
+    setClickedMine(null);
+    setActiveCell(null);
+  }, [rows, cols, minesCount]);
+
+  useEffect(() => {
+    initGame();
+  }, [initGame]);
+
+  useEffect(() => {
+    let timer = null;
+    if (gameState === 'process') {
+      timer = setInterval(() => {
+        setGameTime((prev) => prev + 1);
+      }, 1000);
+    }
+    return () => clearInterval(timer);
+  }, [gameState]);
+
+  const checkWin = (currentBoard) => {
+    let closedSafe = 0;
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        if (currentBoard[r][c].type !== 'mine' && currentBoard[r][c].state !== 'opened') {
+          closedSafe++;
+        }
+      }
+    }
+    if (closedSafe === 0) {
+      setGameState('win');
+    }
+  };
+
+  const openCell = (row, col, isOriginal = true) => {
+    if (gameState !== 'process') return;
+    if (isOriginal) {
+      setActiveCell({ row, col });
+    }
+
+    setBoard((prevBoard) => {
+      const newBoard = prevBoard.map(r => r.map(cell => ({ ...cell })));
+      const cell = newBoard[row][col];
+
+      if (cell.state === 'opened' || cell.state === 'flagged') return prevBoard;
+
+      cell.state = 'opened';
+
+      if (cell.type === 'mine') {
+        setClickedMine({ row, col });
+        setGameState('lose');
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            if (newBoard[r][c].type === 'mine') {
+              newBoard[r][c].state = 'opened';
+            }
+          }
+        }
+        return newBoard;
+      }
+
+      if (cell.neighborMines === 0) {
+        for (const [dr, dc] of DIRECTIONS) {
+          const nr = row + dr;
+          const nc = col + dc;
+          if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
+            if (newBoard[nr][nc].state === 'closed') {
+              newBoard[nr][nc].state = 'opened';
+            }
+          }
+        }
+      }
+
+      if (isOriginal) {
+        checkWin(newBoard);
+      }
+
+      return newBoard;
+    });
+  };
+
+  const toggleFlag = (e, row, col) => {
+    e.preventDefault();
+    if (gameState !== 'process') return;
+
+    setActiveCell({ row, col });
+    setBoard((prevBoard) => {
+      const newBoard = prevBoard.map(r => r.map(cell => ({ ...cell })));
+      const cell = newBoard[row][col];
+
+      if (cell.state === 'closed' && flagsCount > 0) {
+        cell.state = 'flagged';
+        setFlagsCount((prev) => prev - 1);
+      } else if (cell.state === 'flagged') {
+        cell.state = 'closed';
+        setFlagsCount((prev) => prev + 1);
+      }
+      return newBoard;
+    });
+  };
+
+  return (
+    <div className={styles.gameContainer}>
+      <div className={styles.gameHeader}>
+        <h1>Minesweeper React</h1>
+        <div className={styles.scoreboard}>
+          <FlagCounter flagsCount={flagsCount} />
+          <RestartButton gameState={gameState} initGame={initGame} />
+          <Timer gameTime={gameTime} />
+        </div>
+      </div>
+
+      <Board
+        board={board}
+        cols={cols}
+        gameState={gameState}
+        clickedMine={clickedMine}
+        activeCell={activeCell}
+        openCell={openCell}
+        toggleFlag={toggleFlag}
+      />
+
+      <GameStatus gameState={gameState} gameTime={gameTime} />
+    </div>
+  );
+}
