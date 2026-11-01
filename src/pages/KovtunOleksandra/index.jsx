@@ -105,18 +105,19 @@ export default function KovtunOleksandra() {
     e.preventDefault();
     if (gameState !== 'process') return;
 
-    setActiveCell({ row, col });
-    setBoard((prevBoard) => {
-      const newBoard = prevBoard.map(r => r.map(cell => ({ ...cell })));
-      const cell = newBoard[row][col];
+    const cell = board[row][col];
+    if (cell.state === 'opened') return;
 
-      if (cell.state === 'closed' && flagsCount > 0) {
-        cell.state = 'flagged';
-        setFlagsCount((prev) => prev - 1);
-      } else if (cell.state === 'flagged') {
-        cell.state = 'closed';
-        setFlagsCount((prev) => prev + 1);
-      }
+    if (cell.state === 'closed' && flagsCount <= 0) return;
+
+    const newFlagState = cell.state === 'closed' ? 'flagged' : 'closed';
+    const flagChange = cell.state === 'closed' ? -1 : 1;
+
+    setFlagsCount((prev) => prev + flagChange);
+
+    setBoard((prevBoard) => {
+      const newBoard = prevBoard.map(r => r.map(c => ({ ...c })));
+      newBoard[row][col].state = newFlagState;
       return newBoard;
     });
   };
