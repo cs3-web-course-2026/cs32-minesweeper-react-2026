@@ -118,7 +118,7 @@ function Game() {
       link: 'kovtun-oleksandra',
       difficulty: 'Intermediate',
       status: 'Complete',
-    }
+    },
   ];
 
   return (
