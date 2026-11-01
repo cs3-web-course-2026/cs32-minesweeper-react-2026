@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../Game.module.css';
 
-export default function CellButton({ cell, rIdx, cIdx, _gameState, clickedMine, activeCell, openCell, toggleFlag }) {
+export default function CellButton({ cell, rIdx, cIdx, clickedMine, openCell, toggleFlag }) {
   let content = '';
   let cellClass = styles.cell;
 
@@ -12,16 +12,15 @@ export default function CellButton({ cell, rIdx, cIdx, _gameState, clickedMine, 
       if (clickedMine && clickedMine.row === rIdx && clickedMine.col === cIdx) {
         cellClass += ` ${styles.clicked}`;
       }
-      content = '🐈‍';
+      content = '🐈‍⬛';
     } else if (cell.neighborMines > 0) {
       cellClass += ` ${styles[`num${cell.neighborMines}`]}`;
       content = cell.neighborMines;
     }
   } else if (cell.state === 'flagged') {
+    cellClass += ` ${styles.flag}`;
     content = '🐾';
   }
-
-  const isFocused = activeCell && activeCell.row === rIdx && activeCell.col === cIdx;
 
   return (
     <button
@@ -34,10 +33,7 @@ export default function CellButton({ cell, rIdx, cIdx, _gameState, clickedMine, 
           toggleFlag(e, rIdx, cIdx);
         }
       }}
-      ref={(node) => {
-        if (isFocused && node) node.focus();
-      }}
-      aria-label={`Клітинка ${rIdx + 1}, ${cIdx + 1}`}
+      aria-label={`Клітинка ${rIdx + 1}, ${cIdx + 1}, стан: ${cell.state}`}
     >
       {content}
     </button>
