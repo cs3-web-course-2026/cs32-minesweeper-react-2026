@@ -12,9 +12,9 @@
     border: 3px solid;
     border-color: #fff #7b7b7b #7b7b7b #fff;
     border-radius: 5px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 5px 15px rgba(0, 0, 0, 0.2);
-    width: max-content; /* Контейнер щільно облягатиме поле гри */
-    box-sizing: border-box; /* Включає padding у загальний розмір */
+    box-shadow: 0 15px 35px rgb(0 0 0 / 40%), 0 5px 15px rgb(0 0 0 / 20%);
+    width: max-content;
+    box-sizing: border-box;
 }
 
 .gameHeader {
@@ -31,19 +31,19 @@
     font-family: monospace;
     font-size: 24px;
     font-weight: bold;
-    box-sizing: border-box; /* Запобігає вилізанню хедера за рамки */
-    border-radius: 0; /* Скидає глобальне заокруглення, якщо воно є */
+    box-sizing: border-box;
+    border-radius: 0;
 }
 
 .timer, .flagCounter {
     flex: 1;
-    background-color: #111; /* Глибший чорний */
+    background-color: #111;
     padding: 4px 8px;
     margin: 0 10px;
-    border: 2px inset #555; /* Ефект втиснутого екрана */
+    border: 2px inset #555;
     border-radius: 4px;
     color: #ff2a2a;
-    text-shadow: 0 0 6px rgba(255, 42, 42, 0.7); /* Світіння цифр */
+    text-shadow: 0 0 6px rgb(255 42 42 / 70%);
     letter-spacing: 2px;
 }
 
@@ -105,21 +105,19 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    border-radius: 0; /* Прибирає накладання клітинок (овальні форми) */
+    border-radius: 0;
     outline: none;
     transition: filter 0.1s ease, background-color 0.1s ease;
 }
 
-/* Реагує тільки на закриті клітинки */
 .cell:not(.cellOpen):hover {
     filter: brightness(1.1);
     background-color: #d1d1d1;
 }
 
-/* Ефект реального втиснення кнопки при затисканні миші */
 .cell:not(.cellOpen):active {
     border-color: #7b7b7b #fff #fff #7b7b7b;
-    padding-top: 2px; /* Візуально зміщує контент вниз */
+    padding-top: 2px;
     padding-left: 2px;
 }
 
@@ -127,12 +125,19 @@
     background-color: #bdbdbd;
     border: 1px solid #7b7b7b;
     cursor: default;
-    animation: popIn 0.2s ease-out;
+    animation: pop-in 0.2s ease-out;
 }
 
-@keyframes popIn {
-    0% { transform: scale(0.8); opacity: 0.5; }
-    100% { transform: scale(1); opacity: 1; }
+@keyframes pop-in {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .cellMine {
@@ -141,14 +146,21 @@
 }
 
 .cellClicked {
-    background-color: #ff3333;
+    background-color: #f33;
     animation: pulse 1s infinite alternate;
-    border: 1px solid #aa0000;
+    border: 1px solid #a00;
 }
 
 @keyframes pulse {
-    from { background-color: #ff3333; box-shadow: inset 0 0 5px rgba(0,0,0,0.5); }
-    to { background-color: #aa0000; box-shadow: inset 0 0 10px rgba(0,0,0,0.8); }
+    from {
+        background-color: #f33;
+        box-shadow: inset 0 0 5px rgb(0 0 0 / 50%);
+    }
+    
+    to {
+        background-color: #a00;
+        box-shadow: inset 0 0 10px rgb(0 0 0 / 80%);
+    }
 }
 
 .wrongFlag::after {
