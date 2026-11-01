@@ -173,37 +173,14 @@
   background-color: #f5e1de;
 }
 
-.num1 {
-  color: #5c85b8;
-}
-
-.num2 {
-  color: #528c6e;
-}
-
-.num3 {
-  color: #d97757;
-}
-
-.num4 {
-  color: #936fc3;
-}
-
-.num5 {
-  color: #c48c36;
-}
-
-.num6 {
-  color: #439f99;
-}
-
-.num7 {
-  color: #555;
-}
-
-.num8 {
-  color: #888;
-}
+.num1 { color: #1d4ed8; }
+.num2 { color: #15803d; } 
+.num3 { color: #b91c1c; } 
+.num4 { color: #581c87; } 
+.num5 { color: #7c2d12; } 
+.num6 { color: #0e7490; } 
+.num7 { color: #374151; } 
+.num8 { color: #111827; } 
 
 .statusMessage {
   margin-top: 25px;
@@ -260,5 +237,14 @@
 
   75% {
     transform: translateX(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gameContainer,
+  .resetBtn,
+  .cell {
+    animation: none !important;
+    transition: none !important;
   }
 }

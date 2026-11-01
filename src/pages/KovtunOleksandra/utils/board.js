@@ -38,6 +38,7 @@ export function createInitialBoard(rows, cols, minesCount) {
 }
 
 export function revealEmptyCells(board, startR, startC, rows, cols) {
+ 
   const newBoard = board.map(r => r.map(cell => ({ ...cell })));
   const cell = newBoard[startR][startC];
 

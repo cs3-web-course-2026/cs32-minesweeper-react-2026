@@ -4,8 +4,7 @@ import RestartButton from './components/RestartButton';
 import Timer from './components/Timer';
 import FlagCounter from './components/FlagCounter';
 import GameStatus from './components/GameStatus';
-import { createInitialBoard } from './utils/board';
-import { DIRECTIONS } from './constants/game';
+import { createInitialBoard, revealEmptyCells } from './utils/board';
 import styles from './Game.module.css';
 
 export default function KovtunOleksandra() {
@@ -55,50 +54,19 @@ export default function KovtunOleksandra() {
   };
 
   const openCell = (row, col, isOriginal = true) => {
-  if (gameState !== 'process') return;
-  if (isOriginal) {
-    setActiveCell({ row, col });
-  }
+    if (gameState !== 'process') return;
+    if (isOriginal) {
+      setActiveCell({ row, col });
+    }
 
-  const currentCell = board[row][col];
-  if (currentCell.state === 'opened' || currentCell.state === 'flagged') return;
+    const currentCell = board[row][col];
+    if (currentCell.state === 'opened' || currentCell.state === 'flagged') return;
 
-  if (currentCell.type === 'mine') {
-    setClickedMine({ row, col });
-    setGameState('lose');
-    setBoard((prevBoard) => {
-      const newBoard = prevBoard.map(r => r.map(c => ({ ...c })));
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          if (newBoard[r][c].type === 'mine') {
-            newBoard[r][c].state = 'opened';
-          }
-        }
-      }
-      return newBoard;
-    });
-    return;
-  }
-
- 
-  const newBoard = revealEmptyCells(board, row, col, rows, cols);
-  setBoard(newBoard);
-
-  if (isOriginal) {
-    checkWin(newBoard);
-  }
-
-    setBoard((prevBoard) => {
-      const newBoard = prevBoard.map(r => r.map(cell => ({ ...cell })));
-      const cell = newBoard[row][col];
-
-      if (cell.state === 'opened' || cell.state === 'flagged') return prevBoard;
-
-      cell.state = 'opened';
-
-      if (cell.type === 'mine') {
-        setClickedMine({ row, col });
-        setGameState('lose');
+    if (currentCell.type === 'mine') {
+      setClickedMine({ row, col });
+      setGameState('lose');
+      setBoard((prevBoard) => {
+        const newBoard = prevBoard.map(r => r.map(c => ({ ...c })));
         for (let r = 0; r < rows; r++) {
           for (let c = 0; c < cols; c++) {
             if (newBoard[r][c].type === 'mine') {
@@ -107,26 +75,17 @@ export default function KovtunOleksandra() {
           }
         }
         return newBoard;
-      }
+      });
+      return;
+    }
 
-      if (cell.neighborMines === 0) {
-        for (const [dr, dc] of DIRECTIONS) {
-          const nr = row + dr;
-          const nc = col + dc;
-          if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
-            if (newBoard[nr][nc].state === 'closed') {
-              newBoard[nr][nc].state = 'opened';
-            }
-          }
-        }
-      }
+    // Використовуємо чисту функцію flood-fill для відкриття клітинок
+    const newBoard = revealEmptyCells(board, row, col, rows, cols);
+    setBoard(newBoard);
 
-      if (isOriginal) {
-        checkWin(newBoard);
-      }
-
-      return newBoard;
-    });
+    if (isOriginal) {
+      checkWin(newBoard);
+    }
   };
 
   const toggleFlag = (e, row, col) => {
