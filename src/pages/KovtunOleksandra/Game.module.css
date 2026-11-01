@@ -113,23 +113,27 @@
 
 .board {
   display: grid;
-  grid-template-columns: repeat(var(--board-columns, 10), 40px);
-  gap: 5px;
+  grid-template-columns: repeat(var(--board-columns, 10), minmax(30px, 40px));
+  gap: 4px;
   background-color: #ebdcd0;
-  padding: 12px;
+  padding: 10px;
   border-radius: 16px;
   box-shadow: 0 12px 35px rgb(138 107 91 / 15%);
   border: 2px solid #dfcfc2;
   z-index: 2;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .cell {
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  aspect-ratio: 1;
+  min-width: 30px;
+  min-height: 30px;
   background-color: #fffdf9;
   border: none;
   border-radius: 8px;
-  font-size: 18px;
+  font-size: clamp(14px, 4vw, 18px);
   display: flex;
   align-items: center;
   justify-content: center;
