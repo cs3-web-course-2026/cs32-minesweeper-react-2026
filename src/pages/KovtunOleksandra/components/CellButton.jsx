@@ -12,7 +12,7 @@ export default function CellButton({ cell, rIdx, cIdx, clickedMine, openCell, to
       if (clickedMine && clickedMine.row === rIdx && clickedMine.col === cIdx) {
         cellClass += ` ${styles.clicked}`;
       }
-      content = '🐈‍⬛';
+      content = '🐈‍';
     } else if (cell.neighborMines > 0) {
       cellClass += ` ${styles[`num${cell.neighborMines}`]}`;
       content = cell.neighborMines;
