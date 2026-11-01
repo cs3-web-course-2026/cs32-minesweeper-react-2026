@@ -7,8 +7,8 @@ export default function Board({ board, onCellClick, onContextMenu, status, click
         <main
             className={styles.gameBoard}
             style={{
-                gridTemplateColumns: `repeat(${cols}, 40px)`,
-                gridTemplateRows: `repeat(${rows}, 40px)`
+                gridTemplateColumns: `repeat(${cols}, var(--cell-size, 40px))`,
+                gridTemplateRows: `repeat(${rows}, var(--cell-size, 40px))`
             }}
         >
             {board.map((row, r) =>

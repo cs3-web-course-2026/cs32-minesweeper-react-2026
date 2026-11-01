@@ -7,6 +7,7 @@
 }
 
 .minesweeperContainer {
+    --cell-size: 40px;
     background-color: #bdbdbd;
     padding: 15px;
     border: 3px solid;
@@ -15,6 +16,14 @@
     box-shadow: 0 15px 35px rgb(0 0 0 / 40%), 0 5px 15px rgb(0 0 0 / 20%);
     width: max-content;
     box-sizing: border-box;
+}
+
+/* Автоматичне зменшення клітинок на вузьких екранах (менше 450px) */
+@media (max-width: 450px) {
+    .minesweeperContainer {
+        --cell-size: 30px; 
+        padding: 10px;
+    }
 }
 
 .gameHeader {
@@ -98,7 +107,7 @@
     justify-content: center;
     align-items: center;
     font-weight: bold;
-    font-size: 20px;
+    font-size: calc(var(--cell-size, 40px) / 2); /* Пропорційний розмір шрифту */
     cursor: pointer;
     user-select: none;
     position: relative;
