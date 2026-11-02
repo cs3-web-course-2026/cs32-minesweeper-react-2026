@@ -13,6 +13,7 @@ export function Cell({ data, onClick, onContextMenu }) {
 
   return (
     <button 
+      type="button"
       className={className} 
       onClick={onClick} 
       onContextMenu={onContextMenu}
