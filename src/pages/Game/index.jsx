@@ -52,11 +52,11 @@ const CARD_STATUS_CLASS = {
 function Game() {
   const implementations = [
     {
-      id: 'prychyna-dasha',
+      id: 'prychyna-daria',
       title: 'Minesweeper Game',
       description: 'React implementation of Minesweeper with modular components, timer, flagging, and CSS Modules.',
       author: 'Prychyna Daria (CS-32)',
-      link: 'prychyna-dasha',
+      link: 'prychyna-daria',
       difficulty: 'Intermediate',
       status: 'Complete',
     },
