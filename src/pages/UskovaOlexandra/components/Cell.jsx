@@ -37,6 +37,18 @@ function Cell({
     content = cell.isWrongFlag ? '❌' : '🚩';
   }
 
+  // Обчислюємо опис стану для скрінрідерів (зауваження CodeRabbit)
+  let stateLabel = 'closed';
+  if (isFlagged) {
+    stateLabel = cell.isWrongFlag ? 'incorrect flag' : 'flagged';
+  } else if (isOpen) {
+    if (cell.type === CELL_TYPE.MINE) {
+      stateLabel = exploded ? 'exploded mine' : 'mine';
+    } else {
+      stateLabel = cell.neighborMines > 0 ? `${cell.neighborMines} adjacent mines` : 'empty';
+    }
+  }
+
   return (
     <button
       type="button"
@@ -52,7 +64,7 @@ function Cell({
         onFlag(row, col);
       }}
       disabled={disabled || isOpen}
-      aria-label={`Row ${row + 1}, column ${col + 1}`}
+      aria-label={`Row ${row + 1}, column ${col + 1}, ${stateLabel}`}
     >
       {content}
     </button>

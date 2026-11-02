@@ -3,23 +3,26 @@ import { GAME_STATUS } from '../utils/gameLogic';
 import styles from './GameStatus.module.css';
 
 function GameStatus({ status }) {
+  let message = '';
+  let toneClass = '';
+
   if (status === GAME_STATUS.WIN) {
-    return (
-      <p className={`${styles.message} ${styles.win}`}>
-        Victory!
-      </p>
-    );
+    message = 'Victory!';
+    toneClass = styles.win;
+  } else if (status === GAME_STATUS.LOSE) {
+    message = 'Game over.';
+    toneClass = styles.lose;
   }
 
-  if (status === GAME_STATUS.LOSE) {
-    return (
-      <p className={`${styles.message} ${styles.lose}`}>
-        Game over.
-      </p>
-    );
-  }
-
-  return null;
+  return (
+    <p
+      role="status"
+      aria-live="polite"
+      className={[styles.message, toneClass].filter(Boolean).join(' ')}
+    >
+      {message}
+    </p>
+  );
 }
 
 export default GameStatus;

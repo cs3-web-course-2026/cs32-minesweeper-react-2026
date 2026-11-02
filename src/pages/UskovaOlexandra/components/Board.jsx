@@ -9,8 +9,14 @@ function Board({
   explodedMine,
   disabled,
 }) {
+  // Динамічно отримуємо кількість колонок із даних дошки
+  const colsCount = board && board.length > 0 ? board[0].length : 10;
+
   return (
-    <div className={styles.board}>
+    <div 
+      className={styles.board} 
+      style={{ '--board-cols': colsCount }}
+    >
       {board.map((row, rowIndex) =>
         row.map((cell, colIndex) => {
           const isExploded =

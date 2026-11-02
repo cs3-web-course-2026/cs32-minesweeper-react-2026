@@ -1,6 +1,6 @@
 .board {
   display: grid;
-  grid-template-columns: repeat(10, var(--cell-size));
+  grid-template-columns: repeat(var(--board-cols), var(--cell-size));
   gap: 2px;
   background-color: #ee719b;
   padding: 3px;
