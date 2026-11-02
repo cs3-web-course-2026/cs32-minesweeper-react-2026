@@ -1,17 +1,12 @@
 .restartButton {
   background-color: #c55d78;
   color: #fff;
-
   border: none;
   border-radius: 6px;
-
   padding: 0.6rem 1.2rem;
-
   font-size: 1.2rem;
   font-weight: bold;
-
   cursor: pointer;
-
   transition:
     background-color 0.2s ease,
     transform 0.1s ease;

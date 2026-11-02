@@ -1,25 +1,23 @@
 .cell {
   width: var(--cell-size);
   height: var(--cell-size);
-
   background-color: #fbd7e0;
   border: 2.5px solid #9e0d84;
-
   font-size: 1.3rem;
   font-weight: bold;
-
   cursor: pointer;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   padding: 0;
   box-sizing: border-box;
-
   transition:
     background-color 0.15s ease,
     transform 0.1s ease;
+}
+
+.cell:disabled {
+  cursor: default;
 }
 
 .cell:hover:not(:disabled) {
@@ -28,10 +26,6 @@
 
 .cell:active:not(:disabled) {
   transform: scale(0.95);
-}
-
-.cell:disabled {
-  cursor: default;
 }
 
 .cell.open {
@@ -90,7 +84,7 @@
   color: #555;
 }
 
-.cell:disabled:not(.open):not(.flagged):not(.mine):not(.exploded) {
+.cell:disabled:not(.open, .flagged, .mine, .exploded) {
   background-color: #fbd7e0;
   border-color: #9e0d84;
   opacity: 1;
