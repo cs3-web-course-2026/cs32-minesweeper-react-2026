@@ -1,0 +1,73 @@
+.restart {
+  --button-size: clamp(3.75rem, 16vw, 4.75rem);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--button-size);
+  height: var(--button-size);
+  padding: 0.4rem;
+  background: var(--paper);
+  border: var(--ink-line) solid var(--ink);
+  border-radius: 50%;
+  box-shadow: 0.25rem 0.25rem 0 var(--ink);
+  cursor: pointer;
+}
+
+.restart:active {
+  transform: translate(0.2rem, 0.2rem);
+  box-shadow: none;
+}
+
+.restart:focus-visible {
+  outline: var(--ink-line) dashed var(--ink);
+  outline-offset: 0.3rem;
+}
+
+.mascot {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform-origin: 50% 100%;
+}
+
+/* «Гумові» рухи в дусі мультфільмів 1930-х, кадрами */
+.idle,
+.playing {
+  animation: bounce var(--bounce-duration) var(--frame-steps) infinite;
+}
+
+.won {
+  animation: jump calc(var(--bounce-duration) * 0.7) var(--frame-steps) infinite;
+}
+
+.lost {
+  animation: dizzy var(--bounce-duration) var(--frame-steps) infinite;
+}
+
+@keyframes bounce {
+  0%,
+  100% { transform: scale(1.06, 0.94); }
+
+  50% { transform: translateY(-8%) scale(0.95, 1.05) rotate(4deg); }
+}
+
+@keyframes jump {
+  0%,
+  100% { transform: scale(1.1, 0.9); }
+
+  50% { transform: translateY(-16%) scale(0.92, 1.1) rotate(-8deg); }
+}
+
+@keyframes dizzy {
+  0%,
+  100% { transform: rotate(-12deg); }
+
+  50% { transform: rotate(12deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mascot {
+    animation: none;
+  }
+}
