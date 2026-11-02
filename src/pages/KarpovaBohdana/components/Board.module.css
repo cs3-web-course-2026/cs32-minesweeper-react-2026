@@ -1,0 +1,20 @@
+.board {
+  --board-gap: 4px;
+
+  display: grid;
+  grid-template-columns: repeat(var(--board-columns), 1fr);
+  grid-auto-rows: 1fr;
+  gap: var(--board-gap);
+  padding: calc(var(--board-gap) * 1.5);
+  aspect-ratio: var(--board-columns) / var(--board-rows);
+  background: var(--ink);
+  border: var(--ink-line) solid var(--ink);
+  border-radius: var(--radius-tile);
+  box-shadow: var(--ink-shadow) var(--ink-shadow) 0 var(--paper-deep);
+}
+
+@media (width <= 420px) {
+  .board {
+    --board-gap: 2px;
+  }
+}

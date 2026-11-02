@@ -1,0 +1,193 @@
+/* Оформлення в дусі мультфільмів 1930-х: лише «чорнило» й «папір»,
+   товсті контури, зсунуті тіні та рух кадрами. Токени успадковують усі компоненти гри. */
+
+.game {
+  /* Палітра */
+  --ink: #161412;
+  --ink-soft: #4a453d;
+  --paper: #f3eee2;
+  --paper-shade: #ddd5c2;
+  --paper-deep: #bfb59f;
+  --cell-open: #cbc1aa;
+  --cell-open-shadow: #a59a82;
+
+  /* Шрифти: важкий шрифт із засічками з підтримкою кирилиці */
+  --font-title: "Georgia", "Times New Roman", serif;
+  --font-text: "Courier New", "Consolas", monospace;
+
+  /* Розміри */
+  --game-width: 32rem;
+  --ink-line: 3px;
+  --ink-shadow: 0.3rem;
+  --radius-frame: 1.6rem;
+  --radius-tile: 0.4rem;
+
+  /* «Малювання на двійках»: рух кадрами, а не плавно */
+  --frame-steps: steps(6, end);
+  --pop-duration: 0.3s;
+  --bounce-duration: 1s;
+  --iris-duration: 0.6s;
+  --scratch-duration: 7s;
+  --grain-duration: 0.5s;
+  --flicker-duration: 0.24s;
+  --grain-opacity: 0.16;
+
+  position: relative;
+  overflow: hidden;
+  width: min(100%, var(--game-width));
+  margin: 0 auto;
+  padding: clamp(1rem, 4vw, 1.75rem);
+  font-family: var(--font-text);
+  color: var(--ink);
+  background: radial-gradient(circle at 50% 40%, var(--paper) 45%, var(--paper-shade));
+  border: var(--ink-line) solid var(--ink);
+  border-radius: var(--radius-frame);
+  box-shadow:
+    inset 0 0 3rem rgb(22 20 18 / 35%),
+    var(--ink-shadow) var(--ink-shadow) 0 var(--ink);
+  animation: flicker var(--flicker-duration) steps(2, end) infinite;
+}
+
+/* Плівкові помехи: зерно (SVG-шум) і кілька порошинок; шар більший за кадр,
+   щоб його можна було «смикати» без порожніх країв */
+.game::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  z-index: 5;
+  pointer-events: none;
+  background:
+    radial-gradient(circle, var(--ink) 40%, transparent 45%) 31% 22% / 6px 6px no-repeat,
+    radial-gradient(circle, var(--ink) 40%, transparent 45%) 68% 61% / 4px 4px no-repeat,
+    radial-gradient(circle, #fff 40%, transparent 45%) 47% 78% / 5px 5px no-repeat,
+    radial-gradient(ellipse, var(--ink) 35%, transparent 45%) 58% 34% / 9px 3px no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: var(--grain-opacity);
+  mix-blend-mode: multiply;
+  animation: grain var(--grain-duration) steps(1, end) infinite;
+}
+
+/* Подряпини плівки: тонкі вертикальні смуги, що зрідка спалахують у випадкових місцях */
+.game::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--ink-soft), var(--ink-soft)),
+    linear-gradient(#fff, #fff),
+    linear-gradient(var(--ink-soft), var(--ink-soft));
+  background-repeat: no-repeat;
+  background-size: 2px 100%, 1px 100%, 1px 55%;
+  opacity: 0;
+
+  /* steps(1): кожен кадр тримається, а потім смуга «стрибає» — як на зношеній плівці */
+  animation: scratches var(--scratch-duration) steps(1, end) infinite;
+}
+
+.title {
+  margin: 0 0 1rem;
+  font-family: var(--font-title);
+  font-size: clamp(2.4rem, 10vw, 3.6rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: var(--paper);
+  -webkit-text-stroke: var(--ink-line) var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 0.2rem 0.2rem 0 var(--ink);
+  animation: wobble calc(var(--bounce-duration) * 2) var(--frame-steps) infinite;
+}
+
+.statusBar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.statusBar > :last-child {
+  justify-self: end;
+}
+
+/* Легке мерехтіння яркості, як у старого кінопроєктора */
+@keyframes flicker {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(0.97) contrast(1.04); }
+  100% { filter: brightness(1.02); }
+}
+
+/* Зерно й порошинки щокадру перестрибують на нове місце */
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-6%, 4%); }
+  40% { transform: translate(5%, -7%); }
+  60% { transform: translate(-3%, -4%); }
+  80% { transform: translate(7%, 5%); }
+}
+
+@keyframes scratches {
+  0%,
+  100% { opacity: 0; }
+
+  20% {
+    background-position: 18% 0, 64% 0, 81% 100%;
+    opacity: 0.55;
+  }
+
+  22% {
+    background-position: 21% 0, 60% 0, 83% 100%;
+    opacity: 0.35;
+  }
+
+  25% { opacity: 0; }
+
+  58% {
+    background-position: 72% 0, 33% 0, 9% 0;
+    opacity: 0.6;
+  }
+
+  60% {
+    background-position: 70% 0, 37% 0, 12% 0;
+    opacity: 0.4;
+  }
+
+  62% {
+    background-position: 74% 0, 35% 0, 10% 0;
+    opacity: 0.5;
+  }
+
+  65% { opacity: 0; }
+
+  86% {
+    background-position: 45% 0, 90% 0, 52% 100%;
+    opacity: 0.45;
+  }
+
+  88% { opacity: 0; }
+}
+
+@keyframes wobble {
+  0%,
+  100% { transform: rotate(-1.5deg); }
+
+  50% { transform: rotate(1.5deg) scaleY(1.04); }
+}
+
+@media (width <= 420px) {
+  .statusBar {
+    gap: 0.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game,
+  .game::before,
+  .game::after,
+  .title {
+    animation: none;
+  }
+}

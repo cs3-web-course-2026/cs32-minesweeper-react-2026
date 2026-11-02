@@ -1,0 +1,36 @@
+.statBox {
+  background-color: #0f1117;
+  border: 1px solid #434c5e;
+  border-radius: 6px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.15rem;
+  font-weight: 700;
+  box-shadow: inset 0 2px 4px rgb(0 0 0 / 60%);
+}
+
+.statIcon {
+  font-size: 1rem;
+}
+
+.statValue {
+  letter-spacing: 1px;
+}
+
+.timerValue {
+  color: #38bdf8;
+}
+
+.flagValue {
+  color: #f87171;
+}
+
+@media (width <= 600px) {
+  .statBox {
+    padding: 4px 8px;
+    font-size: 1rem;
+  }
+}

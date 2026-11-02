@@ -1,0 +1,138 @@
+/* ---------- Закрита клітинка: опукла паперова «плитка» ---------- */
+
+.cell {
+  --cell-font-size: clamp(0.9rem, 4.2vw, 1.45rem);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  aspect-ratio: 1 / 1;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-title);
+  font-size: var(--cell-font-size);
+  font-weight: 900;
+  line-height: 1;
+  color: var(--ink);
+  background: linear-gradient(145deg, var(--paper) 55%, var(--paper-shade));
+  border: 0;
+  border-radius: var(--radius-tile);
+  box-shadow:
+    inset -0.15rem -0.2rem 0 var(--paper-deep),
+    inset 0.1rem 0.1rem 0 #fff;
+
+  /* Емодзі прапорця й міни — теж чорно-білі, як на старій плівці */
+  filter: grayscale(1) contrast(1.2);
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cell:focus-visible {
+  z-index: 1;
+  outline: var(--ink-line) dashed var(--paper);
+  outline-offset: -0.35rem;
+}
+
+.cell:not([aria-disabled="true"]):hover {
+  animation: wiggle var(--pop-duration) var(--frame-steps);
+}
+
+.cell[aria-disabled="true"] {
+  cursor: default;
+}
+
+/* ---------- Відкрита клітинка: «вдавлений» папір і гумовий стрибок ---------- */
+
+.empty,
+.number,
+.mine,
+.exploded,
+.wrongFlag,
+.flaggedMine {
+  background: var(--cell-open);
+  box-shadow: inset 0.15rem 0.15rem 0 var(--cell-open-shadow);
+  animation: squash var(--pop-duration) var(--frame-steps);
+}
+
+.number {
+  text-shadow: 0.08rem 0.08rem 0 var(--paper);
+}
+
+/* Великі числа — інвертовані, щоб відрізнялися без кольору */
+.number[data-count="4"],
+.number[data-count="5"],
+.number[data-count="6"],
+.number[data-count="7"],
+.number[data-count="8"] {
+  color: var(--paper);
+  text-shadow: none;
+  background: var(--ink-soft);
+}
+
+/* ---------- Прапорці ---------- */
+
+.flagged {
+  animation: wave var(--pop-duration) var(--frame-steps);
+}
+
+/* Прапорець стояв на міні — заштриховано растром */
+.flaggedMine {
+  background:
+    radial-gradient(var(--ink-soft) 18%, transparent 22%) 0 0 / 5px 5px,
+    var(--cell-open);
+}
+
+.wrongFlag {
+  text-decoration: line-through 3px var(--ink);
+  opacity: 0.55;
+}
+
+/* ---------- Міни ---------- */
+
+/* Міна, на яку натиснув гравець: інверсія кадру та тремтіння.
+   invert() перевертає й фон, тому кольори задані «навпаки»: на екрані фон стане чорним. */
+.exploded {
+  z-index: 2;
+  background: var(--paper);
+  box-shadow: 0 0 0 0.2rem var(--ink), 0 0 0 0.4rem var(--paper);
+  filter: grayscale(1) invert(1);
+  animation: shake var(--pop-duration) var(--frame-steps) 3;
+}
+
+/* ---------- Анімації ---------- */
+
+@keyframes squash {
+  0% { transform: scale(1.25, 0.7); }
+  50% { transform: scale(0.85, 1.2); }
+  100% { transform: scale(1, 1); }
+}
+
+@keyframes wave {
+  0% { transform: rotate(-14deg) scale(0.6); }
+  60% { transform: rotate(10deg) scale(1.15); }
+  100% { transform: rotate(0) scale(1); }
+}
+
+@keyframes wiggle {
+  0%,
+  100% { transform: rotate(0); }
+
+  50% { transform: translateY(-2px) rotate(-5deg); }
+}
+
+@keyframes shake {
+  0%,
+  100% { transform: translate(0, 0); }
+
+  33% { transform: translate(-3px, 2px) rotate(-8deg); }
+  66% { transform: translate(3px, -2px) rotate(8deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell,
+  .cell:hover {
+    animation: none;
+  }
+}
