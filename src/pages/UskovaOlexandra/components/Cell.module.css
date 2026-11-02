@@ -1,0 +1,97 @@
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+
+  background-color: #fbd7e0;
+  border: 2.5px solid #9e0d84;
+
+  font-size: 1.3rem;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  box-sizing: border-box;
+
+  transition:
+    background-color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.cell:hover:not(:disabled) {
+  background-color: #fff2e1c4;
+}
+
+.cell:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.cell:disabled {
+  cursor: default;
+}
+
+.cell.open {
+  background-color: #fff4f5;
+  cursor: default;
+  color: #401363;
+}
+
+.cell.flagged {
+  background-color: #f797e6;
+}
+
+.cell.wrongFlag {
+  background-color: #f898b8;
+}
+
+.cell.mine {
+  background-color: #b9d0e4;
+}
+
+.cell.exploded {
+  background-color: #601a2c;
+}
+
+/* Colors for numbers */
+
+.cell.open[data-value="1"] {
+  color: #4169e1;
+}
+
+.cell.open[data-value="2"] {
+  color: #94556d;
+}
+
+.cell.open[data-value="3"] {
+  color: #c52853;
+}
+
+.cell.open[data-value="4"] {
+  color: #6e3580;
+}
+
+.cell.open[data-value="5"] {
+  color: #8b0000;
+}
+
+.cell.open[data-value="6"] {
+  color: #008080;
+}
+
+.cell.open[data-value="7"] {
+  color: #401363;
+}
+
+.cell.open[data-value="8"] {
+  color: #555;
+}
+
+.cell:disabled:not(.open):not(.flagged):not(.mine):not(.exploded) {
+  background-color: #fbd7e0;
+  border-color: #9e0d84;
+  opacity: 1;
+}
