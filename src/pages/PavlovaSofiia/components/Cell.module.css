@@ -1,0 +1,30 @@
+.cell {
+  width: 25px;
+  height: 25px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid gray;
+  border-radius: 4px;
+
+  cursor: pointer;
+  user-select: none;
+
+  font-size: 14px;
+}
+
+.cell:hover {
+  border: 1px solid rgb(61 61 61);
+}
+
+.opened {
+  border: 1px solid rgb(79 79 79);
+  background-color: #b15ede8a;
+  cursor: default;
+}
+
+.exploded {
+  background-color: #c34d4d;
+}

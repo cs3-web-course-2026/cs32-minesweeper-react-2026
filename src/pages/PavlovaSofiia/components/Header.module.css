@@ -1,0 +1,11 @@
+.header {
+  display: flex;
+  gap: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  width: min(100%, 274px);
+  justify-content: space-around;
+  margin-top: 50px;
+}
