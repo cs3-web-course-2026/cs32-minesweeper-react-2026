@@ -1,0 +1,12 @@
+.smileBtn {
+    width: 26px;
+    height: 26px;
+    background-color: #c0c0c0;
+    border: 2px solid;
+    border-color: #fff #808080 #808080 #fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+}
