@@ -1,0 +1,12 @@
+.game {
+  font-family: Silkscreen, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: x-large;
+  color: #621a88;
+  text-align: center;
+}
