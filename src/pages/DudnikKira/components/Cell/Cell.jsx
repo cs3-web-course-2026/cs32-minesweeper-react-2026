@@ -32,15 +32,31 @@ export default function Cell({ cellData, onClick, onContextMenu }) {
         return '';
     };
 
+    const getAriaLabel = () => {
+        let stateDescription = 'закрита клітинка';
+        if (state === 'opened') {
+            if (type === 'mine') {
+                stateDescription = 'відкрита міна';
+            } else if (neighborMines > 0) {
+                stateDescription = `відкрито, сусідніх мін: ${neighborMines}`;
+            } else {
+                stateDescription = 'відкрита порожня клітинка';
+            }
+        } else if (state === 'flagged') {
+            stateDescription = 'позначена прапорцем';
+        }
+        return `Клітинка рядок ${row + 1}, колонка ${col + 1}, ${stateDescription}`;
+    };
+
     return (
-        <button
-            type="button"
-            className={getCellClasses()}
-            onClick={onClick}
-            onContextMenu={onContextMenu}
-            aria-label={`Клітинка рядок ${row + 1}, колонка ${col + 1}`}
-        >
-            {renderContent()}
-        </button>
+      <button
+        type="button"
+        className={getCellClasses()}
+        onClick={onClick}
+        onContextMenu={onContextMenu}
+        aria-label={getAriaLabel()}
+      >
+          {renderContent()}
+      </button>
     );
 }

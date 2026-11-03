@@ -7,11 +7,20 @@ export default function GameHeader({ flagsLeft, gameTime, onReset }) {
 
   return (
     <header className={styles['game-header']}>
-      <div className={styles.counter} role="status" aria-live="polite">
+      <div
+        className={styles.counter}
+        role="status"
+        aria-live="polite"
+        aria-label={`Залишилось прапорців: ${flagsLeft}`}
+      >
         {formatNumber(flagsLeft)}
       </div>
       <RestartButton onReset={onReset} />
-      <div className={styles.counter} role="status" aria-live="polite">
+      <div
+        className={styles.counter}
+        role="timer"
+        aria-label={`Час гри: ${gameTime} секунд`}
+      >
         {formatNumber(gameTime)}
       </div>
     </header>
