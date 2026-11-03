@@ -1,0 +1,184 @@
+/* Closed is the default state */
+.cell {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  padding: 0;
+  border: none;
+  border-radius: var(--cell-radius);
+  font-family: var(--display-font);
+  font-size: var(--cell-font-size);
+  font-weight: 600;
+  background: var(--cell-closed-background);
+  box-shadow:
+    inset 2px 2px 0 var(--cell-closed-highlight),
+    inset -2px -2px 0 var(--cell-closed-shadow);
+  cursor: pointer;
+  transition: transform var(--transition-duration);
+}
+
+.cell:hover {
+  background: var(--cell-closed-hover-background);
+  transform: translateY(-2px) scale(1.06);
+}
+
+.cell:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: 2px;
+}
+
+.opened,
+.mine {
+  border: 1px solid var(--cell-opened-border);
+  background: var(--cell-opened-background);
+  box-shadow: none;
+  cursor: default;
+}
+
+.opened:hover,
+.mine:hover {
+  background: var(--cell-opened-background);
+  transform: none;
+}
+
+/* Flag: pink badge with a heart */
+.flagged::before {
+  content: '\2665\FE0E';
+  position: absolute;
+  inset: 16%;
+  display: grid;
+  place-items: center;
+  border: var(--icon-outline);
+  border-radius: 50%;
+  font-size: var(--flag-heart-size);
+  line-height: 1;
+  color: var(--icon-ink);
+  background: var(--flag-badge-color);
+}
+
+/* Mine: skull drawn as a head (::before) and a jaw (::after) */
+.mine::before,
+.mine::after {
+  content: '';
+  position: absolute;
+  border: var(--icon-outline);
+}
+
+.mine::before {
+  top: 14%;
+  left: 16%;
+  width: 68%;
+  height: 54%;
+  border-radius: 50% 50% 46% 46% / 56% 56% 44% 44%;
+  background:
+    radial-gradient(9% 15% at 27% 60%, var(--icon-ink) 90%, transparent),
+    radial-gradient(9% 15% at 73% 60%, var(--icon-ink) 90%, transparent),
+    var(--skull-color);
+}
+
+.mine::after {
+  top: 64%;
+  left: 35%;
+  width: 30%;
+  height: 16%;
+  border-top: none;
+  border-radius: 0 0 10% 10%;
+  background:
+    linear-gradient(
+        90deg,
+        transparent 30%,
+        var(--icon-ink) 30% 42%,
+        transparent 42% 58%,
+        var(--icon-ink) 58% 70%,
+        transparent 70%
+      )
+      top / 100% 70% no-repeat,
+    var(--skull-color);
+}
+
+.exploded,
+.exploded:hover {
+  background: var(--cell-exploded-background);
+  animation: wiggle var(--wiggle-duration) ease-in-out infinite alternate;
+}
+
+@keyframes wiggle {
+  from {
+    transform: rotate(-12deg);
+  }
+
+  to {
+    transform: rotate(12deg);
+  }
+}
+
+/* Flag that was not on a mine, revealed when the game is lost */
+.wrongFlag,
+.wrongFlag:hover {
+  background: var(--cell-wrong-flag-background);
+}
+
+.wrongFlag::after {
+  content: '';
+  position: absolute;
+  inset: 20%;
+  background:
+    linear-gradient(
+      45deg,
+      transparent 45%,
+      var(--cell-wrong-flag-cross) 45% 55%,
+      transparent 55%
+    ),
+    linear-gradient(
+      -45deg,
+      transparent 45%,
+      var(--cell-wrong-flag-cross) 45% 55%,
+      transparent 55%
+    );
+}
+
+/* Adjacent mine count colours */
+
+.cell[data-mines='1'] {
+  color: var(--number-1-color);
+}
+
+.cell[data-mines='2'] {
+  color: var(--number-2-color);
+}
+
+.cell[data-mines='3'] {
+  color: var(--number-3-color);
+}
+
+.cell[data-mines='4'] {
+  color: var(--number-4-color);
+}
+
+.cell[data-mines='5'] {
+  color: var(--number-5-color);
+}
+
+.cell[data-mines='6'] {
+  color: var(--number-6-color);
+}
+
+.cell[data-mines='7'] {
+  color: var(--number-7-color);
+}
+
+.cell[data-mines='8'] {
+  color: var(--number-8-color);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell {
+    transition: none;
+  }
+
+  .exploded {
+    animation: none;
+  }
+}
