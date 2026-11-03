@@ -1,7 +1,6 @@
-.gameBoard {
+.game-board {
     display: grid;
-    grid-template-columns: repeat(10, 32px);
-    grid-template-rows: repeat(10, 32px);
-    border: 2px solid;
+    background-color: #bdbdbd;
+    border: 3px solid;
     border-color: #808080 #fff #fff #808080;
 }

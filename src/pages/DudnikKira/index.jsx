@@ -196,20 +196,20 @@ export default function DudnikKira() {
     };
 
     return (
-        <div className={styles.container}>
-            <div className={styles.minesweeperBox}>
-                <GameHeader
-                    flagsLeft={gameState.flagsLeft}
-                    gameTime={gameState.gameTime}
-                    onReset={handleReset}
-                />
-                <GameStatus status={gameState.status} />
-                <Board
-                    board={board}
-                    onCellClick={handleCellClick}
-                    onCellContextMenu={handleCellContextMenu}
-                />
-            </div>
-        </div>
+      <div className={styles.container}>
+          <div className={styles['minesweeper-box']}>
+              <GameHeader
+                flagsLeft={gameState.flagsLeft}
+                gameTime={gameState.gameTime}
+                onReset={handleReset}
+              />
+              <GameStatus status={gameState.status} />
+              <Board
+                board={board}
+                onCellClick={handleCellClick}
+                onCellContextMenu={handleCellContextMenu}
+              />
+          </div>
+      </div>
     );
 }

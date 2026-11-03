@@ -7,7 +7,7 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.minesweeperBox {
+.minesweeper-box {
     background-color: #c0c0c0;
     border: 3px solid;
     border-color: #fff #808080 #808080 #fff;

@@ -10,8 +10,8 @@ export default function GameStatus({ status }) {
     }
 
     return (
-        <div className={styles.gameStatus} role="status" aria-live="polite">
-            {message}
-        </div>
+      <div className={styles['game-status']} role="status" aria-live="polite">
+          {message}
+      </div>
     );
 }
