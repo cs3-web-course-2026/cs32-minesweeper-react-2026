@@ -10,7 +10,7 @@ export default function GameHeader({
 }) {
   return (
     <header className={styles.gameHeader}>
-      <Counter value={minesLeft} ariaLabel="Кількість мін" isPolite={true} />
+      <Counter value={minesLeft} ariaLabel="Залишилось прапорців" isPolite={true} />
       <RestartButton status={status} onRestart={onRestart} />
       <Counter value={gameTime} ariaLabel="Час гри" />
     </header>

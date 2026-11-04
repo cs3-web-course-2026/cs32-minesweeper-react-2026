@@ -3,7 +3,7 @@ import Board from './components/Board';
 import GameHeader from './components/GameHeader';
 import GameStatus from './components/GameStatus';
 import { BOARD_CONFIG, CELL_STATE, CELL_TYPE, GAME_STATUS, TIMER_INTERVAL_MS } from './constants/gameConstants';
-import { checkIsWin, cloneBoard, createInitialBoard, revealCellRecursive } from './utils/gameHelpers';
+import { checkIsWin, cloneBoard, createInitialBoard, revealCellRecursive, processCellOpen } from './utils/gameHelpers';
 import styles from './KhomiakovOleksii.module.css';
 
 export default function KhomiakovOleksii() {
@@ -33,21 +33,14 @@ export default function KhomiakovOleksii() {
 
     if (!startTime) setStartTime(Date.now());
 
-    const targetCell = board[rowIndex][colIndex];
-
-    if (targetCell.type === CELL_TYPE.MINE) {
-      const nextBoard = cloneBoard(board);
-      nextBoard[rowIndex][colIndex].state = CELL_STATE.OPENED;
-      nextBoard[rowIndex][colIndex].exploded = true;
-      setBoard(nextBoard);
-      setStatus(GAME_STATUS.LOSE);
-      return;
-    }
-
-    const nextBoard = revealCellRecursive(board, rowIndex, colIndex);
+    const { nextBoard, isLose, isWin } = processCellOpen(board, rowIndex, colIndex);
     setBoard(nextBoard);
 
-    if (checkIsWin(nextBoard)) setStatus(GAME_STATUS.WIN);
+    if (isLose) {
+      setStatus(GAME_STATUS.LOSE);
+    } else if (isWin) {
+      setStatus(GAME_STATUS.WIN);
+    }
   };
 
   const handleToggleFlag = (rowIndex, colIndex) => {

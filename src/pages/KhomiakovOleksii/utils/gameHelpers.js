@@ -95,3 +95,18 @@ export function checkIsWin(board) {
   }
   return true;
 }
+
+export function processCellOpen(initialBoard, rowIndex, colIndex) {
+  const targetCell = initialBoard[rowIndex][colIndex];
+
+  if (targetCell.type === CELL_TYPE.MINE) {
+    const nextBoard = cloneBoard(initialBoard);
+    nextBoard[rowIndex][colIndex].state = CELL_STATE.OPENED;
+    nextBoard[rowIndex][colIndex].exploded = true;
+    return { nextBoard, isLose: true, isWin: false };
+  }
+
+  const nextBoard = revealCellRecursive(initialBoard, rowIndex, colIndex);
+  const isWin = checkIsWin(nextBoard);
+  return { nextBoard, isLose: false, isWin };
+}
