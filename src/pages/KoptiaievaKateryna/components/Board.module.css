@@ -1,10 +1,6 @@
 .board {
-  /* 11.5rem = layout and page padding + panel padding and border + gaps between cells */
-  --cell-size: clamp(
-    1.25rem,
-    (100vw - 11.5rem) / var(--board-columns),
-    2.75rem
-  );
+  /* 7.5rem = page and panel padding + panel border + gaps between cells */
+  --cell-size: clamp(1rem, (100cqi - 7.5rem) / var(--board-columns), 2.75rem);
   --cell-gap: 0.25rem;
   --cell-font-size: calc(var(--cell-size) * 0.5);
   --flag-heart-size: calc(var(--cell-size) * 0.36);

@@ -45,6 +45,7 @@
   --number-7-color: #4c1d95;
   --number-8-color: #6b7280;
 
+  container-type: inline-size;
   display: grid;
   place-items: center;
   padding: 1rem;
