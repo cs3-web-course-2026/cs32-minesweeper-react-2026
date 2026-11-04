@@ -1,6 +1,6 @@
 .game-board {
     display: grid;
-    background-color: #bdbdbd;
+    background-color: rgb(189 189 189);
     border: 3px solid;
-    border-color: #808080 #fff #fff #808080;
+    border-color: rgb(128 128 128) rgb(255 255 255) rgb(255 255 255) rgb(128 128 128);
 }

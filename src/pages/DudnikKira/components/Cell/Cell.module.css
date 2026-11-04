@@ -1,39 +1,98 @@
 .cell {
-    width: 32px;
-    height: 32px;
-    background-color: #c0c0c0;
-    border: 2px solid;
-    border-color: #fff #808080 #808080 #fff;
+    width: 36px;
+    height: 36px;
+    background: rgb(30 30 46 / 75%);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgb(255 255 255 / 10%);
+    border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: bold;
-    font-size: 14px;
+    font-weight: 700;
+    font-size: 15px;
     cursor: pointer;
     user-select: none;
     padding: 0;
+    box-shadow: 0 4px 6px rgb(0 0 0 / 20%);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cell:hover {
+    background: rgb(45 45 70 / 90%);
+    border-color: rgb(255 255 255 / 30%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgb(0 0 0 / 30%);
 }
 
 .open {
-    border: 1px solid #7b7b7b;
-    background-color: #bdbdbd;
+    background: rgb(18 18 26 / 85%);
+    border: 1px solid rgb(255 255 255 / 5%);
+    border-radius: 6px;
+    box-shadow: inset 0 2px 4px rgb(0 0 0 / 40%);
+    transform: none;
 }
 
 .mine {
-    background-color: #c0c0c0;
-    border-color: #dfdfdf #707070 #707070 #dfdfdf;
+    background: rgb(60 20 30 / 80%);
+    border-color: rgb(255 100 100 / 30%);
+    border-radius: 6px;
 }
 
 .exploded {
-    background-color: #f00;
-    border-color: #ff8080 #800000 #800000 #ff8080;
+    background: radial-gradient(circle, #f33 0%, #900 100%);
+    border: 1px solid #f66;
+    border-radius: 6px;
+    box-shadow: 0 0 15px rgb(255 0 0 / 70%);
+    animation: pulse 0.5s infinite alternate;
 }
 
-.number-1 { color: #00f; }
-.number-2 { color: #008000; }
-.number-3 { color: #f00; }
-.number-4 { color: #000080; }
-.number-5 { color: #800000; }
-.number-6 { color: #008080; }
-.number-7 { color: #000; }
-.number-8 { color: #808080; }
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.05);
+    }
+}
+
+/* Сучасні неонові кольори для цифр */
+.number-1 {
+    color: #38bdf8;
+    text-shadow: 0 0 8px rgb(56 189 248 / 50%);
+}
+
+.number-2 {
+    color: #4ade80;
+    text-shadow: 0 0 8px rgb(74 222 128 / 50%);
+}
+
+.number-3 {
+    color: #f87171;
+    text-shadow: 0 0 8px rgb(248 113 113 / 50%);
+}
+
+.number-4 {
+    color: #c084fc;
+    text-shadow: 0 0 8px rgb(192 132 252 / 50%);
+}
+
+.number-5 {
+    color: #fb923c;
+    text-shadow: 0 0 8px rgb(251 146 60 / 50%);
+}
+
+.number-6 {
+    color: #2dd4bf;
+    text-shadow: 0 0 8px rgb(45 212 191 / 50%);
+}
+
+.number-7 {
+    color: #f472b6;
+    text-shadow: 0 0 8px rgb(244 114 182 / 50%);
+}
+
+.number-8 {
+    color: #94a3b8;
+    text-shadow: 0 0 8px rgb(148 163 184 / 50%);
+}

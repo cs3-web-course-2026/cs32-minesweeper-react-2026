@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a118bd7c-a020-46df-a66f-b7f64b3dc845" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/DudnikKira/components/Board/Board.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/DudnikKira/components/Board/Board.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/DudnikKira/components/Cell/Cell.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/DudnikKira/components/Cell/Cell.module.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,12 +23,12 @@
     &quot;assignee&quot;: &quot;kiraaadudnik-lgtm&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/cs3-web-course-2026/cs32-minesweeper-2026.git&quot;,
-    &quot;accountId&quot;: &quot;c9541495-0e0e-4fda-82c3-78c26ca83096&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/cs3-web-course-2026/cs32-minesweeper-react-2026.git",
+    "accountId": "c9541495-0e0e-4fda-82c3-78c26ca83096"
   }
-}</component>
+}]]></component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
@@ -47,7 +49,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "git-widget-placeholder": "#54 on lab3/DudnikKira-react-migration-final",
+    "git-widget-placeholder": "lab3/DudnikKira-react-migration-final",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.stylelint": "true",
@@ -177,6 +179,7 @@
       <workItem from="1793727816069" duration="7000" />
       <workItem from="1793727873051" duration="11000" />
       <workItem from="1793783074317" duration="7000" />
+      <workItem from="1793807624554" duration="1157000" />
     </task>
     <servers />
   </component>
