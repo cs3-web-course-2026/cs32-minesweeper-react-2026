@@ -1,8 +1,4 @@
-import {
-  CELL_STATE,
-  CELL_TYPE,
-  NEIGHBOR_OFFSETS,
-} from '../constants/gameConstants';
+import { CELL_STATE, CELL_TYPE, NEIGHBOR_OFFSETS } from '../constants/gameConstants';
 
 export function createInitialBoard(rows, cols, minesCount) {
   const board = Array.from({ length: rows }, (_, rowIndex) =>
@@ -50,7 +46,6 @@ export function createInitialBoard(rows, cols, minesCount) {
       board[rowIndex][colIndex].neighborMines = count;
     }
   }
-
   return board;
 }
 
@@ -58,43 +53,44 @@ export function cloneBoard(board) {
   return board.map((row) => row.map((cell) => ({ ...cell })));
 }
 
-export function revealCellRecursive(board, rowIndex, colIndex) {
-  const rows = board.length;
-  const cols = board[0].length;
-  const cell = board[rowIndex][colIndex];
+export function revealCellRecursive(initialBoard, startRow, startCol) {
+  const nextBoard = cloneBoard(initialBoard);
+  const rows = nextBoard.length;
+  const cols = nextBoard[0].length;
 
-  if (cell.state === CELL_STATE.OPENED || cell.state === CELL_STATE.FLAGGED) {
-    return;
-  }
+  function floodFill(rowIndex, colIndex) {
+    const cell = nextBoard[rowIndex][colIndex];
 
-  cell.state = CELL_STATE.OPENED;
+    if (cell.state === CELL_STATE.OPENED || cell.state === CELL_STATE.FLAGGED) return;
 
-  if (cell.type === CELL_TYPE.MINE || cell.neighborMines > 0) {
-    return;
-  }
+    cell.state = CELL_STATE.OPENED;
 
-  for (const [rowOffset, colOffset] of NEIGHBOR_OFFSETS) {
-    const neighborRow = rowIndex + rowOffset;
-    const neighborCol = colIndex + colOffset;
+    if (cell.type === CELL_TYPE.MINE || cell.neighborMines > 0) return;
 
-    if (
-      neighborRow >= 0 &&
-      neighborRow < rows &&
-      neighborCol >= 0 &&
-      neighborCol < cols &&
-      board[neighborRow][neighborCol].state === CELL_STATE.CLOSED
-    ) {
-      revealCellRecursive(board, neighborRow, neighborCol);
+    for (const [rowOffset, colOffset] of NEIGHBOR_OFFSETS) {
+      const neighborRow = rowIndex + rowOffset;
+      const neighborCol = colIndex + colOffset;
+
+      if (
+        neighborRow >= 0 &&
+        neighborRow < rows &&
+        neighborCol >= 0 &&
+        neighborCol < cols &&
+        nextBoard[neighborRow][neighborCol].state === CELL_STATE.CLOSED
+      ) {
+        floodFill(neighborRow, neighborCol);
+      }
     }
   }
+
+  floodFill(startRow, startCol);
+  return nextBoard;
 }
 
 export function checkIsWin(board) {
   for (const row of board) {
     for (const cell of row) {
-      if (cell.type === CELL_TYPE.EMPTY && cell.state !== CELL_STATE.OPENED) {
-        return false;
-      }
+      if (cell.type === CELL_TYPE.EMPTY && cell.state !== CELL_STATE.OPENED) return false;
     }
   }
   return true;
