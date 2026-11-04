@@ -1,104 +1,200 @@
+/* Isolated classic Minesweeper shell: the shared global button rules must not leak in. */
 .page {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  padding: 24px 8px;
-  background-color: #0b5fb4;
+  justify-content: flex-start;
+  min-height: min(100vh, 720px);
+  padding: 12px 10px 24px;
+  background: #0756a4;
   font-family: 'Segoe UI', Arial, sans-serif;
   box-sizing: border-box;
 }
-.appContainer {
-  width: 350px;
-  max-width: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  background-color: #c0c0c0;
-  border: 12px solid #222;
-  border-top-width: 30px;
-  border-bottom-width: 30px;
-  border-radius: 20px;
-  box-shadow: 0 15px 35px rgb(0 0 0 / 40%);
+
+.page *,
+.page *::before,
+.page *::after {
   box-sizing: border-box;
 }
+
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  width: 382px;
+  max-width: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 12px solid #222;
+  border-top-width: 34px;
+  border-bottom-width: 24px;
+  border-radius: 17px;
+  background: #c0c0c0;
+  box-shadow: 0 8px 20px rgb(0 0 0 / 20%);
+}
+
 .topPanel {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 10px 15px;
-  background-color: #c0c0c0;
-  border-bottom: 2px solid #7b7b7b;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 61px;
+  padding: 9px 13px 10px;
+  background: #c0c0c0;
+  border-bottom: 3px solid #7b7b7b;
 }
+
 .ledDisplay {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 6px;
-  min-width: 80px;
-  padding: 4px 8px;
+  gap: 5px;
+  min-width: 100px;
+  height: 40px;
+  padding: 5px 7px;
+  border: 3px solid;
+  border-color: #777 #fff #fff #777;
+  border-radius: 0;
+  background: #000;
   color: #f00;
-  font-size: 20px;
-  font-weight: bold;
-  background-color: #000;
-  border: 2px solid;
-  border-color: #7b7b7b #fff #fff #7b7b7b;
-  box-sizing: border-box;
+  font: 700 20px/1 'Segoe UI', Arial, sans-serif;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
-.ledIcon { font-size: 14px; filter: sepia(1) hue-rotate(-50deg) saturate(5) opacity(.5); }
-.smileyButton {
+
+.ledIcon {
+  font-size: 13px;
+  filter: sepia(1) saturate(4) hue-rotate(315deg) brightness(.7);
+}
+
+/* A local CSS Module class is more specific than the repository's button rule. */
+.smileyButton,
+.smileyButton:hover,
+.smileyButton:active {
+  appearance: none;
   display: flex;
-  justify-content: center;
+  flex: 0 0 auto;
   align-items: center;
+  justify-content: center;
   width: 40px;
   height: 40px;
-  padding: 0;
-  font-size: 24px;
-  background-color: #c0c0c0;
-  border: 3px solid;
-  border-color: #fff #7b7b7b #7b7b7b #fff;
-  cursor: pointer;
-  box-sizing: border-box;
-}
-.smileyButton:active { border-color: #7b7b7b #fff #fff #7b7b7b; font-size: 22px; }
-.statusMessage {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 28px;
-  color: #222;
-  background: #c0c0c0;
-  font-size: 13px;
-  font-weight: bold;
-  text-align: center;
-}
-.bottomNav {
-  display: flex;
-  justify-content: space-around;
-  padding: 12px 0;
-  background: #e4e4e4;
-  border-top: 1px solid #ccc;
-}
-.navItem {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
   margin: 0;
   padding: 0;
-  color: #555;
-  background: none;
-  border: none;
-  font: bold 12px 'Segoe UI', Arial, sans-serif;
+  border: 3px solid;
+  border-color: #fff #777 #777 #fff;
+  border-radius: 0;
+  background: #c0c0c0;
+  color: #000;
+  font: 25px/1 Arial, sans-serif;
+  box-shadow: none;
+  transform: none;
+  transition: none;
   cursor: pointer;
 }
-.navIcon { font-size: 20px; filter: grayscale(1); opacity: .6; }
-.active { color: #d32f2f; }
-.active .navIcon { filter: none; opacity: 1; }
-.help { margin: 15px 0 8px; color: #fff; text-align: center; font-size: 12px; }
-.backLink { color: #fff; font-size: 13px; font-weight: bold; }
+
+.smileyButton:active {
+  border-color: #777 #fff #fff #777;
+}
+
+.statusMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 29px;
+  padding: 5px;
+  border-bottom: 1px solid #888;
+  background: #c0c0c0;
+  color: #222;
+  font: 700 13px/1.3 'Segoe UI', Arial, sans-serif;
+  text-align: center;
+}
+
+.statusMessage:empty {
+  display: none;
+}
+
+.bottomNav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px;
+  border-top: 3px solid;
+  border-color: #fff #fff #777;
+  background: #c0c0c0;
+}
+
+.navItem,
+.navItem:hover,
+.navItem:active {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 34px;
+  margin: 0;
+  padding: 5px 12px;
+  border: 3px solid;
+  border-color: #fff #777 #777 #fff;
+  border-radius: 0;
+  background: #c0c0c0;
+  color: #222;
+  font: 700 12px/1 'Segoe UI', Arial, sans-serif;
+  transform: none;
+  transition: none;
+  cursor: pointer;
+}
+
+.navItem:active,
+.active,
+.active:hover {
+  border-color: #777 #fff #fff #777;
+  background: #aaa;
+}
+
+.navIcon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.help {
+  margin: 12px 0 6px;
+  color: #fff;
+  font: 12px/1.5 'Segoe UI', Arial, sans-serif;
+  text-align: center;
+}
+
+.backLink,
+.backLink:hover {
+  color: #fff;
+  font: 700 13px/1.4 'Segoe UI', Arial, sans-serif;
+}
+
 .smileyButton:focus-visible,
 .navItem:focus-visible,
-.backLink:focus-visible { outline: 3px solid #ffdb69; outline-offset: 2px; }
+.backLink:focus-visible {
+  outline: 3px solid #ffdc65;
+  outline-offset: 2px;
+}
+
+@media (max-width: 410px) {
+  .page {
+    padding: 8px 2px 20px;
+  }
+
+  .appContainer {
+    border-width: 9px;
+    border-top-width: 25px;
+    border-bottom-width: 19px;
+  }
+
+  .topPanel {
+    gap: 4px;
+    padding: 7px 6px 9px;
+  }
+
+  .ledDisplay {
+    min-width: 0;
+    padding: 4px;
+    font-size: 17px;
+  }
+}

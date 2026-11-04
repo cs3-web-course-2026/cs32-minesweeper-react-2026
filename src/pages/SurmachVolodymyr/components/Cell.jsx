@@ -9,8 +9,10 @@ const NUMBER_STYLES = [
 function Cell({ cell, cols, finished, lost, onReveal, onToggleFlag }) {
   const wrongFlag = lost && cell.flagged && !cell.isMine;
   const mineIsVisible = cell.revealed && cell.isMine && !cell.flagged;
-  const content = cell.flagged
-    ? '🚩'
+  const content = wrongFlag
+    ? ''
+    : cell.flagged
+      ? '🚩'
     : mineIsVisible
       ? '💣'
       : cell.revealed && cell.adjacent > 0

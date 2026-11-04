@@ -1,10 +1,16 @@
 .board {
   display: grid;
   grid-template-columns: repeat(var(--board-size), minmax(0, 1fr));
-  aspect-ratio: 1;
+  grid-template-rows: repeat(var(--board-size), minmax(0, 1fr));
+  flex: 0 0 auto;
   width: 100%;
-  background: #7b7b7b;
+  aspect-ratio: 1 / 1;
+  margin: 0;
+  padding: 0;
   border: 3px solid;
-  border-color: #7b7b7b #fff #fff #7b7b7b;
+  border-color: #777 #fff #fff #777;
+  border-radius: 0;
+  background: #c0c0c0;
   box-sizing: border-box;
+  overflow: hidden;
 }
