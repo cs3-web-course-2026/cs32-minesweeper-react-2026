@@ -1,0 +1,104 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px 8px;
+  background-color: #0b5fb4;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  box-sizing: border-box;
+}
+.appContainer {
+  width: 350px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: #c0c0c0;
+  border: 12px solid #222;
+  border-top-width: 30px;
+  border-bottom-width: 30px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgb(0 0 0 / 40%);
+  box-sizing: border-box;
+}
+.topPanel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #c0c0c0;
+  border-bottom: 2px solid #7b7b7b;
+}
+.ledDisplay {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  min-width: 80px;
+  padding: 4px 8px;
+  color: #f00;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #000;
+  border: 2px solid;
+  border-color: #7b7b7b #fff #fff #7b7b7b;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+}
+.ledIcon { font-size: 14px; filter: sepia(1) hue-rotate(-50deg) saturate(5) opacity(.5); }
+.smileyButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 24px;
+  background-color: #c0c0c0;
+  border: 3px solid;
+  border-color: #fff #7b7b7b #7b7b7b #fff;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.smileyButton:active { border-color: #7b7b7b #fff #fff #7b7b7b; font-size: 22px; }
+.statusMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 28px;
+  color: #222;
+  background: #c0c0c0;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+}
+.bottomNav {
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;
+  background: #e4e4e4;
+  border-top: 1px solid #ccc;
+}
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  color: #555;
+  background: none;
+  border: none;
+  font: bold 12px 'Segoe UI', Arial, sans-serif;
+  cursor: pointer;
+}
+.navIcon { font-size: 20px; filter: grayscale(1); opacity: .6; }
+.active { color: #d32f2f; }
+.active .navIcon { filter: none; opacity: 1; }
+.help { margin: 15px 0 8px; color: #fff; text-align: center; font-size: 12px; }
+.backLink { color: #fff; font-size: 13px; font-weight: bold; }
+.smileyButton:focus-visible,
+.navItem:focus-visible,
+.backLink:focus-visible { outline: 3px solid #ffdb69; outline-offset: 2px; }

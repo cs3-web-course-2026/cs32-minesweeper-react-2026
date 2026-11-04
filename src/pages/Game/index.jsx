@@ -105,8 +105,17 @@ function Game() {
         'React-версія Сапера з звичайним flood-fill відкриттям, таймером, лічильником прапорців та повною підтримкою доступності й клавіатури.',
       author: 'Chernous Valerii',
       link: 'chernous-valerii',
-    }
-  ];
+    },
+    {
+      id: 7,
+      title: 'Classic Minesweeper',
+      description: 'Classic 10x10 Minesweeper with 15 mines, safe first move, flags and timer.',
+      author: 'Surmach Volodymyr',
+      link: 'surmach-volodymyr',
+      difficulty: 'Beginner',
+      status: 'Complete',
+    },
+];
 
   return (
     <div className={styles.gameContainer}>

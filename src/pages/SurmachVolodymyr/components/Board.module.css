@@ -1,0 +1,10 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(var(--board-size), minmax(0, 1fr));
+  aspect-ratio: 1;
+  width: 100%;
+  background: #7b7b7b;
+  border: 3px solid;
+  border-color: #7b7b7b #fff #fff #7b7b7b;
+  box-sizing: border-box;
+}
