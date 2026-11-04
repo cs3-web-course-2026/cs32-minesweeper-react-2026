@@ -1,0 +1,27 @@
+.gameContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background-color: #0f111a;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #abb2bf;
+}
+
+.card {
+    background-color: #1e1e2f;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    color: #fff;
+    margin-bottom: 16px;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
