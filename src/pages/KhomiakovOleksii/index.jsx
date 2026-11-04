@@ -2,13 +2,26 @@ import { useEffect, useState } from 'react';
 import Board from './components/Board';
 import GameHeader from './components/GameHeader';
 import GameStatus from './components/GameStatus';
-import { BOARD_CONFIG, CELL_STATE, GAME_STATUS, TIMER_INTERVAL_MS } from './constants/gameConstants';
-import { cloneBoard, createInitialBoard, processCellOpen } from './utils/gameHelpers';
+import {
+  BOARD_CONFIG,
+  CELL_STATE,
+  GAME_STATUS,
+  TIMER_INTERVAL_MS,
+} from './constants/gameConstants';
+import {
+  cloneBoard,
+  createInitialBoard,
+  processCellOpen,
+} from './utils/gameHelpers';
 import styles from './KhomiakovOleksii.module.css';
 
 export default function KhomiakovOleksii() {
   const [board, setBoard] = useState(() =>
-    createInitialBoard(BOARD_CONFIG.ROWS, BOARD_CONFIG.COLS, BOARD_CONFIG.MINES)
+    createInitialBoard(
+      BOARD_CONFIG.ROWS,
+      BOARD_CONFIG.COLS,
+      BOARD_CONFIG.MINES
+    )
   );
   const [status, setStatus] = useState(GAME_STATUS.PROCESS);
   const [flagsCount, setFlagsCount] = useState(0);
@@ -16,29 +29,46 @@ export default function KhomiakovOleksii() {
   const [startTime, setStartTime] = useState(null);
 
   useEffect(() => {
-    if (!startTime || status !== GAME_STATUS.PROCESS) return undefined;
+    if (!startTime || status !== GAME_STATUS.PROCESS) {
+      return undefined;
+    }
 
     const timerId = setInterval(() => {
       setGameTime(Math.floor((Date.now() - startTime) / 1000));
     }, TIMER_INTERVAL_MS);
 
-    return () => clearInterval(timerId);
+    return () => {
+      clearInterval(timerId);
+    };
   }, [startTime, status]);
 
   const handleOpenCell = (rowIndex, colIndex) => {
     if (status !== GAME_STATUS.PROCESS) return;
 
     const currentCell = board[rowIndex][colIndex];
-    if (currentCell.state === CELL_STATE.OPENED || currentCell.state === CELL_STATE.FLAGGED) return;
+    if (
+      currentCell.state === CELL_STATE.OPENED ||
+      currentCell.state === CELL_STATE.FLAGGED
+    ) {
+      return;
+    }
 
-    if (!startTime) setStartTime(Date.now());
+    const currentTime = Date.now();
+    if (!startTime) setStartTime(currentTime);
+    const actualStartTime = startTime || currentTime;
 
-    const { nextBoard, isLose, isWin } = processCellOpen(board, rowIndex, colIndex);
+    const { nextBoard, isLose, isWin } = processCellOpen(
+      board,
+      rowIndex,
+      colIndex
+    );
     setBoard(nextBoard);
 
     if (isLose) {
+      setGameTime(Math.floor((Date.now() - actualStartTime) / 1000));
       setStatus(GAME_STATUS.LOSE);
     } else if (isWin) {
+      setGameTime(Math.floor((Date.now() - actualStartTime) / 1000));
       setStatus(GAME_STATUS.WIN);
     }
   };
@@ -49,7 +79,9 @@ export default function KhomiakovOleksii() {
     const currentCell = board[rowIndex][colIndex];
     if (currentCell.state === CELL_STATE.OPENED) return;
 
-    if (!startTime) setStartTime(Date.now());
+    if (!startTime) {
+      setStartTime(Date.now());
+    }
 
     const nextBoard = cloneBoard(board);
     const targetCell = nextBoard[rowIndex][colIndex];
@@ -71,7 +103,13 @@ export default function KhomiakovOleksii() {
     setStatus(GAME_STATUS.PROCESS);
     setFlagsCount(0);
     setGameTime(0);
-    setBoard(createInitialBoard(BOARD_CONFIG.ROWS, BOARD_CONFIG.COLS, BOARD_CONFIG.MINES));
+    setBoard(
+      createInitialBoard(
+        BOARD_CONFIG.ROWS,
+        BOARD_CONFIG.COLS,
+        BOARD_CONFIG.MINES
+      )
+    );
   };
 
   const minesLeft = BOARD_CONFIG.MINES - flagsCount;
