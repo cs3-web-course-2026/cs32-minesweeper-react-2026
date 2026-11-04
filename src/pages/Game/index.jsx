@@ -105,7 +105,18 @@ function Game() {
         'React-версія Сапера з звичайним flood-fill відкриттям, таймером, лічильником прапорців та повною підтримкою доступності й клавіатури.',
       author: 'Chernous Valerii',
       link: 'chernous-valerii',
-    }
+    },
+    {
+      id: 7,
+      title: 'Класичний Сапер (Minesweeper)',
+      description:
+        'React-версія гри Сапер з полем 9×9, 10 мінами, таймером, прапорцями, автоматичним відкриттям порожніх клітинок та перевіркою перемоги й поразки.',
+      author: 'Nikolchenko Maria',
+      link: 'nikolchenko-maria',
+      difficulty: 'Intermediate',
+      status: 'In Progress',
+    },
+
   ];
 
   return (

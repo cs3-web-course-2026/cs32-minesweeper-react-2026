@@ -1,0 +1,298 @@
+
+/* Основний контейнер */
+
+.game {
+  box-sizing: border-box;
+  width: min(92vw, 520px);
+  max-width: 100%;
+  margin: 32px auto;
+  padding: 28px;
+  background: #181b21;
+  border: 1px solid #2a2f38;
+  border-radius: 18px;
+  box-shadow: 0 14px 40px rgb(0 0 0 / 45%);
+  color: #e8eaed;
+  font-family: Arial, sans-serif;
+}
+
+.game *,
+.game *::before,
+.game *::after {
+  box-sizing: border-box;
+}
+
+.game h1 {
+  margin: 0 0 22px;
+  text-align: center;
+  font-size: 30px;
+  color: #f1f3f5;
+}
+
+/* Верхня панель */
+
+.gameHeader {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding: 14px 18px;
+  background: #22262e;
+  border: 1px solid #303641;
+  border-radius: 12px;
+  color: #fff;
+}
+
+.gameInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+
+.gameInfo:last-child {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.label {
+  font-size: 12px;
+  color: #858d9a;
+  text-transform: uppercase;
+}
+
+.value {
+  font-size: 20px;
+  font-weight: bold;
+  color: #f1f3f5;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Кнопка нової гри */
+
+.restartButton {
+  width: 48px;
+  height: 48px;
+  border: 1px solid #444b57;
+  border-radius: 10px;
+  background: #303640;
+  font-size: 25px;
+  cursor: pointer;
+  transition: 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.restartButton:hover {
+  background: #3b424e;
+  transform: scale(1.06);
+}
+
+.restartButton:active {
+  transform: scale(0.95);
+}
+
+.restartButton:focus-visible {
+  outline: 2px solid #f5c147;
+  outline-offset: 2px;
+}
+
+/* Ігрове поле */
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  width: 100%;
+  border: 3px solid #343a44;
+  background: #292e36;
+  gap: 0;
+}
+
+/* Загальна клітинка */
+
+.cell {
+  appearance: none;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  border: 1px solid #343a44;
+  border-radius: 0;
+  background: #343a44;
+  color: #e8eaed;
+  font-family: inherit;
+  font-size: clamp(14px, 4vw, 22px);
+  font-weight: bold;
+  user-select: none;
+  cursor: pointer;
+}
+
+/* Закрита клітинка */
+
+.cellClosed {
+  background: #343a44;
+  border-top: 3px solid #505864;
+  border-left: 3px solid #505864;
+  border-right: 3px solid #20242b;
+  border-bottom: 3px solid #20242b;
+}
+
+.cellClosed:hover:not(:disabled) {
+  background: #414854;
+}
+
+/* Відкрита клітинка */
+
+.cellOpened {
+  background: #20242b;
+  border: 1px solid #303640;
+}
+
+/* Прапорці */
+
+.cellFlagged {
+  background: #343a44;
+  border-top: 3px solid #505864;
+  border-left: 3px solid #505864;
+  border-right: 3px solid #20242b;
+  border-bottom: 3px solid #20242b;
+}
+
+.cellWrongFlag {
+  background: #3d3437;
+}
+
+/* Міни */
+
+.cellMine {
+  background: #272c34;
+  border: 1px solid #3c424c;
+}
+
+.cellExploded {
+  background: #a9323a;
+  border: 1px solid #e0525c;
+  animation: mine-click 0.3s ease;
+}
+
+@keyframes mine-click {
+  0% {
+    transform: scale(0.8);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Кольори цифр */
+
+.cell1 {
+  color: #74a7ff;
+}
+
+.cell2 {
+  color: #69db7c;
+}
+
+.cell3 {
+  color: #ff6b6b;
+}
+
+.cell4 {
+  color: #b197fc;
+}
+
+.cell5 {
+  color: #ff8787;
+}
+
+.cell6 {
+  color: #66d9e8;
+}
+
+.cell7 {
+  color: #e9ecef;
+}
+
+.cell8 {
+  color: #868e96;
+}
+
+/* Керування клавіатурою */
+
+.board .cell:focus-visible {
+  outline: 2px solid #f5c147;
+  outline-offset: -2px;
+  z-index: 1;
+}
+
+.board .cell:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+/* Повідомлення про стан гри */
+
+.gameStatus {
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: 14px;
+  color: #adb5bd;
+}
+
+.gameStatusWin {
+  color: #69db7c;
+}
+
+.gameStatusLose {
+  color: #ff6b6b;
+}
+
+/* Підказка для керування */
+
+.gameHelp {
+  margin: 12px 0 0;
+  text-align: center;
+  color: #858d9a;
+  font-size: 12px;
+}
+
+/* Адаптивність */
+
+@media (max-width: 520px) {
+  .game {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 12px;
+    border: none;
+    border-radius: 0;
+  }
+
+  .game h1 {
+    font-size: 25px;
+  }
+
+  .gameHeader {
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .value {
+    font-size: 17px;
+  }
+
+  .restartButton {
+    width: 42px;
+    height: 42px;
+    font-size: 22px;
+  }
+}
