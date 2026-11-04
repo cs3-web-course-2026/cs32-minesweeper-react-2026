@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-style="aurora">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minesweeper · CS-32</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;700;800&family=Instrument+Serif:ital@0;1&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      // Apply the saved appearance before first paint (no flash).
+      // Defaults: Aurora Glass style, dark mode.
+      (function () {
+        var root = document.documentElement;
+        var mode, style;
+        try {
+          mode = localStorage.getItem('theme');
+          style = localStorage.getItem('theme-style');
+        } catch (e) {
+          /* storage blocked */
+        }
+        var styles = ['aurora', 'bento', 'heritage', 'midnight'];
+        root.dataset.theme = mode === 'light' ? 'light' : 'dark';
+        root.dataset.style = styles.indexOf(style) !== -1 ? style : 'aurora';
+      })();
+    </script>
+    <script>
+      // GitHub Pages SPA redirect — restore the path encoded by 404.html
+      (function () {
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+          return;
+        }
+        var search = location.search;
+        if (search.length > 1) {
+          var params = search.slice(1).split('&');
+          var pParam = params.find(function (p) {
+            return p.startsWith('p=/');
+          });
+          if (pParam) {
+            var path = pParam.slice(2).replace(/~and~/g, '&');
+            var qParam = params.find(function (p) {
+              return p.startsWith('q=');
+            });
+            var query = qParam
+              ? '?' + qParam.slice(2).replace(/~and~/g, '&')
+              : '';
+            history.replaceState(
+              null,
+              null,
+              location.pathname.replace(/\/$/, '') +
+                path +
+                query +
+                location.hash,
+            );
+          }
+        }
+      })();
+    </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

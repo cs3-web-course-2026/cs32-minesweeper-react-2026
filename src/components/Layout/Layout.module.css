@@ -1,0 +1,199 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ───────────────────────────────────────────── */
+
+/* Header + nav shape comes from tokens: full-width bar (Bento, Heritage),
+   floating pill (Aurora) or floating island (Midnight). */
+
+.layoutHeader {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: var(--header-pad);
+  background: var(--header-bg);
+  border-bottom: var(--header-border);
+  backdrop-filter: var(--header-filter);
+}
+
+.layoutNav {
+  box-sizing: border-box;
+  width: var(--nav-width);
+  max-width: 1200px;
+  margin: var(--nav-margin);
+  padding: var(--nav-pad);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.25rem;
+  background: var(--nav-bg);
+  border: var(--nav-border);
+  border-radius: var(--nav-radius);
+  backdrop-filter: var(--nav-filter);
+}
+
+.navBrand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.navBrand:hover {
+  text-decoration: none;
+}
+
+/* Seal-style emblem */
+.navBrandIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  font-size: 1.15rem;
+  line-height: 1;
+  border-radius: var(--radius-seal);
+  border: 1px solid var(--color-accent-border);
+  background: var(--color-accent-dim);
+}
+
+.navBrandText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.navBrand h2 {
+  margin: 0;
+  font-size: var(--brand-size);
+  font-weight: var(--brand-weight);
+  letter-spacing: var(--brand-tracking);
+  color: var(--color-text);
+}
+
+.navBrandSub {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.navLinks {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 0.15rem;
+}
+
+.navLink {
+  position: relative;
+  display: inline-block;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-btn);
+  font-size: var(--link-size);
+  font-weight: 500;
+  text-transform: var(--link-transform);
+  letter-spacing: var(--link-tracking);
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  right: 0.85rem;
+  bottom: 0.2rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--gradient-gold);
+  transform: scaleX(0);
+  transition: transform 0.25s ease;
+}
+
+.navLink:hover {
+  color: var(--color-text);
+  background-color: var(--color-accent-dim);
+  text-decoration: none;
+}
+
+.navLink.active {
+  color: var(--color-accent);
+}
+
+.navLink.active::after,
+.navLink:hover::after {
+  transform: scaleX(1);
+}
+
+.navLink.active:hover {
+  text-decoration: none;
+}
+
+/* ── Main / footer ────────────────────────────────────── */
+
+.layoutMain {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+  box-sizing: border-box;
+}
+
+.layoutFooter {
+  padding: 1.5rem 2rem 1.75rem;
+  text-align: center;
+  background: linear-gradient(180deg, transparent, var(--color-accent-dim));
+  border-top: 1px solid var(--color-border);
+}
+
+.footerOrnament {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  letter-spacing: 0.6em;
+}
+
+.layoutFooter p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+@media (width <= 768px) {
+  .layoutHeader {
+    padding-inline: 0.5rem;
+  }
+
+  .layoutNav {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0.75rem 1rem;
+    border-radius: min(var(--nav-radius), 24px);
+  }
+
+  .navRight {
+    gap: 0.5rem;
+  }
+
+  .layoutMain {
+    padding: 1.5rem 1rem;
+  }
+}

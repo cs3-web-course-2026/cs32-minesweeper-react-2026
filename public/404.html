@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>cs-32-minesweeper-game-react</title>
+  <script>
+    // GitHub Pages SPA redirect
+    // Encodes the current path into a query string and redirects to the root,
+    // where index.html will decode it and restore the original URL.
+    var pathSegmentsToKeep = 1; // number of segments in the repo sub-path (/cs32-minesweeper-react-2026)
+    var location = window.location;
+    var redirectUrl =
+      location.protocol +
+      '//' +
+      location.hostname +
+      (location.port ? ':' + location.port : '') +
+      location.pathname
+        .split('/')
+        .slice(0, 1 + pathSegmentsToKeep)
+        .join('/') +
+      '/?p=/' +
+      location.pathname
+        .split('/')
+        .slice(1 + pathSegmentsToKeep)
+        .join('/')
+        .replace(/&/g, '~and~') +
+      (location.search ? '&q=' + location.search.slice(1).replace(/&/g, '~and~') : '') +
+      location.hash;
+    location.replace(redirectUrl);
+  </script>
+</head>
+
+<body></body>
+
+</html>

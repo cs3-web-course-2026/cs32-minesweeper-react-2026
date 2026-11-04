@@ -1,0 +1,101 @@
+.cell {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: inherit;
+  font-size: 1.25rem;
+  font-weight: 800;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  transition: background-color 0.2s ease;
+  user-select: none;
+}
+
+.cell:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
+}
+
+.closed {
+  background-color: #3b4252;
+  border-top: 2px solid #5e6982;
+  border-left: 2px solid #5e6982;
+  border-bottom: 2px solid #242933;
+  border-right: 2px solid #242933;
+}
+
+.closed:hover {
+  background-color: #434c5e;
+}
+
+.closed:active {
+  border-top: 2px solid #242933;
+  border-left: 2px solid #242933;
+  border-bottom: 2px solid #5e6982;
+  border-right: 2px solid #5e6982;
+}
+
+.open {
+  background-color: #242933;
+  border: 1px solid #1e222d;
+  cursor: default;
+}
+
+.num1 { color: #38bdf8; }
+.num2 { color: #4ade80; }
+.num3 { color: #f87171; }
+.num4 { color: #818cf8; }
+.num5 { color: #f43f5e; }
+.num6 { color: #2dd4bf; }
+.num7 { color: #e2e8f0; }
+.num8 { color: #94a3b8; }
+
+.flagged {
+  background-color: #3b4252;
+  border-top: 2px solid #5e6982;
+  border-left: 2px solid #5e6982;
+  border-bottom: 2px solid #242933;
+  border-right: 2px solid #242933;
+}
+
+.flaggedWrong {
+  background-color: #451a1a;
+  border: 1px solid #7f1d1d;
+}
+
+.mine {
+  background-color: #242933;
+  border: 1px solid #1e222d;
+}
+
+.mineExploded {
+  background-color: #dc2626;
+  border: 1px solid #991b1b;
+  box-shadow: inset 0 0 10px rgb(0 0 0 / 50%);
+  animation: explode-pulse 1s infinite alternate;
+}
+
+@keyframes explode-pulse {
+  from { background-color: #dc2626; }
+  to { background-color: #991b1b; }
+}
+
+@media (width <= 600px) {
+  .cell {
+    width: 32px;
+    height: 32px;
+    font-size: 1.05rem;
+  }
+}
+
+@media (width <= 360px) {
+  .cell {
+    width: 28px;
+    height: 28px;
+    font-size: 0.95rem;
+  }
+}
