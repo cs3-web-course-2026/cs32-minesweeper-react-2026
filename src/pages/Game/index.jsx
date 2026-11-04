@@ -114,7 +114,7 @@ function Game() {
       author: 'Nikolchenko Maria',
       link: 'nikolchenko-maria',
       difficulty: 'Intermediate',
-      status: 'In Progress',
+      status: 'Complete',
     },
 
   ];
