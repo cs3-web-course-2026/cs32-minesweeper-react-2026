@@ -105,7 +105,16 @@ function Game() {
         'React-версія Сапера з звичайним flood-fill відкриттям, таймером, лічильником прапорців та повною підтримкою доступності й клавіатури.',
       author: 'Chernous Valerii',
       link: 'chernous-valerii',
-    }
+    },
+    {
+      id: 7,
+      title: 'Minesweeper by Oleksii Khomiakov',
+      description: 'A React implementation with component architecture, modular CSS, and state management.',
+      author: 'Oleksii Khomiakov',
+      link: 'khomiakov-oleksii',
+      difficulty: 'Intermediate',
+      status: 'Complete',
+    },
   ];
 
   return (
