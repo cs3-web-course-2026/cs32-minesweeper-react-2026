@@ -1,0 +1,130 @@
+.about {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+  color: var(--color-text);
+}
+
+.about h1 {
+  text-align: center;
+  color: var(--color-text);
+  margin-bottom: 2.25rem;
+  font-size: clamp(2rem, 5vw, 2.75rem);
+}
+
+/* Small gold ornament under the page title */
+.about h1::after {
+  content: '';
+  display: block;
+  width: 72px;
+  height: 3px;
+  margin: 0.75rem auto 0;
+  border-radius: 3px;
+  background: var(--gradient-gold);
+}
+
+.aboutContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.aboutSection {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--card-border);
+  outline: var(--card-outline);
+  outline-offset: -7px;
+  backdrop-filter: blur(var(--card-blur));
+  transition: border-color 0.2s ease;
+}
+
+.aboutSection:hover {
+  border-color: var(--color-accent-border);
+}
+
+.aboutSection h2 {
+  color: var(--color-accent);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  border-bottom: 1px solid var(--color-accent-border);
+  padding-bottom: 0.5rem;
+}
+
+.aboutSection p {
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin-bottom: 1rem;
+}
+
+.aboutSection ol,
+.aboutSection ul {
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  padding-left: 1.5rem;
+}
+
+.aboutSection li {
+  margin-bottom: 0.5rem;
+}
+
+.aboutSection li::marker {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.aboutSection strong {
+  color: var(--color-accent);
+}
+
+.difficultyLevels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.difficultyCard {
+  background-color: var(--color-surface-2);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  text-align: center;
+  border: 1px solid var(--color-border);
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.difficultyCard:hover {
+  border-color: var(--color-accent-border);
+  transform: translateY(-2px);
+}
+
+.difficultyCard h3 {
+  margin-top: 0;
+  color: var(--color-accent);
+  font-size: 1.1em;
+}
+
+.difficultyCard p {
+  margin-bottom: 0;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+@media (width <= 768px) {
+  .about {
+    padding: 0 1rem;
+  }
+
+  .aboutSection {
+    padding: 1.5rem;
+  }
+
+  .difficultyLevels {
+    grid-template-columns: 1fr;
+  }
+}

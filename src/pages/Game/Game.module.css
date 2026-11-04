@@ -1,0 +1,258 @@
+.gameContainer {
+  max-width: 1000px;
+  margin: 0 auto;
+  color: var(--color-text);
+}
+
+.gameHeader {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 2.25rem 2rem;
+  background:
+    radial-gradient(
+      500px 200px at 50% -20%,
+      var(--color-accent-dim),
+      transparent 70%
+    ),
+    var(--card-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--card-border);
+  outline: var(--card-outline);
+  outline-offset: -7px;
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(var(--card-blur));
+}
+
+.gameHeader h1 {
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+  font-size: clamp(2rem, 5vw, 2.75rem);
+}
+
+.gameHeader p {
+  color: var(--color-text-secondary);
+  font-size: 1.1em;
+  margin-bottom: 1rem;
+}
+
+.instructions {
+  background-color: var(--color-accent-dim);
+  border: 1px solid var(--color-accent-border);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.instructions p {
+  color: var(--color-accent);
+  margin: 0;
+  font-size: 0.9em;
+}
+
+.implementationsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.implementationCard {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--card-border);
+  border-left: 3px solid var(--card-border);
+  outline: var(--card-outline);
+  outline-offset: -7px;
+  backdrop-filter: blur(var(--card-blur));
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.implementationCard:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-accent-border);
+}
+
+/* Card left-border accent per status */
+.cardStatusComplete {
+  border-left-color: var(--color-success);
+}
+
+.cardStatusInProgress {
+  border-left-color: var(--color-warning);
+}
+
+.cardStatusPlanning {
+  border-left-color: var(--color-purple);
+}
+
+.implementationCard.cardStatusComplete:hover {
+  border-left-color: var(--color-success);
+}
+
+.implementationCard.cardStatusInProgress:hover {
+  border-left-color: var(--color-warning);
+}
+
+.implementationCard.cardStatusPlanning:hover {
+  border-left-color: var(--color-purple);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.cardHeader h3 {
+  color: var(--color-text);
+  margin: 0;
+  font-size: 1.3em;
+  flex: 1;
+  margin-right: 1rem;
+}
+
+.badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.badge {
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.72em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border: 1px solid transparent;
+}
+
+/* Status badge variants */
+.statusComplete {
+  background-color: var(--color-success-dim);
+  color: var(--color-success);
+  border-color: var(--color-success-border);
+}
+
+.statusInProgress {
+  background-color: var(--color-warning-dim);
+  color: var(--color-warning);
+  border-color: var(--color-warning-border);
+}
+
+.statusPlanning {
+  background-color: var(--color-purple-dim);
+  color: var(--color-purple);
+  border-color: var(--color-purple-border);
+}
+
+/* Difficulty badge variants */
+.difficultyBeginner {
+  background-color: var(--color-info-dim);
+  color: var(--color-info);
+  border-color: var(--color-info-border);
+}
+
+.difficultyIntermediate {
+  background-color: var(--color-orange-dim);
+  color: var(--color-orange);
+  border-color: var(--color-orange-border);
+}
+
+.difficultyAdvanced {
+  background-color: var(--color-danger-dim);
+  color: var(--color-danger);
+  border-color: var(--color-danger-border);
+}
+
+.author {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  font-size: 0.875em;
+}
+
+.description {
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.cardActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.linkBtn {
+  background: var(--gradient-gold);
+  color: var(--color-on-accent);
+  text-decoration: none;
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--radius-btn);
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: transform 0.15s ease;
+  display: inline-block;
+}
+
+.linkBtn:hover {
+  background: var(--gradient-gold-hover);
+  color: var(--color-on-accent);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.emptyState {
+  text-align: center;
+  padding: 3rem;
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--color-border);
+}
+
+.emptyState h2 {
+  color: var(--color-text);
+  margin-bottom: 1rem;
+}
+
+.emptyState p {
+  color: var(--color-text-secondary);
+  margin-bottom: 2rem;
+  font-size: 1.1em;
+}
+
+@media (width <= 768px) {
+  .implementationsList {
+    grid-template-columns: 1fr;
+  }
+
+  .cardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cardHeader h3 {
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .badges {
+    align-self: flex-start;
+  }
+}
+
+.linkBtn[aria-disabled='true'] {
+  background: var(--color-surface-3);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+  transform: none;
+}
