@@ -1,7 +1,13 @@
 import styles from "./RestartButton.module.css";
 
 export default function RestartButton({ onRestart, status }) {
-  const face = status === "win" ? "😎" : status === "lose" ? "😵" : "🤓";
+  let face = "🤓";
+
+  if (status === "win") {
+    face = "😎";
+  } else if (status === "lose") {
+    face = "😵";
+  }
 
   return (
     <button
