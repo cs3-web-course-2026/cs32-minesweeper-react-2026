@@ -13,27 +13,33 @@ function Board({
   explodedCell,
 }) {
   const boardRef = useRef(null);
-  const pendingFocusRef = useRef(false);
+  const pendingFocusRef = useRef(null);
 
   function handleOpen(row, col) {
-    pendingFocusRef.current = true;
+    pendingFocusRef.current = row * board[0].length + col;
     onOpen(row, col);
   }
 
   useLayoutEffect(() => {
-    if (!pendingFocusRef.current) {
+    const openedIndex = pendingFocusRef.current;
+
+    if (openedIndex === null) {
       return;
     }
 
-    pendingFocusRef.current = false;
+    pendingFocusRef.current = null;
 
     if (disabled) {
       return;
     }
 
-    const nextCell = boardRef.current?.querySelector(
-      'button:not(:disabled)',
+    const cells = Array.from(
+      boardRef.current?.querySelectorAll('button') ?? [],
     );
+
+    const nextCell =
+      cells.slice(openedIndex + 1).find((cell) => !cell.disabled) ??
+      cells.find((cell) => !cell.disabled);
 
     nextCell?.focus();
   }, [board, disabled]);
@@ -42,6 +48,7 @@ function Board({
     <div
       ref={boardRef}
       className={styles.board}
+      style={{ '--board-columns': board[0]?.length ?? 9 }}
       role="group"
       aria-label="Ігрове поле Сапера"
     >

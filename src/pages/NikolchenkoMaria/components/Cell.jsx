@@ -1,5 +1,5 @@
-
 import styles from '../Game.module.css';
+import { GAME_STATUS } from '../utils/constants';
 
 function Cell({
   cell,
@@ -14,7 +14,7 @@ function Cell({
   const isOpened = cell.state === 'opened';
   const isFlagged = cell.state === 'flagged';
   const isMine = cell.type === 'mine';
-  const isLost = status === 'lose';
+  const isLost = status === GAME_STATUS.LOSE;
 
   const isWrongFlag = isLost && isFlagged && !isMine;
   const showMine = isMine && (isOpened || (isLost && !isFlagged));
@@ -31,7 +31,8 @@ function Cell({
     content = cell.neighborMines;
   }
 
-  let cellDescription = '';
+
+  let cellDescription = ', закрита';
 
   if (isWrongFlag) {
     cellDescription = ', неправильний прапорець';
@@ -39,7 +40,12 @@ function Cell({
     cellDescription = ', прапорець';
   } else if (showMine) {
     cellDescription = ', міна';
+  } else if (isOpened && cell.neighborMines > 0) {
+    cellDescription = `, відкрита, мін поруч: ${cell.neighborMines}`;
+  } else if (isOpened) {
+    cellDescription = ', відкрита, мін поруч немає';
   }
+
 
   function handleContextMenu(event) {
     event.preventDefault();

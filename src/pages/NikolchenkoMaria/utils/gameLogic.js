@@ -1,4 +1,6 @@
 
+const NEIGHBOR_OFFSETS = [-1, 0, 1];
+
 // Створення порожнього ігрового поля
 export function createEmptyField(rows, cols) {
   return Array.from({ length: rows }, () =>
@@ -28,38 +30,35 @@ export function generateField(rows, cols, minesCount, safeCell = null) {
     const row = Math.floor(Math.random() * rows);
     const col = Math.floor(Math.random() * cols);
 
-    // Перша відкрита клітинка не повинна містити міну
+    // Забезпечення безпечного першого ходу
     if (safeCell && safeCell.row === row && safeCell.col === col) {
       continue;
     }
 
     if (field[row][col].type === 'empty') {
       field[row][col].type = 'mine';
-      placedMines++;
+      placedMines += 1;
     }
   }
 
-  countNeighbourMines(field);
-  return field;
+  return countNeighbourMines(field);
 }
 
-// Підрахунок мін навколо кожної клітинки
+// Підрахунок мін без зміни вхідного поля
 export function countNeighbourMines(field) {
   const rows = field.length;
-  const cols = field[0].length;
+  const cols = field[0]?.length ?? 0;
 
-  for (let row = 0; row < rows; row++) {
-    for (let col = 0; col < cols; col++) {
-      const cell = field[row][col];
-
+  return field.map((cells, row) =>
+    cells.map((cell, col) => {
       if (cell.type === 'mine') {
-        continue;
+        return { ...cell };
       }
 
       let count = 0;
 
-      for (let rowOffset = -1; rowOffset <= 1; rowOffset++) {
-        for (let colOffset = -1; colOffset <= 1; colOffset++) {
+      for (const rowOffset of NEIGHBOR_OFFSETS) {
+        for (const colOffset of NEIGHBOR_OFFSETS) {
           if (rowOffset === 0 && colOffset === 0) {
             continue;
           }
@@ -74,68 +73,130 @@ export function countNeighbourMines(field) {
             neighborCol < cols &&
             field[neighborRow][neighborCol].type === 'mine'
           ) {
-            count++;
+            count += 1;
           }
         }
       }
 
-      cell.neighborMines = count;
-    }
-  }
+      return { ...cell, neighborMines: count };
+    }),
+  );
 }
 
-// Відкриття клітинки та порожніх сусідніх клітинок
+// Відкриття клітинок без зміни вхідного поля
 export function revealCell(field, row, col) {
-  const rows = field.length;
-  const cols = field[0].length;
+  const nextField = field.map((cells) =>
+    cells.map((cell) => ({ ...cell })),
+  );
+
+  const rows = nextField.length;
+  const cols = nextField[0]?.length ?? 0;
 
   if (
     row < 0 ||
     row >= rows ||
     col < 0 ||
-    col >= cols
+    col >= cols ||
+    nextField[row][col].state !== 'closed'
   ) {
-    return false;
+    return { field: nextField, hitMine: false };
   }
 
-  const cell = field[row][col];
+  const hitMine = nextField[row][col].type === 'mine';
+  const cellsToOpen = [[row, col]];
 
-  if (cell.state !== 'closed') {
-    return false;
-  }
+  while (cellsToOpen.length > 0) {
+    const [currentRow, currentCol] = cellsToOpen.pop();
+    const cell = nextField[currentRow][currentCol];
 
-  cell.state = 'opened';
+    if (cell.state !== 'closed') {
+      continue;
+    }
 
-  if (cell.type === 'mine') {
-    return true;
-  }
+    // Не відкриваємо сусідні міни автоматично
+    if (cell.type === 'mine' && !hitMine) {
+      continue;
+    }
 
-  if (cell.neighborMines === 0) {
-    for (let rowOffset = -1; rowOffset <= 1; rowOffset++) {
-      for (let colOffset = -1; colOffset <= 1; colOffset++) {
+    cell.state = 'opened';
+
+    if (cell.type === 'mine' || cell.neighborMines !== 0) {
+      continue;
+    }
+
+    for (const rowOffset of NEIGHBOR_OFFSETS) {
+      for (const colOffset of NEIGHBOR_OFFSETS) {
         if (rowOffset === 0 && colOffset === 0) {
           continue;
         }
 
-        revealCell(
-          field,
-          row + rowOffset,
-          col + colOffset,
-        );
+        const neighborRow = currentRow + rowOffset;
+        const neighborCol = currentCol + colOffset;
+
+        if (
+          neighborRow >= 0 &&
+          neighborRow < rows &&
+          neighborCol >= 0 &&
+          neighborCol < cols
+        ) {
+          cellsToOpen.push([neighborRow, neighborCol]);
+        }
       }
     }
   }
 
-  return false;
+  return { field: nextField, hitMine };
 }
 
 // Перевірка перемоги
 export function checkWin(field) {
-  return field.every((row) =>
-    row.every(
+  return field.every((cells) =>
+    cells.every(
       (cell) =>
         cell.type === 'mine' ||
         cell.state === 'opened',
     ),
+  );
+}
+ 
+// Перемикання прапорця без зміни початкового поля
+export function toggleFlag(field, row, col, minesCount) {
+  const cell = field[row]?.[col];
+
+  if (!cell || cell.state === 'opened') {
+    return field;
+  }
+
+  const flagsCount = field.flat().filter(
+    (currentCell) => currentCell.state === 'flagged',
+  ).length;
+
+  if (cell.state === 'closed' && flagsCount >= minesCount) {
+    return field;
+  }
+
+  return field.map((cells, currentRow) =>
+    cells.map((currentCell, currentCol) => {
+      if (currentRow !== row || currentCol !== col) {
+        return { ...currentCell };
+      }
+
+      return {
+        ...currentCell,
+        state: currentCell.state === 'flagged'
+          ? 'closed'
+          : 'flagged',
+      };
+    }),
+  );
+}
+
+// Позначення всіх мін прапорцями після перемоги
+export function flagAllMines(field) {
+  return field.map((cells) =>
+    cells.map((cell) => ({
+      ...cell,
+      state: cell.type === 'mine' ? 'flagged' : cell.state,
+    })),
   );
 }

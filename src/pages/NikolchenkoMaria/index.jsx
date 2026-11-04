@@ -1,16 +1,22 @@
-import { useEffect, useState } from 'react';
 
-import styles from './Game.module.css';
+import { useEffect, useRef, useState } from 'react';
+
 import Board from './components/Board';
 import Timer from './components/Timer';
 import GameStatus from './components/GameStatus';
 import RestartButton from './components/RestartButton';
 
+
 import {
   generateField,
   revealCell,
   checkWin,
+  toggleFlag,
+  flagAllMines,
 } from './utils/gameLogic';
+
+import { GAME_STATUS } from './utils/constants';
+import styles from './Game.module.css';
 
 const ROWS = 9;
 const COLS = 9;
@@ -22,41 +28,49 @@ function createInitialBoard() {
 
 function NikolchenkoMaria() {
   const [board, setBoard] = useState(createInitialBoard);
-  const [status, setStatus] = useState('ready');
+  const [status, setStatus] = useState(GAME_STATUS.READY);
   const [seconds, setSeconds] = useState(0);
   const [explodedCell, setExplodedCell] = useState(null);
 
-  const flagsCount = board.flat().filter(
-    (cell) => cell.state === 'flagged',
-  ).length;
+  const startTimeRef = useRef(null);
 
-  // Запускаємо таймер після першого відкриття клітинки
+  const flagsCount = board
+    .flat()
+    .filter((cell) => cell.state === 'flagged').length;
+
+  // Оновлення таймера за фактично минулим часом
   useEffect(() => {
-    if (status !== 'playing') {
+    if (status !== GAME_STATUS.PLAYING) {
       return undefined;
     }
 
     const timerId = setInterval(() => {
-      setSeconds((previousSeconds) => previousSeconds + 1);
+      if (startTimeRef.current !== null) {
+        const elapsedSeconds = Math.floor(
+          (Date.now() - startTimeRef.current) / 1000,
+        );
+
+        setSeconds(elapsedSeconds);
+      }
     }, 1000);
 
     return () => clearInterval(timerId);
   }, [status]);
 
-  // Відкриття клітинки
   function handleOpen(row, col) {
-    if (status === 'win' || status === 'lose') {
-      return;
-    }
-
-    if (board[row][col].state !== 'closed') {
+    if (
+      status === GAME_STATUS.WIN ||
+      status === GAME_STATUS.LOSE ||
+      board[row][col].state !== 'closed'
+    ) {
       return;
     }
 
     let nextBoard;
 
-    if (status === 'ready') {
-      // Зберігаємо прапорці, встановлені до першого ходу
+    if (status === GAME_STATUS.READY) {
+      startTimeRef.current = Date.now();
+
       const flaggedPositions = [];
 
       board.forEach((cells, flaggedRow) => {
@@ -67,7 +81,7 @@ function NikolchenkoMaria() {
         });
       });
 
-      // Перша відкрита клітинка гарантовано безпечна
+      // Перший хід завжди безпечний
       nextBoard = generateField(
         ROWS,
         COLS,
@@ -79,109 +93,98 @@ function NikolchenkoMaria() {
         nextBoard[flaggedRow][flaggedCol].state = 'flagged';
       });
 
-      setStatus('playing');
+      setStatus(GAME_STATUS.PLAYING);
     } else {
-      // Створюємо копію поля перед зміною стану
+      // Створюємо копію поля перед оновленням стану
       nextBoard = board.map((cells) =>
         cells.map((cell) => ({ ...cell })),
       );
     }
 
-    const hitMine = revealCell(nextBoard, row, col);
+    const revealResult = revealCell(nextBoard, row, col);
+    nextBoard = revealResult.field;
+    const hitMine = revealResult.hitMine;
 
     if (hitMine) {
       setExplodedCell({ row, col });
-      setStatus('lose');
+      setStatus(GAME_STATUS.LOSE);
     } else if (checkWin(nextBoard)) {
-      // Після перемоги автоматично позначаємо всі міни
-      nextBoard.forEach((cells) => {
-        cells.forEach((cell) => {
-          if (cell.type === 'mine') {
-            cell.state = 'flagged';
-          }
-        });
-      });
-
-      setStatus('win');
+    nextBoard = flagAllMines(nextBoard);
+    setStatus(GAME_STATUS.WIN);
     }
 
     setBoard(nextBoard);
   }
 
-  // Встановлення та зняття прапорця
+
   function handleFlag(row, col) {
-    if (status === 'win' || status === 'lose') {
+  if (
+      status === GAME_STATUS.WIN ||
+      status === GAME_STATUS.LOSE
+  ) {
       return;
-    }
-
-    const cell = board[row][col];
-
-    if (cell.state === 'opened') {
-      return;
-    }
-
-    if (
-      cell.state === 'closed' &&
-      flagsCount >= MINES_COUNT
-    ) {
-      return;
-    }
-
-    const nextBoard = board.map((cells) =>
-      cells.map((currentCell) => ({ ...currentCell })),
-    );
-
-    nextBoard[row][col].state =
-      cell.state === 'flagged' ? 'closed' : 'flagged';
-
-    setBoard(nextBoard);
   }
 
-  // Початок нової гри
+  setBoard((previousBoard) =>
+      toggleFlag(previousBoard, row, col, MINES_COUNT),
+  );
+  }
+
+
   function handleRestart() {
+    startTimeRef.current = null;
+
     setBoard(createInitialBoard());
-    setStatus('ready');
+    setStatus(GAME_STATUS.READY);
     setSeconds(0);
     setExplodedCell(null);
   }
 
-return (
-  <main className={styles.game}>
-    <h1>Minesweeper</h1>
+  return (
+    <section
+      className={styles.game}
+      aria-label="Гра Сапер"
+    >
+      <h1>Minesweeper</h1>
 
-    <div className={styles.gameHeader}>
-      <Timer seconds={seconds} />
+      <header className={styles.gameHeader}>
+        <Timer seconds={seconds} />
 
-      <RestartButton
-        onRestart={handleRestart}
+        <RestartButton
+          onRestart={handleRestart}
+          status={status}
+        />
+
+        <div className={styles.gameInfo}>
+          <span className={styles.label}>
+            Прапорці
+          </span>
+          <span className={styles.value}>
+            {flagsCount} / {MINES_COUNT}
+          </span>
+        </div>
+      </header>
+
+      <Board
+        board={board}
+        onOpen={handleOpen}
+        onFlag={handleFlag}
+        disabled={
+          status === GAME_STATUS.WIN ||
+          status === GAME_STATUS.LOSE
+        }
         status={status}
+        explodedCell={explodedCell}
       />
 
-      <div className={styles.gameInfo}>
-        <span className={styles.label}>Прапорці</span>
-        <span className={styles.value}>
-          {flagsCount} / {MINES_COUNT}
-        </span>
-      </div>
-    </div>
+      <GameStatus status={status} />
 
-    <Board
-      board={board}
-      onOpen={handleOpen}
-      onFlag={handleFlag}
-      disabled={status === 'win' || status === 'lose'}
-      status={status}
-      explodedCell={explodedCell}
-    />
-
-    <GameStatus status={status} />
-
-    <p className={styles.gameHelp}>
-      Ліва кнопка миші — відкрити клітинку.
-      Права кнопка — встановити прапорець.
-    </p>
-  </main>
-);
+      <p className={styles.gameHelp}>
+        Ліва кнопка миші — відкрити клітинку.
+        Права кнопка — встановити прапорець.
+      </p>
+    </section>
+  );
 }
 
 export default NikolchenkoMaria;

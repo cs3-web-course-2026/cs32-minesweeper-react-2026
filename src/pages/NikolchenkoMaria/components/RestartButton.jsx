@@ -1,12 +1,12 @@
-
 import styles from '../Game.module.css';
+import { GAME_STATUS } from '../utils/constants';
 
 function RestartButton({ onRestart, status }) {
   const faces = {
-    ready: '🙂',
-    playing: '🙂',
-    win: '😎',
-    lose: '😵',
+    [GAME_STATUS.READY]: '🙂',
+    [GAME_STATUS.PLAYING]: '🙂',
+    [GAME_STATUS.WIN]: '😎',
+    [GAME_STATUS.LOSE]: '😵',
   };
 
   return (
