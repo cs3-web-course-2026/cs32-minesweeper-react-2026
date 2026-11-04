@@ -25,7 +25,7 @@
   outline-offset: -4px;
 }
 
-.cell:hover:not(.reveal):not(:disabled) {
+.cell:hover:not(.reveal, :disabled) {
   background-color: #d0d0d0;
 }
 
