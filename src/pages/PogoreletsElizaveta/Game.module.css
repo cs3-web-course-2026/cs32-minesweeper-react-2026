@@ -44,9 +44,10 @@
   text-align: center;
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
   .page {
-    --cell-size: 32px;
+    --cell-size: 25px;
+
     padding: 10px;
   }
 

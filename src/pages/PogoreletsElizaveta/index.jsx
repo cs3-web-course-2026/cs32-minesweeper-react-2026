@@ -17,6 +17,11 @@ import {
   revealAllMines,
 } from "./constants/game";
 
+import {
+  revealCell,
+  checkWinCondition,
+} from "./constants/gameLogic";
+
 export default function PogoreletsElizaveta() {
   const [board, setBoard] = useState(() => createEmptyBoard());
   const [status, setStatus] = useState(GAME_STATUS.PROCESS);
@@ -25,7 +30,9 @@ export default function PogoreletsElizaveta() {
   const [isFirstClick, setIsFirstClick] = useState(true);
 
   useEffect(() => {
-    if (isFirstClick || status !== GAME_STATUS.PROCESS) return undefined;
+    if (isFirstClick || status !== GAME_STATUS.PROCESS) {
+      return undefined;
+    }
 
     const timerId = setInterval(() => {
       setSeconds((current) => current + 1);
@@ -39,26 +46,10 @@ export default function PogoreletsElizaveta() {
     setBoard(revealAllMines(currentBoard));
   };
 
-  const checkWin = (currentBoard) => {
-    const unopenedSafeCells = currentBoard
-      .flat()
-      .filter(
-        (cell) =>
-          cell.type !== CELL_TYPE.MINE &&
-          cell.state !== CELL_STATE.OPENED
-      ).length;
-
-    if (unopenedSafeCells === 0) {
-      finishGame(true, currentBoard);
-    }
-  };
-
   const openCell = (row, col) => {
     if (status !== GAME_STATUS.PROCESS) return;
 
-    let workingBoard = board.map((boardRow) =>
-      boardRow.map((cell) => ({ ...cell }))
-    );
+    let workingBoard = board;
 
     const clickedCell = workingBoard[row][col];
 
@@ -70,60 +61,54 @@ export default function PogoreletsElizaveta() {
     }
 
     if (isFirstClick) {
-      workingBoard = generateField(
+      const generatedBoard = generateField(
         BOARD_ROWS,
         BOARD_COLS,
         MINES_COUNT,
         row,
         col
       );
+
+      // Сохраняем флажки, поставленные до первого клика.
+      workingBoard = generatedBoard.map((boardRow, rowIndex) =>
+        boardRow.map((cell, colIndex) => {
+          if (
+            board[rowIndex][colIndex].state === CELL_STATE.FLAGGED
+          ) {
+            return {
+              ...cell,
+              state: CELL_STATE.FLAGGED,
+            };
+          }
+
+          return cell;
+        })
+      );
+
       setIsFirstClick(false);
     }
 
     const cell = workingBoard[row][col];
 
     if (cell.type === CELL_TYPE.MINE) {
-      cell.state = CELL_STATE.OPENED;
-      cell.exploded = true;
-      finishGame(false, workingBoard);
+      const lostBoard = workingBoard.map((boardRow) =>
+        boardRow.map((currentCell) => ({ ...currentCell }))
+      );
+
+      lostBoard[row][col].state = CELL_STATE.OPENED;
+      lostBoard[row][col].exploded = true;
+
+      finishGame(false, lostBoard);
       return;
     }
 
-    // Открываем клетку и, если она пустая, рекурсивно открываем соседей.
-    const reveal = (currentRow, currentCol) => {
-      if (
-        currentRow < 0 ||
-        currentRow >= BOARD_ROWS ||
-        currentCol < 0 ||
-        currentCol >= BOARD_COLS
-      ) {
-        return;
-      }
+    const revealedBoard = revealCell(workingBoard, row, col);
 
-      const currentCell = workingBoard[currentRow][currentCol];
+    setBoard(revealedBoard);
 
-      if (
-        currentCell.state !== CELL_STATE.CLOSED ||
-        currentCell.type === CELL_TYPE.MINE
-      ) {
-        return;
-      }
-
-      currentCell.state = CELL_STATE.OPENED;
-
-      if (currentCell.neighborMines === 0) {
-        for (let deltaRow = -1; deltaRow <= 1; deltaRow += 1) {
-          for (let deltaCol = -1; deltaCol <= 1; deltaCol += 1) {
-            if (deltaRow === 0 && deltaCol === 0) continue;
-            reveal(currentRow + deltaRow, currentCol + deltaCol);
-          }
-        }
-      }
-    };
-
-    reveal(row, col);
-    setBoard(workingBoard);
-    checkWin(workingBoard);
+    if (checkWinCondition(revealedBoard)) {
+      finishGame(true, revealedBoard);
+    }
   };
 
   const toggleFlag = (row, col) => {
@@ -132,6 +117,7 @@ export default function PogoreletsElizaveta() {
     const workingBoard = board.map((boardRow) =>
       boardRow.map((cell) => ({ ...cell }))
     );
+
     const cell = workingBoard[row][col];
 
     if (cell.state === CELL_STATE.OPENED) return;

@@ -3,7 +3,7 @@ import styles from "./Board.module.css";
 
 export default function Board({ board, onOpen, onToggleFlag, disabled }) {
   return (
-    <main className={styles.board} aria-label="Игровое поле">
+    <section className={styles.board} aria-label="Игровое поле">
       {board.map((row, rowIndex) =>
         row.map((cell, colIndex) => (
           <Cell
@@ -17,6 +17,6 @@ export default function Board({ board, onOpen, onToggleFlag, disabled }) {
           />
         ))
       )}
-    </main>
+    </section>
   );
 }

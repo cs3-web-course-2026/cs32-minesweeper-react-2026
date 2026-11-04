@@ -38,9 +38,11 @@ export function countNeighbourMines(board) {
   const rows = board.length;
   const cols = board[0]?.length ?? 0;
 
-  for (let row = 0; row < rows; row += 1) {
-    for (let col = 0; col < cols; col += 1) {
-      if (board[row][col].type === CELL_TYPE.MINE) continue;
+  return board.map((boardRow, row) =>
+    boardRow.map((cell, col) => {
+      if (cell.type === CELL_TYPE.MINE) {
+        return { ...cell, neighborMines: 0 };
+      }
 
       let count = 0;
 
@@ -63,11 +65,9 @@ export function countNeighbourMines(board) {
         }
       }
 
-      board[row][col].neighborMines = count;
-    }
-  }
-
-  return board;
+      return { ...cell, neighborMines: count };
+    })
+  );
 }
 
 export function generateField(
