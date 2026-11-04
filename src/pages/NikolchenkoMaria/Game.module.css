@@ -268,7 +268,7 @@
 
 /* Адаптивність */
 
-@media (max-width: 520px) {
+@media (width <= 520px) {
   .game {
     width: 100%;
     margin: 0 auto;

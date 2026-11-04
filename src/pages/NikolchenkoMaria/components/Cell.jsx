@@ -31,6 +31,16 @@ function Cell({
     content = cell.neighborMines;
   }
 
+  let cellDescription = '';
+
+  if (isWrongFlag) {
+    cellDescription = ', неправильний прапорець';
+  } else if (isFlagged) {
+    cellDescription = ', прапорець';
+  } else if (showMine) {
+    cellDescription = ', міна';
+  }
+
   function handleContextMenu(event) {
     event.preventDefault();
 
@@ -53,21 +63,11 @@ function Cell({
         isOpened && !isMine && cell.neighborMines > 0
           ? styles[`cell${cell.neighborMines}`]
           : '',
-      ]
-        .filter(Boolean)
-        .join(' ')}
+      ].filter(Boolean).join(' ')}
       onClick={() => onOpen(row, col)}
       onContextMenu={handleContextMenu}
       disabled={disabled || isOpened}
-      aria-label={`Клітинка ${row + 1}, ${col + 1}${
-        isWrongFlag
-          ? ', неправильний прапорець'
-          : isFlagged
-            ? ', прапорець'
-            : showMine
-              ? ', міна'
-              : ''
-      }`}
+      aria-label={`Клітинка ${row + 1}, ${col + 1}${cellDescription}`}
     >
       {content}
     </button>
