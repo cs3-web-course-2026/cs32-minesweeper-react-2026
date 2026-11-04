@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import Board from './components/Board';
 import GameHeader from './components/GameHeader';
 import GameStatus from './components/GameStatus';
-import { BOARD_CONFIG, CELL_STATE, CELL_TYPE, GAME_STATUS, TIMER_INTERVAL_MS } from './constants/gameConstants';
-import { checkIsWin, cloneBoard, createInitialBoard, revealCellRecursive, processCellOpen } from './utils/gameHelpers';
+import { BOARD_CONFIG, CELL_STATE, GAME_STATUS, TIMER_INTERVAL_MS } from './constants/gameConstants';
+import { cloneBoard, createInitialBoard, processCellOpen } from './utils/gameHelpers';
 import styles from './KhomiakovOleksii.module.css';
 
 export default function KhomiakovOleksii() {
