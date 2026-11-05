@@ -44,9 +44,10 @@
   border: 1px solid #9e9e9e;
 }
 
-.exploded,
-.exploded:hover,
-.exploded:active {
+.cell.exploded,
+.cell.exploded:hover,
+.cell.exploded:active,
+.cell.exploded:disabled {
   background: #db3f32;
 }
 
