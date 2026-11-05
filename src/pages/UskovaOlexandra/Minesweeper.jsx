@@ -10,6 +10,7 @@ import {
   GAME_STATUS,
   CELL_STATE,
   createEmptyBoard,
+  generateMinePositions,
   generateBoard,
   countNeighborMines,
   revealCells,
@@ -65,19 +66,7 @@ function Minesweeper() {
 
     // Generate the board on the first click, preserving any pre-placed flags
     if (isFirstClick) {
-      const minePositionsSet = new Set();
-      while (minePositionsSet.size < MINES_COUNT) {
-        const r = Math.floor(Math.random() * ROWS);
-        const c = Math.floor(Math.random() * COLS);
-        // Виключаємо клітинку, на яку клікнув користувач
-        if (!(r === row && c === col)) {
-          minePositionsSet.add(`${r},${c}`);
-        }
-      }
-
-      const minePositions = Array.from(minePositionsSet).map(pos =>
-        pos.split(',').map(Number)
-      );
+      const minePositions = generateMinePositions(ROWS, COLS, MINES_COUNT, row, col);
 
       currentBoard = generateBoard(ROWS, COLS, minePositions, row, col);
       currentBoard = currentBoard.map((boardRow, boardRowIndex) =>

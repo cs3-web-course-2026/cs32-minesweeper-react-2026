@@ -210,3 +210,20 @@ export function finalizeBoard(board, status) {
     })
   );
 }
+
+export function generateMinePositions(rows, cols, minesCount, safeRow, safeCol) {
+  const minePositionsSet = new Set();
+  
+  while (minePositionsSet.size < minesCount) {
+    const mineRow = Math.floor(Math.random() * rows);
+    const mineCol = Math.floor(Math.random() * cols);
+
+    if (!(mineRow === safeRow && mineCol === safeCol)) {
+      minePositionsSet.add(`${mineRow},${mineCol}`);
+    }
+  }
+
+  return Array.from(minePositionsSet).map(pos =>
+    pos.split(',').map(Number)
+  );
+}
