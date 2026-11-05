@@ -95,7 +95,7 @@
 
 .n6,
 .n6:hover,
-.n6:disabled { color: #006666; }
+.n6:disabled { color: #066; }
 
 .n7,
 .n7:hover,
@@ -105,7 +105,7 @@
 .n8:hover,
 .n8:disabled { color: #444; }
 
-@media (max-width: 360px) {
+@media (width <= 360px) {
   .cell,
   .cell:hover {
     font-size: 17px;

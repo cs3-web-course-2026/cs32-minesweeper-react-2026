@@ -9,15 +9,16 @@ const NUMBER_STYLES = [
 function Cell({ cell, cols, finished, lost, onReveal, onToggleFlag }) {
   const wrongFlag = lost && cell.flagged && !cell.isMine;
   const mineIsVisible = cell.revealed && cell.isMine && !cell.flagged;
-  const content = wrongFlag
-    ? ''
-    : cell.flagged
-      ? '🚩'
-    : mineIsVisible
-      ? '💣'
-      : cell.revealed && cell.adjacent > 0
-        ? cell.adjacent
-        : '';
+  let content = '';
+  if (!wrongFlag) {
+    if (cell.flagged) {
+      content = '🚩';
+    } else if (mineIsVisible) {
+      content = '💣';
+    } else if (cell.revealed && cell.adjacent > 0) {
+      content = cell.adjacent;
+    }
+  }
 
   const className = [
     styles.cell,
@@ -27,13 +28,14 @@ function Cell({ cell, cols, finished, lost, onReveal, onToggleFlag }) {
     cell.revealed && !cell.isMine ? NUMBER_STYLES[cell.adjacent] : '',
   ].filter(Boolean).join(' ');
 
-  const description = cell.flagged
-    ? 'flagged cell'
-    : !cell.revealed
-      ? 'closed cell'
-      : cell.isMine
-        ? 'mine'
-        : `${cell.adjacent} neighboring mines`;
+  let description = `${cell.adjacent} neighboring mines`;
+  if (cell.flagged) {
+    description = 'flagged cell';
+  } else if (!cell.revealed) {
+    description = 'closed cell';
+  } else if (cell.isMine) {
+    description = 'mine';
+  }
 
   return (
     <button
