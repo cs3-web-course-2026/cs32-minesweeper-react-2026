@@ -1,3 +1,4 @@
+
 .gameBoard {
   display: grid;
   grid-template-columns: 1fr;
@@ -7,14 +8,17 @@
   padding: 1rem;
   background-color: var(--secondary-color, #2a2a2a);
   border-radius: var(--border-radius, 8px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+  box-shadow: 0 4px 6px rgb(0 0 0 / 30%);
 }
+
 
 .boardRow {
   display: grid;
   grid-template-columns: repeat(var(--board-size, 9), minmax(0, 1fr));
   gap: 4px;
 }
+
 
 .cell {
   width: 40px;
@@ -23,7 +27,8 @@
   align-items: center;
   justify-content: center;
   background-color: var(--primary-color, #4a4a4a);
-  border: 2px solid rgba(255, 255, 255, 0.1);
+
+  border: 2px solid rgb(255 255 255 / 10%);
   border-radius: 4px;
   font-weight: bold;
   font-size: 1.2rem;
@@ -34,29 +39,36 @@
   margin: 0;
 }
 
-.cell:hover:not(:disabled) {
-  filter: brightness(1.2);
-}
 
 .cell:disabled {
   cursor: default;
 }
 
+
+.cell:hover:not(:disabled) {
+  filter: brightness(1.2);
+}
+
+
 .cellOpened {
   background-color: var(--background-color, #1a1a1a);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+
+  border: 1px solid rgb(255 255 255 / 5%);
+  box-shadow: inset 0 2px 4px rgb(0 0 0 / 50%);
 }
+
 
 .cellFlagged {
   color: #ff4757;
 }
+
 
 .cellExploded {
   background-color: #ff4757 !important;
   border-color: #ff4757 !important;
   color: white;
 }
+
 
 .number1 { color: #3498db; }
 .number2 { color: #2ecc71; }
