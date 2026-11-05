@@ -1,3 +1,8 @@
+:root {
+  --duration-fast: 0.1s;
+  --duration-medium: 0.2s;
+}
+
 .restartButton {
   background-color: #c55d78;
   color: #fff;
@@ -7,9 +12,8 @@
   font-size: 1.2rem;
   font-weight: bold;
   cursor: pointer;
-  transition:
-    background-color 0.2s ease,
-    transform 0.1s ease;
+  transition: background-color var(--duration-medium) ease,
+              transform var(--duration-fast) ease;
 }
 
 .restartButton:hover {

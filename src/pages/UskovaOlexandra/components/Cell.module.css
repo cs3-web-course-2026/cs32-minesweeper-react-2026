@@ -1,3 +1,8 @@
+:root {
+  --duration-fast: 0.1s;
+  --duration-short: 0.15s;
+}
+
 .cell {
   width: var(--cell-size);
   height: var(--cell-size);
@@ -11,9 +16,8 @@
   justify-content: center;
   padding: 0;
   box-sizing: border-box;
-  transition:
-    background-color 0.15s ease,
-    transform 0.1s ease;
+  transition: background-color var(--duration-short) ease,
+              transform var(--duration-fast) ease;
 }
 
 .cell:disabled {
