@@ -18,8 +18,8 @@ export const placeMinesAndCalculate = (board, rows, cols, minesCount, firstClick
   let placedMines = 0;
   
   while (placedMines < minesCount) {
-    let row = Math.floor(Math.random() * rows);
-    let col = Math.floor(Math.random() * cols);
+    const row = Math.floor(Math.random() * rows);
+    const col = Math.floor(Math.random() * cols);
     
     if (nextBoard[row][col].type !== CELL_TYPE.MINE && !(row === firstClickRow && col === firstClickCol)) {
       nextBoard[row][col].type = CELL_TYPE.MINE;
@@ -31,9 +31,9 @@ export const placeMinesAndCalculate = (board, rows, cols, minesCount, firstClick
     for (let col = 0; col < cols; col++) {
       if (nextBoard[row][col].type === CELL_TYPE.MINE) continue;
       let count = 0;
-      for (let [directionRow, directionCol] of DIRECTIONS) {
-        let neighborRow = row + directionRow;
-        let neighborCol = col + directionCol;
+      for (const [directionRow, directionCol] of DIRECTIONS) {
+        const neighborRow = row + directionRow;
+        const neighborCol = col + directionCol;
         if (neighborRow >= 0 && neighborRow < rows && neighborCol >= 0 && neighborCol < cols && nextBoard[neighborRow][neighborCol].type === CELL_TYPE.MINE) {
           count++;
         }
@@ -50,9 +50,9 @@ export const revealEmptyCells = (board, row, col) => {
   const cols = nextBoard[0].length;
   
   const floodFill = (currentRow, currentCol) => {
-    for (let [directionRow, directionCol] of DIRECTIONS) {
-      let neighborRow = currentRow + directionRow;
-      let neighborCol = currentCol + directionCol;
+    for (const [directionRow, directionCol] of DIRECTIONS) {
+      const neighborRow = currentRow + directionRow;
+      const neighborCol = currentCol + directionCol;
       if (neighborRow >= 0 && neighborRow < rows && neighborCol >= 0 && neighborCol < cols) {
         const cell = nextBoard[neighborRow][neighborCol];
         if (cell.state === CELL_STATE.CLOSED && cell.type !== CELL_TYPE.MINE) {
@@ -104,8 +104,8 @@ export const toggleFlagStatus = (board, row, col) => {
 };
 
 export const checkWinCondition = (board) => {
-  for (let row of board) {
-    for (let cell of row) {
+  for (const row of board) {
+    for (const cell of row) {
       if (cell.type === CELL_TYPE.EMPTY && cell.state !== CELL_STATE.OPENED) {
         return false;
       }

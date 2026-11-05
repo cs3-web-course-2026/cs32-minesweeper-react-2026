@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { createRoot } from 'react-dom/client';
 
 import Board from './components/Board/Board';
 import Display from './components/Display/Display';
@@ -18,7 +17,6 @@ import {
   toggleFlagStatus 
 } from './utils/gameLogic';
 
-import './main.css';
 import styles from './Game.module.css';
 
 const Game = () => {
@@ -113,11 +111,4 @@ const Game = () => {
   );
 };
 
-const rootElement = document.getElementById('root');
-const root = createRoot(rootElement);
-
-root.render(
-  <React.StrictMode>
-    <Game />
-  </React.StrictMode>
-);
+export default Game;
