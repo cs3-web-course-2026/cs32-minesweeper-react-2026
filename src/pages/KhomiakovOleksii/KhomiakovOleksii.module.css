@@ -141,28 +141,34 @@
   .pageWrapper {
     padding: 8px;
   }
+
   .minesweeperApp {
     width: 100%;
     padding: 8px;
   }
+
   .gameHeader {
     padding: 6px;
     gap: 5px;
     margin-bottom: 8px;
   }
+
   .counter {
     font-size: 20px;
   }
+
   .resetBtn {
     flex-basis: 40px;
     width: 40px;
     height: 40px;
     font-size: 22px;
   }
+
   .cell {
     border-width: 2px;
     font-size: 14px;
   }
+
   .cellOpened {
     border-width: 1px;
   }
@@ -172,22 +178,27 @@
   .pageWrapper {
     padding: 4px;
   }
+
   .minesweeperApp {
     padding: 5px;
   }
+
   .gameHeader {
     padding: 4px;
   }
+
   .counter {
     font-size: 17px;
     padding: 3px;
   }
+
   .resetBtn {
     flex-basis: 34px;
     width: 34px;
     height: 34px;
     font-size: 19px;
   }
+
   .cell {
     border-width: 1px;
     font-size: 11px;
