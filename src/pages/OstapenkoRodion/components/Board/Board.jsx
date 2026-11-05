@@ -9,15 +9,17 @@ const Board = ({ board, onCellClick, onCellRightClick }) => {
       className={styles.board}
       style={{ gridTemplateColumns: `repeat(${GAME_CONFIG.COLS}, var(--cell-size, 45px))` }}
     >
-      {board.map((row, rIdx) =>
-        row.map((cell, cIdx) => (
+      {board.map((rowArr, row) =>
+        rowArr.map((cell, col) => (
           <Cell
-            key={`${rIdx}-${cIdx}`}
+            key={`${row}-${col}`}
             data={cell}
-            onClick={() => onCellClick(rIdx, cIdx)}
+            row={row}
+            col={col}
+            onClick={() => onCellClick(row, col)}
             onContextMenu={(e) => {
               e.preventDefault();
-              onCellRightClick(rIdx, cIdx);
+              onCellRightClick(row, col);
             }}
           />
         ))

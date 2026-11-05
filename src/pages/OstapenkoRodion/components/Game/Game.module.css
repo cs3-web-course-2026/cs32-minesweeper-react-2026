@@ -53,6 +53,12 @@
 
 @media (width <= 500px) {
   .wrapper {
-    --cell-size: 30px; /* Перевизначення для мобільних */
+    --cell-size: 30px;
+  }
+}
+
+@media (width <= 354px) {
+  .wrapper {
+    --cell-size: 26px;
   }
 }

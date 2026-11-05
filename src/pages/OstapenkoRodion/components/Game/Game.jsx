@@ -4,88 +4,83 @@ import Display from '../Display/Display';
 import RestartButton from '../RestartButton/RestartButton';
 import GameStatus from '../GameStatus/GameStatus';
 import styles from './Game.module.css';
-import { GAME_CONFIG } from '../../constants';
-import { generateEmptyBoard, placeMinesAndCalculate, revealEmptyCells, checkWinCondition } from '../../utils/gameLogic';
+import { GAME_CONFIG, GAME_STATUS, CELL_STATE, CELL_TYPE, TIMER_INTERVAL } from '../../constants';
+import { 
+  generateEmptyBoard, 
+  cloneBoard, 
+  placeMinesAndCalculate, 
+  revealEmptyCells, 
+  checkWinCondition, 
+  revealMinesOnLoss, 
+  flagMinesOnWin, 
+  toggleFlagStatus 
+} from '../../utils/gameLogic';
 
 const Game = () => {
   const [board, setBoard] = useState(() => generateEmptyBoard(GAME_CONFIG.ROWS, GAME_CONFIG.COLS));
-  const [status, setStatus] = useState('process'); // 'process', 'win', 'lose'
+  const [status, setStatus] = useState(GAME_STATUS.PROCESS);
   const [time, setTime] = useState(0);
   const [flags, setFlags] = useState(0);
   const [isFirstClick, setIsFirstClick] = useState(true);
 
-  // Таймер
   useEffect(() => {
     let timerId;
-    if (status === 'process' && !isFirstClick) {
-      timerId = setInterval(() => setTime(t => t + 1), 1000);
+    if (status === GAME_STATUS.PROCESS && !isFirstClick) {
+      timerId = setInterval(() => setTime(t => t + 1), TIMER_INTERVAL);
     }
     return () => clearInterval(timerId);
   }, [status, isFirstClick]);
 
   const initGame = useCallback(() => {
     setBoard(generateEmptyBoard(GAME_CONFIG.ROWS, GAME_CONFIG.COLS));
-    setStatus('process');
+    setStatus(GAME_STATUS.PROCESS);
     setTime(0);
     setFlags(0);
     setIsFirstClick(true);
   }, []);
 
-  const handleCellClick = (r, c) => {
-    if (status !== 'process' || board[r][c].state === 'opened' || board[r][c].state === 'flagged') return;
+  const handleCellClick = (row, col) => {
+    if (status !== GAME_STATUS.PROCESS || board[row][col].state === CELL_STATE.OPENED || board[row][col].state === CELL_STATE.FLAGGED) return;
 
-    let currentBoard = board.map(row => row.map(cell => ({ ...cell })));
+    let nextBoard = isFirstClick 
+      ? placeMinesAndCalculate(board, GAME_CONFIG.ROWS, GAME_CONFIG.COLS, GAME_CONFIG.MINES_COUNT, row, col)
+      : cloneBoard(board);
 
-    if (isFirstClick) {
-      currentBoard = placeMinesAndCalculate(currentBoard, GAME_CONFIG.ROWS, GAME_CONFIG.COLS, GAME_CONFIG.MINES_COUNT, r, c);
-      setIsFirstClick(false);
-    }
+    if (isFirstClick) setIsFirstClick(false);
 
-    const cell = currentBoard[r][c];
-    cell.state = 'opened';
+    const cell = nextBoard[row][col];
+    cell.state = CELL_STATE.OPENED;
 
-    if (cell.type === 'mine') {
+    if (cell.type === CELL_TYPE.MINE) {
       cell.exploded = true;
-      setStatus('lose');
-      // Відкриваємо всі міни
-      currentBoard.forEach(row => row.forEach(c => {
-        if (c.type === 'mine' && c.state !== 'flagged') c.state = 'opened';
-        if (c.state === 'flagged' && c.type !== 'mine') c.state = 'wrong-flag';
-      }));
-    } else {
-      if (cell.neighborMines === 0) {
-        revealEmptyCells(currentBoard, r, c);
-      }
-      if (checkWinCondition(currentBoard)) {
-        setStatus('win');
-        // Ставимо прапорці на всі невідкриті міни
-        currentBoard.forEach(row => row.forEach(c => {
-          if (c.type === 'mine') c.state = 'flagged';
-        }));
-        setFlags(GAME_CONFIG.MINES_COUNT);
-      }
+      nextBoard = revealMinesOnLoss(nextBoard);
+      setStatus(GAME_STATUS.LOSE);
+      setBoard(nextBoard);
+      return;
     }
 
-    setBoard(currentBoard);
+    if (cell.neighborMines === 0) {
+      nextBoard = revealEmptyCells(nextBoard, row, col);
+    }
+
+    if (checkWinCondition(nextBoard)) {
+      setStatus(GAME_STATUS.WIN);
+      nextBoard = flagMinesOnWin(nextBoard);
+      setFlags(GAME_CONFIG.MINES_COUNT);
+    }
+
+    setBoard(nextBoard);
   };
 
-  const handleCellRightClick = (r, c) => {
-    if (status !== 'process') return;
-    
-    const currentBoard = [...board.map(row => [...row])];
-    const cell = currentBoard[r][c];
+  const handleCellRightClick = (row, col) => {
+    if (status !== GAME_STATUS.PROCESS) return;
+    const cellState = board[row][col].state;
+    if (cellState === CELL_STATE.OPENED) return;
 
-    if (cell.state === 'opened') return;
+    if (cellState === CELL_STATE.CLOSED) setFlags(f => f + 1);
+    else if (cellState === CELL_STATE.FLAGGED) setFlags(f => f - 1);
 
-    if (cell.state === 'closed') {
-      cell.state = 'flagged';
-      setFlags(f => f + 1);
-    } else if (cell.state === 'flagged') {
-      cell.state = 'closed';
-      setFlags(f => f - 1);
-    }
-
-    setBoard(currentBoard);
+    setBoard(toggleFlagStatus(board, row, col));
   };
 
   return (
