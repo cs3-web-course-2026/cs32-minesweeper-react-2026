@@ -1,11 +1,12 @@
+import { GAME_STATUS } from "../constants/game";
 import styles from "./RestartButton.module.css";
 
 export default function RestartButton({ onRestart, status }) {
   let face = "🤓";
 
-  if (status === "win") {
+  if (status === GAME_STATUS.WIN) {
     face = "😎";
-  } else if (status === "lose") {
+  } else if (status === GAME_STATUS.LOSE) {
     face = "😵";
   }
 

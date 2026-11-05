@@ -57,3 +57,47 @@ export function checkWinCondition(board) {
         cell.state === CELL_STATE.OPENED
     );
 }
+
+export function toggleFlagOnCell(board, row, col, flagsCount) {
+  const cell = board[row][col];
+
+  if (cell.state === CELL_STATE.OPENED) {
+    return { board, flagsCount };
+  }
+
+  if (
+    cell.state === CELL_STATE.CLOSED &&
+    flagsCount <= 0
+  ) {
+    return { board, flagsCount };
+  }
+
+  if (
+    cell.state !== CELL_STATE.CLOSED &&
+    cell.state !== CELL_STATE.FLAGGED
+  ) {
+    return { board, flagsCount };
+  }
+
+  const newBoard = board.map((boardRow) =>
+    boardRow.map((currentCell) => ({ ...currentCell }))
+  );
+
+  const newCell = newBoard[row][col];
+
+  if (newCell.state === CELL_STATE.FLAGGED) {
+    newCell.state = CELL_STATE.CLOSED;
+
+    return {
+      board: newBoard,
+      flagsCount: flagsCount + 1,
+    };
+  }
+
+  newCell.state = CELL_STATE.FLAGGED;
+
+  return {
+    board: newBoard,
+    flagsCount: flagsCount - 1,
+  };
+}

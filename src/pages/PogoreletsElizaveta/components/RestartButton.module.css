@@ -10,7 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: border-color 0.1s;
+  transition: border-color var(--press-duration);
 }
 
 .button:active {

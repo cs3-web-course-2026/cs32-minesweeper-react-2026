@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import Board from "./components/Board";
 import GameHeader from "./components/GameHeader";
@@ -20,6 +21,7 @@ import {
 import {
   revealCell,
   checkWinCondition,
+  toggleFlagOnCell,
 } from "./constants/gameLogic";
 
 export default function PogoreletsElizaveta() {
@@ -46,7 +48,7 @@ export default function PogoreletsElizaveta() {
     setBoard(revealAllMines(currentBoard));
   };
 
-  const openCell = (row, col) => {
+  const handleOpenCell = (row, col) => {
     if (status !== GAME_STATUS.PROCESS) return;
 
     let workingBoard = board;
@@ -111,31 +113,21 @@ export default function PogoreletsElizaveta() {
     }
   };
 
-  const toggleFlag = (row, col) => {
+  const handleToggleFlag = (row, col) => {
     if (status !== GAME_STATUS.PROCESS) return;
 
-    const workingBoard = board.map((boardRow) =>
-      boardRow.map((cell) => ({ ...cell }))
+    const result = toggleFlagOnCell(
+      board,
+      row,
+      col,
+      flagsCount
     );
 
-    const cell = workingBoard[row][col];
-
-    if (cell.state === CELL_STATE.OPENED) return;
-
-    if (cell.state === CELL_STATE.FLAGGED) {
-      cell.state = CELL_STATE.CLOSED;
-      setFlagsCount((count) => count + 1);
-    } else if (cell.state === CELL_STATE.CLOSED && flagsCount > 0) {
-      cell.state = CELL_STATE.FLAGGED;
-      setFlagsCount((count) => count - 1);
-    } else {
-      return;
-    }
-
-    setBoard(workingBoard);
+    setBoard(result.board);
+    setFlagsCount(result.flagsCount);
   };
 
-  const resetGame = () => {
+  const handleRestart = () => {
     setBoard(createEmptyBoard(BOARD_ROWS, BOARD_COLS));
     setStatus(GAME_STATUS.PROCESS);
     setSeconds(0);
@@ -152,15 +144,15 @@ export default function PogoreletsElizaveta() {
           flagsCount={flagsCount}
           seconds={seconds}
           status={status}
-          onRestart={resetGame}
+          onRestart={handleRestart}
         />
 
         <GameStatus status={status} />
 
         <Board
           board={board}
-          onOpen={openCell}
-          onToggleFlag={toggleFlag}
+          onOpen={handleOpenCell}
+          onToggleFlag={handleToggleFlag}
           disabled={status !== GAME_STATUS.PROCESS}
         />
       </section>
