@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { createRoot } from 'react-dom/client';
 
-// Импорты дочерних компонентов (пути обновлены для корневого уровня)
 import Board from './components/Board/Board';
 import Display from './components/Display/Display';
 import RestartButton from './components/RestartButton/RestartButton';
 import GameStatus from './components/GameStatus/GameStatus';
 
-// Импорты утилит и констант
 import { GAME_CONFIG, GAME_STATUS, CELL_STATE, CELL_TYPE, TIMER_INTERVAL } from './constants';
 import { 
   generateEmptyBoard, 
@@ -20,8 +18,7 @@ import {
   toggleFlagStatus 
 } from './utils/gameLogic';
 
-// Импорты стилей
-import './index.css'; // или './main.css', в зависимости от названия вашего глобального файла
+import './main.css';
 import styles from './Game.module.css';
 
 const Game = () => {
