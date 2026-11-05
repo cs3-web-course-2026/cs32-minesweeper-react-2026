@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import Board from '../Board/Board';
-import Display from '../Display/Display';
-import RestartButton from '../RestartButton/RestartButton';
-import GameStatus from '../GameStatus/GameStatus';
+import Board from './components/Board/Board';
+import Display from './components/Display/Display';
+import RestartButton from './components/RestartButton/RestartButton';
+import GameStatus from './components/GameStatus/GameStatus';
 import styles from './Game.module.css';
-import { GAME_CONFIG, GAME_STATUS, CELL_STATE, CELL_TYPE, TIMER_INTERVAL } from '../../constants';
+import { GAME_CONFIG, GAME_STATUS, CELL_STATE, CELL_TYPE, TIMER_INTERVAL } from './constants';
 import { 
   generateEmptyBoard, 
   cloneBoard, 
@@ -14,7 +14,7 @@ import {
   revealMinesOnLoss, 
   flagMinesOnWin, 
   toggleFlagStatus 
-} from '../../utils/gameLogic';
+} from './utils/gameLogic';
 
 const Game = () => {
   const [board, setBoard] = useState(() => generateEmptyBoard(GAME_CONFIG.ROWS, GAME_CONFIG.COLS));

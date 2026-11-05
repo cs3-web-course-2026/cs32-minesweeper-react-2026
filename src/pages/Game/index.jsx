@@ -113,6 +113,8 @@ function Game() {
         'React-версія Сапера з таймером, лічильником прапорців та крутою назвою.',
       author: 'Ostapenko Rodion',
       link: 'ostapenko-rodion',
+      difficulty: 'Beginner',
+      status: 'Complete',
     }
   ];
 
