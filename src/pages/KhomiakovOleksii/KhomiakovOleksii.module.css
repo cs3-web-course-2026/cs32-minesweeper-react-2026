@@ -1,238 +1,68 @@
-.pageWrapper {
-  --board-size: 9;
-
-  width: 100%;
-  min-height: calc(100vh - 80px);
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #2b2b2b;
-  font-family: Arial, sans-serif;
-  box-sizing: border-box;
-}
-
-.minesweeperApp {
-  width: min(100%, 520px);
-  max-width: 520px;
-  padding: 12px;
-  background-color: #bdbdbd;
-  border: 4px solid;
-  border-color: #fff #7b7b7b #7b7b7b #fff;
-  overflow: hidden;
-  box-sizing: border-box;
-}
-
-.gameHeader {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  padding: 8px;
-  margin-bottom: 12px;
-  background-color: #bdbdbd;
-  border: 3px solid;
-  border-color: #7b7b7b #fff #fff #7b7b7b;
-  box-sizing: border-box;
-}
-
-.counter {
-  flex: 1;
-  min-width: 0;
-  padding: 4px 6px;
-  background-color: #000;
-  color: #f00;
-  font-family: "Courier New", monospace;
-  font-size: clamp(18px, 6vw, 30px);
-  font-weight: bold;
-  text-align: center;
-  box-sizing: border-box;
-}
-
-.resetBtn {
-  flex: 0 0 clamp(38px, 12vw, 52px);
-  width: clamp(38px, 12vw, 52px);
-  height: clamp(38px, 12vw, 52px);
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #bdbdbd;
-  border: 3px solid;
-  border-color: #fff #7b7b7b #7b7b7b #fff;
-  font-size: clamp(20px, 7vw, 32px);
-  cursor: pointer;
-  box-sizing: border-box;
-}
-
-.resetBtn:active {
-  border-color: #7b7b7b #fff #fff #7b7b7b;
-}
-
-.gameStatusMessage {
-  text-align: center;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #22303c;
-  min-height: 20px;
-}
-
 .gameBoard {
-  width: 100%;
-  min-width: 0;
   display: grid;
-  grid-template-columns: repeat(var(--board-size), minmax(0, 1fr));
-  border: 3px solid;
-  border-color: #7b7b7b #fff #fff #7b7b7b;
-  overflow: hidden;
-  box-sizing: border-box;
+  grid-template-columns: 1fr;
+  gap: 4px;
+  width: max-content;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: var(--secondary-color, #2a2a2a);
+  border-radius: var(--border-radius, 8px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.boardRow {
+  display: grid;
+  grid-template-columns: repeat(var(--board-size, 9), minmax(0, 1fr));
+  gap: 4px;
 }
 
 .cell {
-  width: 100%;
-  min-width: 0;
-  min-height: 0;
-  aspect-ratio: 1 / 1;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color, #4a4a4a);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: filter 0.2s ease, background-color 0.2s ease;
+  color: white;
   padding: 0;
   margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #bdbdbd;
-  border: 3px solid;
-  border-color: #fff #7b7b7b #7b7b7b #fff;
-  font-family: Arial, sans-serif;
-  font-size: clamp(11px, 4vw, 24px);
-  font-weight: bold;
-  cursor: pointer;
-  user-select: none;
-  box-sizing: border-box;
 }
 
-.cell:not(.open):hover {
-  filter: brightness(1.08);
+.cell:hover:not(:disabled) {
+  filter: brightness(1.2);
 }
 
-.open {
-  background-color: #d1d1d1;
-  border: 1px solid #8a8a8a;
+.cell:disabled {
   cursor: default;
 }
 
-.flagged::after {
-  content: "🚩";
-  font-size: 70%;
+.cellOpened {
+  background-color: var(--background-color, #1a1a1a);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.flagged.mine {
-  background-color: #a0a0a0;
+.cellFlagged {
+  color: #ff4757;
 }
 
-.open.mine {
-  background-color: #d1d1d1;
+.cellExploded {
+  background-color: #ff4757 !important;
+  border-color: #ff4757 !important;
+  color: white;
 }
 
-.open.mine.exploded {
-  background-color: #ff4d4d;
-}
-
-.number1 {
-  color: #00f;
-}
-
-.number2 {
-  color: #005a00;
-}
-
-.number3 {
-  color: #c00000;
-}
-
-.number4 {
-  color: #000080;
-}
-
-.number5 {
-  color: #800000;
-}
-
-.number6 {
-  color: #008080;
-}
-
-.number7 {
-  color: #000;
-}
-
-.number8 {
-  color: #666;
-}
-
-@media (width <= 400px) {
-  .pageWrapper {
-    padding: 8px;
-  }
-
-  .minesweeperApp {
-    width: 100%;
-    padding: 8px;
-  }
-
-  .gameHeader {
-    padding: 6px;
-    gap: 5px;
-    margin-bottom: 8px;
-  }
-
-  .counter {
-    font-size: 20px;
-  }
-
-  .resetBtn {
-    flex-basis: 40px;
-    width: 40px;
-    height: 40px;
-    font-size: 22px;
-  }
-
-  .cell {
-    border-width: 2px;
-    font-size: 14px;
-  }
-
-  .open {
-    border-width: 1px;
-  }
-}
-
-@media (width <= 300px) {
-  .pageWrapper {
-    padding: 4px;
-  }
-
-  .minesweeperApp {
-    padding: 5px;
-  }
-
-  .gameHeader {
-    padding: 4px;
-  }
-
-  .counter {
-    font-size: 17px;
-    padding: 3px;
-  }
-
-  .resetBtn {
-    flex-basis: 34px;
-    width: 34px;
-    height: 34px;
-    font-size: 19px;
-  }
-
-  .cell {
-    border-width: 1px;
-    font-size: 11px;
-  }
-}
+.number1 { color: #3498db; }
+.number2 { color: #2ecc71; }
+.number3 { color: #e74c3c; }
+.number4 { color: #9b59b6; }
+.number5 { color: #f1c40f; }
+.number6 { color: #1abc9c; }
+.number7 { color: #e67e22; }
+.number8 { color: #95a5a6; }

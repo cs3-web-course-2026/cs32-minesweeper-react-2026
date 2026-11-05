@@ -28,14 +28,15 @@ export default function Cell({
 
   let content = '';
   let className = styles.cell;
-  let ariaLabel = `Клітинка ряд ${row + 1} колонка ${col + 1}`;
+  let ariaLabel = `Клітинка ряд ${row + 1} колонка ${col + 1}, закрита`;
 
   if (state === CELL_STATE.FLAGGED) {
     content = '🚩';
     className = `${styles.cell} ${styles.cellFlagged}`;
-    ariaLabel += ', містить прапорець';
+    ariaLabel = `Клітинка ряд ${row + 1} колонка ${col + 1}, містить прапорець`;
   } else if (state === CELL_STATE.OPENED) {
     className = `${styles.cell} ${styles.cellOpened}`;
+    ariaLabel = `Клітинка ряд ${row + 1} колонка ${col + 1}`;
     
     if (type === CELL_TYPE.MINE) {
       content = '💣';
@@ -49,13 +50,13 @@ export default function Cell({
       className += ` ${styles[`number${neighborMines}`] || ''}`;
       ariaLabel += `, поруч ${neighborMines} мін`;
     } else {
-      ariaLabel += ', порожня';
+      ariaLabel += ', порожня, відкрита';
     }
   } else {
     if (gameStatus === GAME_STATUS.LOSE && type === CELL_TYPE.MINE) {
       content = '💣';
       className = `${styles.cell} ${styles.cellOpened}`;
-      ariaLabel += ', міна';
+      ariaLabel = `Клітинка ряд ${row + 1} колонка ${col + 1}, міна`;
     }
   }
 
