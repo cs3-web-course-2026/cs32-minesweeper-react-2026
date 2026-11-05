@@ -65,7 +65,21 @@ function Minesweeper() {
 
     // Generate the board on the first click, preserving any pre-placed flags
     if (isFirstClick) {
-      currentBoard = generateBoard(ROWS, COLS, MINES_COUNT, row, col);
+      const minePositionsSet = new Set();
+      while (minePositionsSet.size < MINES_COUNT) {
+        const r = Math.floor(Math.random() * ROWS);
+        const c = Math.floor(Math.random() * COLS);
+        // Виключаємо клітинку, на яку клікнув користувач
+        if (!(r === row && c === col)) {
+          minePositionsSet.add(`${r},${c}`);
+        }
+      }
+
+      const minePositions = Array.from(minePositionsSet).map(pos =>
+        pos.split(',').map(Number)
+      );
+
+      currentBoard = generateBoard(ROWS, COLS, minePositions, row, col);
       currentBoard = currentBoard.map((boardRow, boardRowIndex) =>
         boardRow.map((cell, colIndex) => ({
           ...cell,

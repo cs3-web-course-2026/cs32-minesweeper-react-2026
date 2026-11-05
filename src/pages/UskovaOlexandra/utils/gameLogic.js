@@ -31,28 +31,15 @@ export function createEmptyBoard(rows, cols) {
 }
 
 // Generates a board and places mines
-export function generateBoard(
-  rows,
-  cols,
-  minesCount,
-  safeRow = -1,
-  safeCol = -1
-) {
+export function generateBoard(rows, cols, minePositions, safeRow = -1, safeCol = -1) {
   const newBoard = createEmptyBoard(rows, cols);
 
-  let plantedMines = 0;
-
-  while (plantedMines < minesCount) {
-    const randomRow = Math.floor(Math.random() * rows);
-    const randomCol = Math.floor(Math.random() * cols);
-
-    if (randomRow === safeRow && randomCol === safeCol) {
+  for (const [mineRow, mineCol] of minePositions) {
+    if (mineRow === safeRow && mineCol === safeCol) {
       continue;
     }
-
-    if (newBoard[randomRow][randomCol].type !== CELL_TYPE.MINE) {
-      newBoard[randomRow][randomCol].type = CELL_TYPE.MINE;
-      plantedMines++;
+    if (newBoard[mineRow][mineCol].type !== CELL_TYPE.MINE) {
+      newBoard[mineRow][mineCol].type = CELL_TYPE.MINE;
     }
   }
 
