@@ -45,9 +45,13 @@ const Game = () => {
   const handleCellClick = (row, col) => {
     if (status !== GAME_STATUS.PROCESS || board[row][col].state === CELL_STATE.OPENED || board[row][col].state === CELL_STATE.FLAGGED) return;
 
-    let nextBoard = isFirstClick 
-      ? placeMinesAndCalculate(board, GAME_CONFIG.ROWS, GAME_CONFIG.COLS, GAME_CONFIG.MINES_COUNT, row, col)
-      : cloneBoard(board);
+    let nextBoard;
+    if (isFirstClick) {
+      const mineCoords = generateMineCoordinates(GAME_CONFIG.ROWS, GAME_CONFIG.COLS, GAME_CONFIG.MINES_COUNT, row, col);
+      nextBoard = placeMinesAndCalculate(board, mineCoords);
+    } else {
+      nextBoard = cloneBoard(board);
+    }
 
     if (isFirstClick) setIsFirstClick(false);
 

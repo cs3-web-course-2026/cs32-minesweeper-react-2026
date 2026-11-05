@@ -13,34 +13,60 @@ export const generateEmptyBoard = (rows, cols) => {
   );
 };
 
-export const placeMinesAndCalculate = (board, rows, cols, minesCount, firstClickRow, firstClickCol) => {
-  const nextBoard = cloneBoard(board);
-  let placedMines = 0;
+export const generateMineCoordinates = (rows, cols, minesCount, firstClickRow, firstClickCol) => {
+  const coordinates = [];
+  const placed = new Set();
   
-  while (placedMines < minesCount) {
+  // Prevent placing a mine on the first clicked cell
+  placed.add(`${firstClickRow},${firstClickCol}`);
+
+  while (coordinates.length < minesCount) {
     const row = Math.floor(Math.random() * rows);
     const col = Math.floor(Math.random() * cols);
-    
-    if (nextBoard[row][col].type !== CELL_TYPE.MINE && !(row === firstClickRow && col === firstClickCol)) {
-      nextBoard[row][col].type = CELL_TYPE.MINE;
-      placedMines++;
+    const key = `${row},${col}`;
+
+    if (!placed.has(key)) {
+      placed.add(key);
+      coordinates.push({ row, col });
     }
+  }
+
+  return coordinates;
+};
+
+export const placeMinesAndCalculate = (board, mineCoordinates) => {
+  const nextBoard = cloneBoard(board);
+  const rows = nextBoard.length;
+  const cols = nextBoard[0].length;
+
+  // 1. Place mines from provided coordinates
+  for (const { row, col } of mineCoordinates) {
+    nextBoard[row][col].type = CELL_TYPE.MINE;
   }
 
   for (let row = 0; row < rows; row++) {
     for (let col = 0; col < cols; col++) {
       if (nextBoard[row][col].type === CELL_TYPE.MINE) continue;
+      
       let count = 0;
       for (const [directionRow, directionCol] of DIRECTIONS) {
         const neighborRow = row + directionRow;
         const neighborCol = col + directionCol;
-        if (neighborRow >= 0 && neighborRow < rows && neighborCol >= 0 && neighborCol < cols && nextBoard[neighborRow][neighborCol].type === CELL_TYPE.MINE) {
+        
+        if (
+          neighborRow >= 0 && 
+          neighborRow < rows && 
+          neighborCol >= 0 && 
+          neighborCol < cols && 
+          nextBoard[neighborRow][neighborCol].type === CELL_TYPE.MINE
+        ) {
           count++;
         }
       }
       nextBoard[row][col].neighborMines = count;
     }
   }
+  
   return nextBoard;
 };
 

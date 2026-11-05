@@ -40,7 +40,7 @@ const Cell = ({ data, row, col, onClick, onContextMenu }) => {
       className={cssClass}
       onClick={onClick}
       onContextMenu={onContextMenu}
-      disabled={isOpened}
+      aria-disabled={isOpened}
       aria-label={ariaLabel}
     >
       {content}
