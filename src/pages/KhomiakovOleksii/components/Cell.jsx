@@ -17,9 +17,12 @@ export default function Cell({
 
   const handleKeyDown = (e) => {
     if (gameStatus !== GAME_STATUS.PROCESS) return;
+    
     if (e.key === ' ' || e.code === 'Space') {
       e.preventDefault();
-      onToggleFlag(row, col);
+      if (!e.repeat) {
+        onToggleFlag(row, col);
+      }
     }
   };
 
@@ -52,6 +55,7 @@ export default function Cell({
     if (gameStatus === GAME_STATUS.LOSE && type === CELL_TYPE.MINE) {
       content = '💣';
       className = `${styles.cell} ${styles.cellOpened}`;
+      ariaLabel += ', міна';
     }
   }
 
@@ -62,6 +66,7 @@ export default function Cell({
   ) {
     content = '❌';
     className = `${styles.cell} ${styles.cellOpened}`;
+    ariaLabel = `Клітинка ряд ${row + 1} колонка ${col + 1}, хибний прапорець`;
   }
 
   const isInteractive =
