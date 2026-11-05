@@ -105,6 +105,14 @@ function Game() {
         'React-версія Сапера з звичайним flood-fill відкриттям, таймером, лічильником прапорців та повною підтримкою доступності й клавіатури.',
       author: 'Chernous Valerii',
       link: 'chernous-valerii',
+    },
+    {
+      id: 7,
+      title: 'SUPER MEGA Minesweeper',
+      description:
+        'React-версія Сапера з таймером, лічильником прапорців та крутою назвою.',
+      author: 'Ostapenko Rodion',
+      link: 'ostapenko-rodion',
     }
   ];
 

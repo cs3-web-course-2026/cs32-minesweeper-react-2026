@@ -17,6 +17,7 @@ function App() {
         <Route path="mock-game" element={<MockGame />} />
         <Route path="chernous-valerii" element={<ChernousValerii />} />
         <Route path="karpova-bohdana" element={<KarpovaBohdana />} />
+        <Route path="ostapenko-rodion" element={<OstapenkoRodion />} />
       </Route>
     </Routes>
   );

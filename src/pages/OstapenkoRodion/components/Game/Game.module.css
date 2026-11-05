@@ -1,0 +1,58 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 30px;
+  padding: 20px;
+}
+
+.container {
+  background-color: #bdbdbd;
+  padding: 15px;
+  border-top: 4px solid #fff;
+  border-left: 4px solid #fff;
+  border-right: 4px solid #7b7b7b;
+  border-bottom: 4px solid #7b7b7b;
+  display: inline-block;
+  box-shadow: 0 10px 20px rgb(0 0 0 / 50%);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #bdbdbd;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-top: 3px solid #7b7b7b;
+  border-left: 3px solid #7b7b7b;
+  border-right: 3px solid #fff;
+  border-bottom: 3px solid #fff;
+}
+
+.statusMessage {
+  text-align: center;
+  font-weight: bold;
+  margin: 10px 0;
+  min-height: 20px;
+  color: #333;
+}
+
+.topTitle, .bottomTitle {
+  text-align: center;
+  color: #fff;
+  font-weight: 900;
+  line-height: 1;
+  text-shadow: 2px 5px 10px rgb(0 0 0 / 30%);
+}
+
+.topTitle { font-size: clamp(40px, 8vw, 150px); }
+.bottomTitle { font-size: clamp(50px, 10vw, 180px); }
+
+@media (width <= 500px) {
+  .wrapper {
+    --cell-size: 30px; /* Перевизначення для мобільних */
+  }
+}
