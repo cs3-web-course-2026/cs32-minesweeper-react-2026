@@ -1,16 +1,77 @@
-/* Контейнер игрового поля (классический серый фон) */
 .gameBoard {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   width: max-content;
   margin: 0 auto;
   padding: 10px;
-  background-color: #c0c0c0;
-  border-top: 3px solid #ffffff;
-  border-left: 3px solid #ffffff;
-  border-right: 3px solid #808080;
-  border-bottom: 3px solid #808080;
+  background-color: rgb(192 192 192);
+  border-top: 3px solid rgb(255 255 255);
+  border-left: 3px solid rgb(255 255 255);
+  border-right: 3px solid rgb(128 128 128);
+  border-bottom: 3px solid rgb(128 128 128);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  background-color: rgb(192 192 192);
+  border-top: 2px solid rgb(128 128 128);
+  border-left: 2px solid rgb(128 128 128);
+  border-right: 2px solid rgb(255 255 255);
+  border-bottom: 2px solid rgb(255 255 255);
+}
+
+.counter {
+  background-color: rgb(0 0 0);
+  color: rgb(255 0 0);
+  font-family: "Courier New", Courier, monospace;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 2px 5px;
+  border-top: 2px solid rgb(128 128 128);
+  border-left: 2px solid rgb(128 128 128);
+  border-right: 2px solid rgb(255 255 255);
+  border-bottom: 2px solid rgb(255 255 255);
+  min-width: 50px;
+  text-align: center;
+}
+
+.smileButton {
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(192 192 192);
+  border-top: 2px solid rgb(255 255 255);
+  border-left: 2px solid rgb(255 255 255);
+  border-right: 2px solid rgb(128 128 128);
+  border-bottom: 2px solid rgb(128 128 128);
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.smileButton:active {
+  border-top: 2px solid rgb(128 128 128);
+  border-left: 2px solid rgb(128 128 128);
+  border-right: 2px solid rgb(255 255 255);
+  border-bottom: 2px solid rgb(255 255 255);
+}
+
+.boardGrid {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(128 128 128);
+  padding: 2px;
+  border-top: 3px solid rgb(128 128 128);
+  border-left: 3px solid rgb(128 128 128);
+  border-right: 3px solid rgb(255 255 255);
+  border-bottom: 3px solid rgb(255 255 255);
 }
 
 .boardRow {
@@ -25,17 +86,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #c0c0c0;
-  border-top: 3px solid #ffffff;
-  border-left: 3px solid #ffffff;
-  border-right: 3px solid #808080;
-  border-bottom: 3px solid #808080;
+  background-color: rgb(192 192 192);
+  border-top: 2px solid rgb(255 255 255);
+  border-left: 2px solid rgb(255 255 255);
+  border-right: 2px solid rgb(128 128 128);
+  border-bottom: 2px solid rgb(128 128 128);
   font-family: 'Courier New', Courier, monospace;
   font-weight: bold;
   font-size: 1.2rem;
   cursor: pointer;
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 
 .cell:disabled {
@@ -47,32 +109,31 @@
 }
 
 .cellOpened {
-  background-color: #c0c0c0;
-  border-top: 1px solid #808080;
-  border-left: 1px solid #808080;
-  border-right: 1px solid #ffffff;
-  border-bottom: 1px solid #ffffff;
-  box-shadow: none;
+  background-color: rgb(192 192 192);
+  border-top: 1px solid rgb(128 128 128);
+  border-left: 1px solid rgb(128 128 128);
+  border-right: 1px solid rgb(255 255 255);
+  border-bottom: 1px solid rgb(255 255 255);
 }
 
 .cellFlagged {
-  color: #000000;
+  color: rgb(0 0 0);
 }
 
 .cellExploded {
-  background-color: #ff0000 !important;
-  border-top: 1px solid #808080 !important;
-  border-left: 1px solid #808080 !important;
-  border-right: 1px solid #ffffff !important;
-  border-bottom: 1px solid #ffffff !important;
-  color: #000000;
+  background-color: rgb(255 0 0) !important;
+  border-top: 1px solid rgb(128 128 128) !important;
+  border-left: 1px solid rgb(128 128 128) !important;
+  border-right: 1px solid rgb(255 255 255) !important;
+  border-bottom: 1px solid rgb(255 255 255) !important;
+  color: rgb(0 0 0);
 }
 
-.number1 { color: #0000ff; }
-.number2 { color: #008000; }
-.number3 { color: #ff0000; }
-.number4 { color: #000080; }
-.number5 { color: #800000; }
-.number6 { color: #008080; }
-.number7 { color: #000000; }
-.number8 { color: #808080; }
+.number1 { color: rgb(0 0 255); }
+.number2 { color: rgb(0 128 0); }
+.number3 { color: rgb(255 0 0); }
+.number4 { color: rgb(0 0 128); }
+.number5 { color: rgb(128 0 0); }
+.number6 { color: rgb(0 128 128); }
+.number7 { color: rgb(0 0 0); }
+.number8 { color: rgb(128 128 128); }
