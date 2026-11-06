@@ -6,6 +6,7 @@ import Game from './pages/Game';
 import MockGame from './pages/MockGame';
 import ChernousValerii from './pages/ChernousValerii';
 import KarpovaBohdana from './pages/KarpovaBohdana';
+import KhomiakovOleksii from './pages/KhomiakovOleksii';
 import KovtunOleksandra from './pages/KovtunOleksandra';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="mock-game" element={<MockGame />} />
         <Route path="chernous-valerii" element={<ChernousValerii />} />
         <Route path="karpova-bohdana" element={<KarpovaBohdana />} />
+        <Route path="khomiakov-oleksii" element={<KhomiakovOleksii />} />
         <Route path="kovtun-oleksandra" element={<KovtunOleksandra />} />
       </Route>
     </Routes>
