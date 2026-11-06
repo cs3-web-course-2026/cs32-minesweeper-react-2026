@@ -1,6 +1,7 @@
 .restartButton {
   --duration-fast: 0.1s;
   --duration-medium: 0.2s;
+  
   background-color: #c55d78;
   color: #fff;
   border: none;
