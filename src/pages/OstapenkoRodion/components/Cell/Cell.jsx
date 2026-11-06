@@ -2,7 +2,17 @@ import React from 'react';
 import styles from './Cell.module.css';
 import { CELL_STATE, CELL_TYPE } from '../../constants';
 
-const Cell = ({ data, row, col, onClick, onContextMenu }) => {
+const Cell = ({ 
+  data, 
+  row, 
+  col, 
+  onClick, 
+  onContextMenu,
+  onTouchStart,
+  onTouchEnd,
+  onTouchMove,
+  onTouchCancel
+}) => {
   const { state, type, neighborMines, exploded } = data;
   const isOpened = state === CELL_STATE.OPENED;
   const isFlagged = state === CELL_STATE.FLAGGED || state === CELL_STATE.WRONG_FLAG;
@@ -40,6 +50,10 @@ const Cell = ({ data, row, col, onClick, onContextMenu }) => {
       className={cssClass}
       onClick={onClick}
       onContextMenu={onContextMenu}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+      onTouchMove={onTouchMove}
+      onTouchCancel={onTouchCancel}
       aria-disabled={isOpened}
       aria-label={ariaLabel}
     >
