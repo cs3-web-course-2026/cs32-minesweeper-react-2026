@@ -89,7 +89,8 @@ function Game() {
       difficulty: 'Advanced',
       status: 'Planning',
     },
-    {id: 5,
+    {
+      id: 5,
       title: 'Сапер у стилі мультфільмів 1930-х',
       description:
         'React-версія Сапера з таймером, лічильником мін, прапорцями та flood-fill; «гумові» анімації в дусі старих мультфільмів.',
@@ -107,15 +108,25 @@ function Game() {
       link: 'chernous-valerii',
     },
     {
-    id: 7,
-    title: '🌸Pinky Minesweeper🌸',
-    description:
-      'Adaptive React-version of the Minesweeper game with a timer, mine counter, flags, and using CSS Modules.',
-    author: 'Uskova Olexandra',
-    link: 'uskova-olexandra',
-    difficulty: 'Intermediate',
-    status: 'Complete',
-  },
+      id: 7,
+      title: 'Minesweeper React',
+      description:
+        'React-версія Сапера з компонентизацією, таймером, лічильником прапорців, підтриманням доступності (ARIA) та клавіатурними скороченнями (клавіша F).',
+      author: 'Kovtun Oleksandra',
+      link: 'kovtun-oleksandra',
+      difficulty: 'Intermediate',
+      status: 'Complete',
+    },
+    {
+        id: 8,
+        title: '🌸 Pinky Minesweeper 🌸',
+        description:
+          'Adaptive React-version of the Minesweeper game with a timer, mine counter, flags, and using CSS Modules.',
+        author: 'Uskova Oleksandra',
+        link: 'uskova-oleksandra',
+        difficulty: 'Intermediate',
+        status: 'Complete',
+      },
   ];
 
   return (
