@@ -107,7 +107,7 @@ function Game() {
       author: 'Chernous Valerii',
       link: 'chernous-valerii',
       
-difficulty: 'Beginner',
+      difficulty: 'Beginner',
       status: 'Complete',
     },
     {
