@@ -33,16 +33,11 @@ export function createEmptyBoard(rows, cols) {
 // Generates a board and places mines
 export function generateBoard(rows, cols, minePositions, safeRow = -1, safeCol = -1) {
   const newBoard = createEmptyBoard(rows, cols);
-
   for (const [mineRow, mineCol] of minePositions) {
-    if (mineRow === safeRow && mineCol === safeCol) {
-      continue;
-    }
     if (newBoard[mineRow][mineCol].type !== CELL_TYPE.MINE) {
       newBoard[mineRow][mineCol].type = CELL_TYPE.MINE;
     }
   }
-
   return newBoard;
 }
 

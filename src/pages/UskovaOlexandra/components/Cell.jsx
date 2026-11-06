@@ -37,7 +37,7 @@ function Cell({
     content = cell.isWrongFlag ? '❌' : '🚩';
   }
 
-  // Обчислюємо опис стану для скрінрідерів (зауваження CodeRabbit)
+  // Describe the cell state for screen readers
   let stateLabel = 'closed';
   if (isFlagged) {
     stateLabel = cell.isWrongFlag ? 'incorrect flag' : 'flagged';
