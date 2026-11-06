@@ -106,6 +106,8 @@ function Game() {
         'React-версія Сапера з звичайним flood-fill відкриттям, таймером, лічильником прапорців та повною підтримкою доступності й клавіатури.',
       author: 'Chernous Valerii',
       link: 'chernous-valerii',
++      difficulty: 'Beginner',
++      status: 'Complete',
     },
     {
       id: 7,
