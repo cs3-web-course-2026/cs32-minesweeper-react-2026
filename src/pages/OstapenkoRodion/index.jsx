@@ -8,6 +8,7 @@ import GameStatus from './components/GameStatus/GameStatus';
 import { GAME_CONFIG, GAME_STATUS, CELL_STATE, CELL_TYPE, TIMER_INTERVAL } from './constants';
 import { 
   generateEmptyBoard, 
+  generateMineCoordinates, 
   cloneBoard, 
   placeMinesAndCalculate, 
   revealEmptyCells, 
