@@ -106,8 +106,6 @@ function Game() {
         'React-версія Сапера з звичайним flood-fill відкриттям, таймером, лічильником прапорців та повною підтримкою доступності й клавіатури.',
       author: 'Chernous Valerii',
       link: 'chernous-valerii',
-      difficulty: 'Beginner',
-      status: 'Complete',
     },
     {
       id: 7,
@@ -121,6 +119,16 @@ function Game() {
     },
     {
       id: 8,
+      title: 'SUPER MEGA Minesweeper',
+      description:
+        'React-версія Сапера з таймером, лічильником прапорців та крутою назвою.',
+      author: 'Ostapenko Rodion',
+      link: 'ostapenko-rodion',
+      difficulty: 'Beginner',
+      status: 'Complete',
+    },
+    {
+      id: 9,
       title: '🌸 Pinky Minesweeper 🌸',
       description:
         'Adaptive React-version of the Minesweeper game with a timer, mine counter, flags, and using CSS Modules.',
