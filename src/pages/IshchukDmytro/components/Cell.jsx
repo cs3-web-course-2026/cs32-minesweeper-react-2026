@@ -21,6 +21,16 @@ function Cell({ cell, row, col, onOpen, onFlag }) {
     onFlag(row, col);
   }
 
+  function handleKeyDown(event) {
+    if (
+      event.key.toLowerCase() === 'f' &&
+      !event.repeat && !event.ctrlKey && !event.metaKey && !event.altKey
+    ) {
+      event.preventDefault();
+      onFlag(row, col);
+    }
+  }
+
   return (
     <button
       type="button"
@@ -34,6 +44,7 @@ function Cell({ cell, row, col, onOpen, onFlag }) {
       aria-label={`Рядок ${row + 1}, стовпець ${col + 1}`}
       onClick={() => onOpen(row, col)}
       onContextMenu={handleContextMenu}
+      onKeyDown={handleKeyDown}
     >
       {content}
     </button>

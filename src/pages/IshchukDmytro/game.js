@@ -48,6 +48,10 @@ export function createBoard({ rows, cols, minesCount } = CONFIG) {
     }
   }
 
+  return countNeighbourMines(board);
+}
+
+function countNeighbourMines(board) {
   return board.map((rowCells, row) =>
     rowCells.map((cell, col) => ({
       ...cell,
@@ -56,6 +60,29 @@ export function createBoard({ rows, cols, minesCount } = CONFIG) {
       ).length,
     })),
   );
+}
+
+function protectFirstMove(board, row, col) {
+  if (
+    board[row][col].type !== CELL_TYPE.MINE ||
+    board.flat().some((cell) => cell.state === CELL_STATE.OPENED)
+  ) {
+    return board;
+  }
+
+  const targetRow = board.findIndex((rowCells) =>
+    rowCells.some((cell) => cell.type === CELL_TYPE.EMPTY),
+  );
+  const targetCol = board[targetRow].findIndex((cell) => cell.type === CELL_TYPE.EMPTY);
+  const nextBoard = board.map((rowCells) => [...rowCells]);
+
+  nextBoard[row][col] = { ...board[row][col], type: CELL_TYPE.EMPTY };
+  nextBoard[targetRow][targetCol] = {
+    ...board[targetRow][targetCol],
+    type: CELL_TYPE.MINE,
+  };
+
+  return countNeighbourMines(nextBoard);
 }
 
 export function countFlags(board) {
@@ -127,8 +154,10 @@ export function gameReducer(state, action) {
 
   if (cell.state === CELL_STATE.FLAGGED) return state;
 
-  if (cell.type === CELL_TYPE.MINE) {
-    const board = state.board.map((rowCells) =>
+  const safeBoard = protectFirstMove(state.board, row, col);
+
+  if (safeBoard[row][col].type === CELL_TYPE.MINE) {
+    const board = safeBoard.map((rowCells) =>
       rowCells.map((item) =>
         item.type === CELL_TYPE.MINE ? { ...item, state: CELL_STATE.OPENED } : item,
       ),
@@ -137,7 +166,7 @@ export function gameReducer(state, action) {
     return { ...state, board, status: GAME_STATUS.LOST };
   }
 
-  const board = revealCells(state.board, row, col);
+  const board = revealCells(safeBoard, row, col);
   const won = board.flat().every(
     (item) => item.type === CELL_TYPE.MINE || item.state === CELL_STATE.OPENED,
   );
