@@ -166,7 +166,6 @@ function Minesweeper() {
           onFlag={handleToggleFlag}
           explodedMine={explodedMine}
           disabled={status !== GAME_STATUS.PROCESS}
-          style={{ '--board-cols': board[0].length }}
         />
 
         <GameStatus status={status} />
