@@ -1,0 +1,250 @@
+.gameContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  padding: 30px;
+  background-color: #f7f1ec;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 24 24' opacity='0.08'%3E%3Cpath fill='%23c27d54' d='M12 3c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m7 4c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m-14 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m13.5 6c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5-1.1-2.5-2.5-2.5m-13 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5-1.1-2.5-2.5-2.5m6.5-1c-2.2 0-4 1.8-4 4 0 2.2 2.6 4.5 4 6 1.4-1.5 4-3.8 4-6 0-2.2-1.8-4-4-4z'/%3E%3C/svg%3E");
+  background-size: 80px 80px;
+  min-height: 90vh;
+  color: #4a3b32;
+  position: relative;
+  overflow: hidden;
+  animation: move-background 20s linear infinite;
+}
+
+@keyframes move-background {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 80px 80px;
+  }
+}
+
+.gameHeader {
+  background: #fff8f3;
+  border: 2px solid #e8d7cb;
+  border-radius: 16px;
+  padding: 15px 25px;
+  margin-bottom: 25px;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgb(138 107 91 / 8%);
+  z-index: 2;
+}
+
+.gameHeader h1 {
+  font-size: 1.3rem;
+  margin: 0 0 12px;
+  color: #b07d62;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.scoreboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  background: #efe3d8;
+  padding: 8px 15px;
+  border-radius: 12px;
+  border: 1px solid #dfcfc2;
+}
+
+.scoreboard span {
+  font-family: 'Fira Code', monospace;
+  font-size: 1.5rem;
+  color: #c27d54;
+  font-weight: 600;
+  background: #fffdf9;
+  padding: 4px 10px;
+  border-radius: 8px;
+  min-width: 60px;
+  text-align: center;
+  border: 1px solid #ebdcd0;
+}
+
+.resetBtn {
+  font-size: 1.6rem;
+  background: #fffdf9;
+  border: 2px solid #e8d7cb;
+  border-radius: 50%;
+  width: 46px;
+  height: 46px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 8px rgb(138 107 91 / 10%);
+  animation: cat-head-tilt 3s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+.resetBtn:hover {
+  transform: scale(1.2) rotate(20deg);
+  background-color: #fff;
+  border-color: #c27d54;
+}
+
+.resetBtn:active {
+  transform: scale(0.9);
+}
+
+@keyframes cat-head-tilt {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-8deg);
+  }
+
+  75% {
+    transform: rotate(8deg);
+  }
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(var(--board-columns, 10), minmax(30px, 40px));
+  gap: 4px;
+  background-color: #ebdcd0;
+  padding: 10px;
+  border-radius: 16px;
+  box-shadow: 0 12px 35px rgb(138 107 91 / 15%);
+  border: 2px solid #dfcfc2;
+  z-index: 2;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.cell {
+  width: 100%;
+  aspect-ratio: 1;
+  min-width: 30px;
+  min-height: 30px;
+  background-color: #fffdf9;
+  border: none;
+  border-radius: 8px;
+  font-size: clamp(14px, 4vw, 18px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.cell:hover {
+  background-color: #fceee3;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 12px rgb(194 125 84 / 20%);
+}
+
+.cell.open {
+  background-color: #ecdcd0;
+  box-shadow: inset 0 2px 4px rgb(138 107 91 / 15%);
+  transform: none;
+}
+
+.cell.mine {
+  background-color: #f7d6d0;
+  animation: shake 0.3s ease-in-out;
+}
+
+.cell.clicked {
+  background-color: #e6a196;
+}
+
+.cell.flag {
+  background-color: #fffdf9;
+  animation: bounce-in 0.3s ease;
+}
+
+.cell.flaggedSafe {
+  background-color: #f5e1de;
+}
+
+.num1 { color: #1d4ed8; }
+.num2 { color: #15803d; } 
+.num3 { color: #b91c1c; } 
+.num4 { color: #581c87; } 
+.num5 { color: #7c2d12; } 
+.num6 { color: #0e7490; } 
+.num7 { color: #374151; } 
+.num8 { color: #111827; } 
+
+.statusMessage {
+  margin-top: 25px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 12px 25px;
+  background: #fff8f3;
+  border: 2px solid #e8d7cb;
+  border-radius: 12px;
+  color: #b07d62;
+  text-align: center;
+  box-shadow: 0 4px 15px rgb(138 107 91 / 8%);
+  animation: pop-in 0.3s ease-out;
+  z-index: 2;
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0.4) rotate(-20deg);
+    opacity: 0;
+  }
+
+  70% {
+    transform: scale(1.2) rotate(10deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-4px);
+  }
+
+  75% {
+    transform: translateX(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gameContainer,
+  .resetBtn,
+  .cell {
+    animation: none !important;
+    transition: none !important;
+  }
+}
