@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useReducer } from 'react';
+import { GAME_STATUS } from '../constants';
 import { CONFIG, countFlags, createBoard, createGame, gameReducer } from '../game';
 
 function initializeGame() {
@@ -9,7 +10,7 @@ export function useMinesweeper() {
   const [game, dispatch] = useReducer(gameReducer, undefined, initializeGame);
 
   useEffect(() => {
-    if (game.status !== 'playing') return undefined;
+    if (game.status !== GAME_STATUS.PLAYING) return undefined;
 
     const timerId = setInterval(() => dispatch({ type: 'tick' }), 1000);
     return () => clearInterval(timerId);

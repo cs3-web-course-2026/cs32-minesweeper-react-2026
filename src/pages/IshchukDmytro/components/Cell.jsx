@@ -1,10 +1,11 @@
 import { memo } from 'react';
+import { CELL_STATE, CELL_TYPE } from '../constants';
 import styles from './Cell.module.css';
 
 function Cell({ cell, row, col, onOpen, onFlag }) {
-  const opened = cell.state === 'opened';
-  const flagged = cell.state === 'flagged';
-  const mine = opened && cell.type === 'mine';
+  const opened = cell.state === CELL_STATE.OPENED;
+  const flagged = cell.state === CELL_STATE.FLAGGED;
+  const mine = opened && cell.type === CELL_TYPE.MINE;
   let content = '';
 
   if (flagged) {

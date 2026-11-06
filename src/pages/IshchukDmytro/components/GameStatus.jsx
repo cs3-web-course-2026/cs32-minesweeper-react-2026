@@ -1,9 +1,10 @@
+import { GAME_STATUS } from '../constants';
 import styles from '../Game.module.css';
 
 const MESSAGES = {
-  playing: '',
-  won: 'Перемога!',
-  lost: 'Гру завершено',
+  [GAME_STATUS.PLAYING]: '',
+  [GAME_STATUS.WON]: 'Перемога!',
+  [GAME_STATUS.LOST]: 'Гру завершено',
 };
 
 export default function GameStatus({ status }) {
