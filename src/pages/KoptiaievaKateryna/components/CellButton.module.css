@@ -19,14 +19,19 @@
   transition: transform var(--transition-duration);
 }
 
-.cell:hover {
-  background: var(--cell-closed-hover-background);
-  transform: translateY(-2px) scale(1.06);
-}
-
 .cell:focus-visible {
   outline: var(--focus-outline);
   outline-offset: 2px;
+}
+
+.cell[aria-disabled='true'] {
+  cursor: default;
+}
+
+/* Only closed cells of a running game react to hover */
+.cell:hover:not(.opened, .mine, [aria-disabled='true']) {
+  background: var(--cell-closed-hover-background);
+  transform: translateY(-2px) scale(1.06);
 }
 
 .opened,
@@ -35,12 +40,6 @@
   background: var(--cell-opened-background);
   box-shadow: none;
   cursor: default;
-}
-
-.opened:hover,
-.mine:hover {
-  background: var(--cell-opened-background);
-  transform: none;
 }
 
 /* Flag: pink badge with a heart */
@@ -98,8 +97,7 @@
     var(--skull-color);
 }
 
-.exploded,
-.exploded:hover {
+.exploded {
   background: var(--cell-exploded-background);
   animation: wiggle var(--wiggle-duration) ease-in-out infinite alternate;
 }
@@ -115,8 +113,7 @@
 }
 
 /* Flag that was not on a mine, revealed when the game is lost */
-.wrongFlag,
-.wrongFlag:hover {
+.wrongFlag {
   background: var(--cell-wrong-flag-background);
 }
 

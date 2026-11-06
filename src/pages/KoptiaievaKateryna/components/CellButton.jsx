@@ -1,11 +1,13 @@
 import { memo } from 'react';
 
 import {
+  ARROW_KEY_DIRECTION,
   CELL_STATE,
   CELL_TYPE,
   FLAG_KEY,
   GAME_STATUS,
 } from '../constants/game';
+import { isGameOver } from '../utils/checks';
 
 import styles from './CellButton.module.css';
 
@@ -65,7 +67,17 @@ function isFlagShortcut(event) {
 }
 
 
-function CellButton({ cell, row, col, status, onOpen, onFlag }) {
+function CellButton({
+  cell,
+  row,
+  col,
+  status,
+  isTabStop,
+  onOpen,
+  onFlag,
+  onFocusCell,
+  onMoveFocus,
+}) {
   const { classNames, description, minesNearby } = getCellView(cell, status);
 
   function handleContextMenu(event) {
@@ -74,6 +86,17 @@ function CellButton({ cell, row, col, status, onOpen, onFlag }) {
   }
 
   function handleKeyDown(event) {
+    const direction = ARROW_KEY_DIRECTION[event.key];
+
+    if (direction) {
+      const [directionalRow, directionalCol] = direction;
+
+      event.preventDefault();
+      onMoveFocus(row + directionalRow, col + directionalCol);
+
+      return;
+    }
+
     if (isFlagShortcut(event)) {
       onFlag(row, col);
     }
@@ -83,11 +106,14 @@ function CellButton({ cell, row, col, status, onOpen, onFlag }) {
     <button
       type="button"
       className={[styles.cell, ...classNames].join(' ')}
+      tabIndex={isTabStop ? 0 : -1}
       data-mines={minesNearby}
       aria-label={`Row ${row + 1}, column ${col + 1}, ${description}`}
+      aria-disabled={isGameOver(status)}
       onClick={() => onOpen(row, col)}
       onContextMenu={handleContextMenu}
       onKeyDown={handleKeyDown}
+      onFocus={() => onFocusCell(row, col)}
     >
       {minesNearby}
     </button>

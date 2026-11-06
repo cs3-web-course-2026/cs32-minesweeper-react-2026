@@ -41,7 +41,8 @@ export const DIRECTIONS = [
 ];
 
 const ACTIVE_GAME_FACE = '😈';
-const FLAG_HINT = 'Right-click or press F to place a flag.';
+const CONTROLS_HINT =
+  'Right-click or press F to place a flag. Arrow keys move between cells.';
 
 export const RESTART_BUTTON_FACE = {
   [GAME_STATUS.IDLE]: ACTIVE_GAME_FACE,
@@ -51,8 +52,8 @@ export const RESTART_BUTTON_FACE = {
 };
 
 export const GAME_MESSAGE = {
-  [GAME_STATUS.IDLE]: FLAG_HINT,
-  [GAME_STATUS.PLAYING]: FLAG_HINT,
+  [GAME_STATUS.IDLE]: CONTROLS_HINT,
+  [GAME_STATUS.PLAYING]: CONTROLS_HINT,
   [GAME_STATUS.WON]: 'You win! Press 😎 to play again.',
   [GAME_STATUS.LOST]: 'Game over — press 😵 to play again.',
 };
@@ -60,3 +61,10 @@ export const GAME_MESSAGE = {
 export const TIMER_INTERVAL_MS = 1000;
 export const SECONDS_PER_MINUTE = 60;
 export const FLAG_KEY = 'f';
+
+export const ARROW_KEY_DIRECTION = {
+  ArrowUp: [-1, 0],
+  ArrowDown: [1, 0],
+  ArrowLeft: [0, -1],
+  ArrowRight: [0, 1],
+};
