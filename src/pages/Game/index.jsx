@@ -119,6 +119,16 @@ function Game() {
       difficulty: 'Intermediate',
       status: 'Complete',
     },
+    {
+      id: 8,
+      title: 'Pink Skull Minesweeper',
+      description:
+        'React-версія Сапера в рожево-фіолетовому стилі: черепи замість мін, сердечка-прапорці, безпечний перший хід, flood-fill, таймер і керування з клавіатури (F — прапорець).',
+      author: 'Koptiaieva Kateryna',
+      link: 'koptiaieva-kateryna',
+      difficulty: 'Beginner',
+      status: 'Complete',
+    },
   ];
 
   return (
