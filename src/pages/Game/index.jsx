@@ -105,7 +105,17 @@ function Game() {
         'React-версія Сапера з звичайним flood-fill відкриттям, таймером, лічильником прапорців та повною підтримкою доступності й клавіатури.',
       author: 'Chernous Valerii',
       link: 'chernous-valerii',
-    }
+    },
+    {
+      id: 7,
+      title: 'Сапер — Іщук Дмитро',
+      description:
+        'Класичний Сапер: поле 10×10, 15 мін, таймер, прапорці та автоматичне відкриття порожніх клітинок.',
+      author: 'Dmytro Ishchuk',
+      link: 'ishchuk-dmytro',
+      difficulty: 'Intermediate',
+      status: 'Complete',
+    },
   ];
 
   return (

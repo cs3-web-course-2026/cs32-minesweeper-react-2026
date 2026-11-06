@@ -1,0 +1,48 @@
+.cell {
+  min-width: 0;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 1px solid #aaa;
+  border-radius: 0;
+  font: inherit;
+  font-size: clamp(14px, 5vw, 20px);
+  font-weight: bold;
+  color: #222;
+  background: #d4d4d4;
+  cursor: pointer;
+  transition: none;
+}
+
+.cell:hover {
+  border-color: #aaa;
+  background: #c4c4c4;
+  transform: none;
+}
+
+.cell:focus-visible {
+  z-index: 1;
+  outline: 2px solid #245cad;
+  outline-offset: 2px;
+}
+
+.cell.open {
+  border-color: #ddd;
+  background: #fafafa;
+}
+
+.cell.open:hover {
+  background: #fafafa;
+}
+
+.cell.flag {
+  color: #28733c;
+}
+
+.cell.mine {
+  background: #bbb;
+}
+
+.cell[data-mines='1'] { color: #245cad; }
+.cell[data-mines='2'] { color: #28733c; }
+.cell[data-mines='3'] { color: #b52d26; }
+.cell[data-mines='4'] { color: #633a91; }
