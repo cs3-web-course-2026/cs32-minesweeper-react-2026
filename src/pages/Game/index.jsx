@@ -116,6 +116,8 @@ function Game() {
       difficulty: 'Beginner',
       status: 'Complete',
     },
+    {
+      id: 8,
       title: 'Minesweeper React',
       description:
         'React-версія Сапера з компонентизацією, таймером, лічильником прапорців, підтриманням доступності (ARIA) та клавіатурними скороченнями (клавіша F).',
@@ -125,7 +127,7 @@ function Game() {
       status: 'Complete',
     },
     {
-      id: 8,
+      id: 9,
       title: 'SUPER MEGA Minesweeper',
       description:
         'React-версія Сапера з таймером, лічильником прапорців та крутою назвою.',
