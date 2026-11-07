@@ -1,0 +1,13 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 36px);
+  gap: 4px;
+  justify-content: center;
+  margin: 25px auto;
+  padding: 15px;
+  width: fit-content;
+  background: #100d28aa;
+  border: 1px solid #6655aa;
+  border-radius: 12px;
+  box-shadow: 0 0 25px #653bff44;
+}
