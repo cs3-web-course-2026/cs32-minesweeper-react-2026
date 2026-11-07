@@ -115,7 +115,7 @@ function Game() {
       link: 'linkov-oleksandr',
       difficulty: 'Beginner',
       status: 'Complete',
-    }
+    },
       title: 'Minesweeper React',
       description:
         'React-версія Сапера з компонентизацією, таймером, лічильником прапорців, підтриманням доступності (ARIA) та клавіатурними скороченнями (клавіша F).',
