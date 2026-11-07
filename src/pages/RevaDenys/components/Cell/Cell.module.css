@@ -1,0 +1,88 @@
+.vCell {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #3f474e, #23292e);
+  border-top: 2px solid #5a6670;
+  border-left: 2px solid #5a6670;
+  border-bottom: 2px solid #141719;
+  border-right: 2px solid #141719;
+  border-radius: 4px;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 30px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.vCell:hover:not(.vCellRevealed) {
+  filter: brightness(1.2);
+}
+
+.vCellRevealed {
+  background: #15191c;
+  border: 1px solid #232a30;
+  box-shadow: inset 0 3px 6px rgb(0 0 0 / 85%);
+  cursor: default;
+}
+
+.vCellFlagged::after {
+  content: '⚔️';
+  font-size: calc(var(--cell-size, 40px) * 0.52);
+  filter: drop-shadow(0 0 4px #e8a638);
+}
+
+.vCellTrap::after {
+  content: '💀';
+}
+
+.vCellExploded {
+  background: radial-gradient(circle, #b91c1c 20%, #450a0a 100%) !important;
+  border: 2px solid #f87171 !important;
+}
+
+.vCellExploded::after {
+  content: '💥';
+}
+
+/* Кольори цифр */
+.vCell1 {
+  color: var(--rune-blue);
+  text-shadow: 0 0 8px var(--rune-blue);
+}
+
+.vCell2 {
+  color: var(--rune-green);
+  text-shadow: 0 0 8px var(--rune-green);
+}
+
+.vCell3 {
+  color: var(--rune-amber);
+  text-shadow: 0 0 8px var(--rune-amber);
+}
+
+.vCell4 {
+  color: var(--rune-purple);
+  text-shadow: 0 0 8px var(--rune-purple);
+}
+
+.vCell5 {
+  color: var(--rune-crimson);
+  text-shadow: 0 0 8px var(--rune-crimson);
+}
+
+.vCell6 {
+  color: var(--rune-cyan);
+  text-shadow: 0 0 8px var(--rune-cyan);
+}
+
+.vCell7 {
+  color: var(--rune-silver);
+  text-shadow: 0 0 8px var(--rune-silver);
+}
+
+.vCell8 {
+  color: var(--rune-obsidian);
+  text-shadow: 0 0 8px var(--rune-obsidian);
+}

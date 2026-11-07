@@ -105,6 +105,14 @@ function Game() {
         'React-версія Сапера з звичайним flood-fill відкриттям, таймером, лічильником прапорців та повною підтримкою доступності й клавіатури.',
       author: 'Chernous Valerii',
       link: 'chernous-valerii',
+    },
+    {
+      id: 7,
+      title: 'Viking Minesweeper',
+      description:
+        'React-версія VIKING Сапера з звичайним flood-fill відкриттям, таймером, лічильником прапорців та повною підтримкою доступності й клавіатури.',
+      author: 'Reva Denys',
+      link: 'reva-denys',
     }
   ];
 
