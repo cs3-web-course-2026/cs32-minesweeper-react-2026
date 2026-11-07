@@ -21,12 +21,9 @@ function App() {
         <Route path="mock-game" element={<MockGame />} />
         <Route path="chernous-valerii" element={<ChernousValerii />} />
         <Route path="karpova-bohdana" element={<KarpovaBohdana />} />
-<<<<<<< HEAD
-        <Route path="reva-denys" element={<RevaDenys />} />
-=======
         <Route path="ostapenko-rodion" element={<OstapenkoRodion />} />
         <Route path="kovtun-oleksandra" element={<KovtunOleksandra />} />
->>>>>>> main
+        <Route path="reva-denys" element={<RevaDenys />} />
       </Route>
     </Routes>
   );
