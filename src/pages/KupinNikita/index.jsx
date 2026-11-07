@@ -1,9 +1,12 @@
+
 import { useEffect, useState } from 'react';
 import Board from './components/Board';
 import Timer from './components/Timer';
 import GameStatus from './components/GameStatus';
 import RestartButton from './components/RestartButton';
 import styles from './Game.module.css';
+import { GAME_STATUS } from './constants';
+import revealCells from './utils/revealCells';
 
 const SIZE = 10;
 const MINES = 15;
@@ -62,12 +65,12 @@ function createBoard() {
 
 function KupinNikita() {
   const [board, setBoard] = useState(createBoard);
-  const [status, setStatus] = useState('playing');
+  const [status, setStatus] = useState(GAME_STATUS.PLAYING);
   const [time, setTime] = useState(0);
   const [started, setStarted] = useState(false);
 
   useEffect(() => {
-    if (!started || status !== 'playing') return;
+    if (!started || status !== GAME_STATUS.PLAYING) return;
 
     const interval = setInterval(() => {
       setTime((previous) => previous + 1);
@@ -77,7 +80,7 @@ function KupinNikita() {
   }, [started, status]);
 
   function revealCell(row, col) {
-    if (status !== 'playing') return;
+    if (status !== GAME_STATUS.PLAYING) return;
 
     const current = board[row][col];
 
@@ -85,50 +88,25 @@ function KupinNikita() {
 
     setStarted(true);
 
-    const next = board.map((line) =>
-      line.map((cell) => ({ ...cell }))
-    );
+    const next = revealCells(board, row, col);
 
-    function reveal(r, c) {
-      if (
-        r < 0 ||
-        r >= SIZE ||
-        c < 0 ||
-        c >= SIZE
-      ) return;
-
-      const cell = next[r][c];
-
-      if (cell.revealed || cell.flagged) return;
-
-      cell.revealed = true;
-
-      if (cell.adjacentMines === 0 && !cell.isMine) {
-        for (let dr = -1; dr <= 1; dr++) {
-          for (let dc = -1; dc <= 1; dc++) {
-            if (dr !== 0 || dc !== 0) {
-              reveal(r + dr, c + dc);
-            }
-          }
-        }
-      }
-    }
-
-    reveal(row, col);
-
-    if (next[row][col].isMine) {
+    if (current.isMine) {
       next.forEach((line) =>
         line.forEach((cell) => {
-          if (cell.isMine) cell.revealed = true;
+          if (cell.isMine) {
+            cell.revealed = true;
+          }
         })
       );
 
-      setStatus('lost');
+      setStatus(GAME_STATUS.LOST);
     } else {
       const safeCells = next.flat().filter((cell) => !cell.isMine);
       const allSafeRevealed = safeCells.every((cell) => cell.revealed);
 
-      if (allSafeRevealed) setStatus('won');
+      if (allSafeRevealed) {
+        setStatus(GAME_STATUS.WON);
+      }
     }
 
     setBoard(next);
@@ -137,7 +115,7 @@ function KupinNikita() {
   function toggleFlag(event, row, col) {
     event.preventDefault();
 
-    if (status !== 'playing') return;
+    if (status !== GAME_STATUS.PLAYING) return;
 
     const next = board.map((line) =>
       line.map((cell) => ({ ...cell }))
@@ -153,7 +131,7 @@ function KupinNikita() {
 
   function restartGame() {
     setBoard(createBoard());
-    setStatus('playing');
+    setStatus(GAME_STATUS.PLAYING);
     setTime(0);
     setStarted(false);
   }
@@ -162,7 +140,7 @@ function KupinNikita() {
 
   return (
     <main className={styles.game}>
-      <h1>Minesweeperr React</h1>
+      <h1>Minesweeper React</h1>
 
       <div className={styles.info}>
         <span>💣 Міни: {MINES - flags}</span>

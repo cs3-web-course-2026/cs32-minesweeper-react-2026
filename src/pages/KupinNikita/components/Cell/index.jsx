@@ -10,18 +10,21 @@ function Cell({ cell, onClick, onContextMenu }) {
     return cell.adjacentMines;
   };
 
+  const getLabel = () => {
+    if (cell.flagged) return 'Закрита клітинка, встановлено прапорець';
+    if (!cell.revealed) return 'Закрита клітинка';
+
+    return `Відкрита клітинка: ${getContent()}`;
+  };
+
   return (
     <button
-  type="button"
-  className={`${styles.cell} ${cell.revealed ? styles.revealed : ''}`}
+      type="button"
+      className={`${styles.cell} ${cell.revealed ? styles.revealed : ''}`}
       onClick={onClick}
       onContextMenu={onContextMenu}
       disabled={cell.revealed}
-      aria-label={
-        cell.revealed
-          ? `Відкрита клітинка: ${getContent()}`
-          : 'Закрита клітинка'
-      }
+      aria-label={getLabel()}
     >
       {getContent()}
     </button>

@@ -1,5 +1,11 @@
+import styles from './Timer.module.css';
+
 function Timer({ time }) {
-  return <div>Час: {time} сек.</div>;
+  return (
+    <div className={styles.timer}>
+      ⏱ Час: {time} сек.
+    </div>
+  );
 }
 
 export default Timer;

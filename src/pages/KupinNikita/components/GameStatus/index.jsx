@@ -1,8 +1,23 @@
-function GameStatus({ status }) {
-  if (status === 'won') return <h2>🎉 Ви перемогли!</h2>;
-  if (status === 'lost') return <h2>💥 Гру завершено. Ви програли!</h2>;
+import styles from './GameStatus.module.css';
+import { GAME_STATUS } from '../../constants';
 
-  return <h2>Гра триває</h2>;
+function GameStatus({ status }) {
+  let message = '🎮 Гра триває';
+  let className = styles.status;
+
+  if (status === GAME_STATUS.WON) {
+    message = '🎉 Ви перемогли!';
+    className = `${styles.status} ${styles.won}`;
+  } else if (status === GAME_STATUS.LOST) {
+    message = '💥 Гру завершено. Ви програли!';
+    className = `${styles.status} ${styles.lost}`;
+  }
+
+  return (
+    <div role="status" aria-live="polite">
+      <h2 className={className}>{message}</h2>
+    </div>
+  );
 }
 
 export default GameStatus;
