@@ -1,0 +1,26 @@
+.game {
+  min-height: 100vh;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 40px 15px;
+  color: #f0eaff;
+  background:
+    radial-gradient(ellipse at 20% 20%, #38216b 0%, transparent 45%),
+    radial-gradient(ellipse at 80% 80%, #123c65 0%, transparent 45%),
+    linear-gradient(135deg, #100d24, #17152f 55%, #091a2c);
+}
+
+.game h1 {
+  color: #8ffcff;
+  text-shadow: 0 0 12px #00d9ff, 0 0 25px #7b2cff;
+  font-size: 32px;
+}
+
+.info {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 25px;
+  font-size: 18px;
+  color: #d8caff;
+}

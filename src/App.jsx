@@ -8,6 +8,7 @@ import ChernousValerii from './pages/ChernousValerii';
 import KarpovaBohdana from './pages/KarpovaBohdana';
 import OstapenkoRodion from './pages/OstapenkoRodion';
 import KovtunOleksandra from './pages/KovtunOleksandra';
+import KupinNikita from './pages/KupinNikita';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="karpova-bohdana" element={<KarpovaBohdana />} />
         <Route path="ostapenko-rodion" element={<OstapenkoRodion />} />
         <Route path="kovtun-oleksandra" element={<KovtunOleksandra />} />
+        <Route path="kupin-nikita" element={<KupinNikita />} />
       </Route>
     </Routes>
   );

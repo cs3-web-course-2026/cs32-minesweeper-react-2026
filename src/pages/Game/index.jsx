@@ -127,6 +127,16 @@ function Game() {
       difficulty: 'Beginner',
       status: 'Complete',
     },
+    {
+  id: 9,
+  title: 'Minesweeperr React',
+  description:
+    'React-версія Сапера з компонентною архітектурою, таймером, прапорцями та перевіркою перемоги й поразки.',
+  author: 'Kupin Nikita',
+  link: 'kupin-nikita',
+  difficulty: 'Intermediate',
+  status: 'Complete',
+},
   ];
 
   return (
