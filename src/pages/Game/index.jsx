@@ -50,8 +50,16 @@ const CARD_STATUS_CLASS = {
 };
 
 function Game() {
-  // Add your implementations here by editing this array
   const implementations = [
+    {
+      id: 'prychyna-daria',
+      title: 'Minesweeper Game',
+      description: 'React implementation of Minesweeper with modular components, timer, flagging, and CSS Modules.',
+      author: 'Prychyna Daria (CS-32)',
+      link: 'prychyna-daria',
+      difficulty: 'Intermediate',
+      status: 'Complete',
+    },
     {
       id: 1,
       title: 'Mock Minesweeper Game',

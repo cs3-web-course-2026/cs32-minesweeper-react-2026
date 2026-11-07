@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Game from './pages/Game';
 import MockGame from './pages/MockGame';
+import PrychynaDariaGame from './pages/PrychynaDaria'; 
 import ChernousValerii from './pages/ChernousValerii';
 import KarpovaBohdana from './pages/KarpovaBohdana';
 import OstapenkoRodion from './pages/OstapenkoRodion';
@@ -17,6 +18,7 @@ function App() {
         <Route path="about" element={<About />} />
         <Route path="game" element={<Game />} />
         <Route path="mock-game" element={<MockGame />} />
+        <Route path="prychyna-daria" element={<PrychynaDariaGame />} />
         <Route path="chernous-valerii" element={<ChernousValerii />} />
         <Route path="karpova-bohdana" element={<KarpovaBohdana />} />
         <Route path="ostapenko-rodion" element={<OstapenkoRodion />} />
