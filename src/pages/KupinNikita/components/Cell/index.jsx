@@ -12,7 +12,8 @@ function Cell({ cell, onClick, onContextMenu }) {
 
   return (
     <button
-      className={`${styles.cell} ${cell.revealed ? styles.revealed : ''}`}
+  type="button"
+  className={`${styles.cell} ${cell.revealed ? styles.revealed : ''}`}
       onClick={onClick}
       onContextMenu={onContextMenu}
       disabled={cell.revealed}
