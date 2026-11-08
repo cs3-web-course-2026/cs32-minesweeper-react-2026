@@ -1,0 +1,244 @@
+:root {
+    --cell-size: 38px;
+    --grid-gap: 6px;
+    --transition-speed: 0.2s;
+}
+
+.wrapper {
+    background-color: transparent;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.gameContainer {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.topBar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.difficultyButtons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.diffBtn {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: Montserrat, sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.diffBtn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.diffBtn.active {
+    background: rgba(56, 189, 248, 0.25);
+    border-color: rgba(56, 189, 248, 0.6);
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+}
+
+.gameHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    font-family: Montserrat, sans-serif;
+    box-sizing: border-box;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.infoBox {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 6px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.infoLabel {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+}
+
+.board {
+    display: grid;
+    gap: var(--grid-gap);
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.005); /* Сделали фон поля еще более прозрачным */
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Чуть мягче граница */
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+/* Круглые стеклянные ячейки с приглушенным фоном и сохраненными гранями */
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+    user-select: none;
+    color: inherit;
+    transition: all var(--transition-speed) ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cell:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.08);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.revealed {
+    background: rgba(255, 255, 255, 0.07) !important;
+    border-color: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(12px);
+    cursor: default;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: none !important;
+}
+
+.flagged {
+    background: rgba(239, 68, 68, 0.2) !important;
+    border-color: rgba(239, 68, 68, 0.5) !important;
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+}
+
+.number1 { color: #38bdf8; text-shadow: 0 0 8px rgba(56, 189, 248, 0.5); }
+.number2 { color: #4ade80; text-shadow: 0 0 8px rgba(74, 222, 128, 0.5); }
+.number3 { color: #f87171; text-shadow: 0 0 8px rgba(248, 113, 113, 0.5); }
+.number4 { color: #c084fc; text-shadow: 0 0 8px rgba(192, 132, 252, 0.5); }
+.number5 { color: #fbbf24; text-shadow: 0 0 8px rgba(251, 191, 36, 0.5); }
+.number6 { color: #2dd4bf; text-shadow: 0 0 8px rgba(45, 212, 191, 0.5); }
+.number7 { color: #f43f5e; text-shadow: 0 0 8px rgba(244, 63, 94, 0.5); }
+.number8 { color: #fff; text-shadow: 0 0 8px rgba(255, 255, 255, 0.5); }
+
+.btnRestart {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: #fff;
+    font-family: Montserrat, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btnRestart:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modalCard {
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    text-align: center;
+    font-family: Montserrat, sans-serif;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    min-width: 280px;
+}
+
+.modalCard h2 {
+    font-size: 22px;
+    color: #fff;
+}
+
+.modalCard p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.btnAction {
+    width: 100%;
+    padding: 12px;
+    background: rgba(56, 189, 248, 0.3);
+    border: 1px solid rgba(56, 189, 248, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btnAction:hover {
+    background: rgba(56, 189, 248, 0.5);
+    border-color: #38bdf8;
+}
