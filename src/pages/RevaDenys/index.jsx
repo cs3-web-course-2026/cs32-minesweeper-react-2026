@@ -9,7 +9,6 @@ import styles from './index.module.css';
 const GAME_CONFIG = { rows: 8, cols: 8, mines: 5 };
 
 export default function RevaDenysGame() {
-  // Initialize state directly using a lazy initializer function
   const [board, setBoard] = useState(() =>
     generateField(GAME_CONFIG.rows, GAME_CONFIG.cols, GAME_CONFIG.mines),
   );
@@ -23,8 +22,6 @@ export default function RevaDenysGame() {
     setStatus('process');
     setTime(0);
   }, []);
-
-  // Removed the initial useEffect block that called startNewGame()
 
   useEffect(() => {
     let timerId = null;
@@ -49,66 +46,72 @@ export default function RevaDenysGame() {
   const formattedFlags = `${flagSign}${String(Math.abs(remainingMines)).padStart(3, '0')}`;
 
   const handleCellClick = (row, col) => {
-    if (status !== 'process' || board[row][col].state !== 'closed') return;
+    if (status !== 'process') return;
 
-    const newBoard = board.map((r) => r.map((c) => ({ ...c })));
+    setBoard((prevBoard) => {
+      if (prevBoard[row][col].state !== 'closed') return prevBoard;
 
-    const openRecursive = (r, c) => {
-      if (r < 0 || r >= GAME_CONFIG.rows || c < 0 || c >= GAME_CONFIG.cols)
-        return;
-      if (newBoard[r][c].state !== 'closed') return;
+      const newBoard = prevBoard.map((r) => r.map((c) => ({ ...c })));
 
-      newBoard[r][c].state = 'opened';
+      const openRecursive = (r, c) => {
+        if (r < 0 || r >= GAME_CONFIG.rows || c < 0 || c >= GAME_CONFIG.cols)
+          return;
+        if (newBoard[r][c].state !== 'closed') return;
 
-      if (
-        newBoard[r][c].neighborMines === 0 &&
-        newBoard[r][c].type !== 'mine'
-      ) {
-        for (let dr = -1; dr <= 1; dr++) {
-          for (let dc = -1; dc <= 1; dc++) {
-            if (dr !== 0 || dc !== 0) {
-              openRecursive(r + dr, c + dc);
+        newBoard[r][c].state = 'opened';
+
+        if (
+          newBoard[r][c].neighborMines === 0 &&
+          newBoard[r][c].type !== 'mine'
+        ) {
+          for (let dr = -1; dr <= 1; dr++) {
+            for (let dc = -1; dc <= 1; dc++) {
+              if (dr !== 0 || dc !== 0) {
+                openRecursive(r + dr, c + dc);
+              }
             }
           }
         }
-      }
-    };
+      };
 
-    if (newBoard[row][col].type === 'mine') {
-      newBoard[row][col].state = 'opened';
-      setStatus('lose');
-    } else {
-      openRecursive(row, col);
-      if (
-        checkWinCondition(
-          newBoard,
-          GAME_CONFIG.rows,
-          GAME_CONFIG.cols,
-          GAME_CONFIG.mines,
-        )
-      ) {
-        setStatus('win');
+      if (newBoard[row][col].type === 'mine') {
+        newBoard[row][col].state = 'opened';
+        setStatus('lose');
+      } else {
+        openRecursive(row, col);
+        if (
+          checkWinCondition(
+            newBoard,
+            GAME_CONFIG.rows,
+            GAME_CONFIG.cols,
+            GAME_CONFIG.mines,
+          )
+        ) {
+          setStatus('win');
+        }
       }
-    }
 
-    setBoard(newBoard);
+      return newBoard;
+    });
   };
 
   const handleRightClick = (row, col) => {
     if (status !== 'process') return;
-    const clickedCell = board[row][col];
-    if (clickedCell.state === 'opened') return;
 
-    const newBoard = board.map((r) => r.map((c) => ({ ...c })));
-    const targetCell = newBoard[row][col];
+    setBoard((prevBoard) => {
+      if (prevBoard[row][col].state === 'opened') return prevBoard;
 
-    if (targetCell.state === 'closed') {
-      targetCell.state = 'flagged';
-    } else if (targetCell.state === 'flagged') {
-      targetCell.state = 'closed';
-    }
+      const newBoard = prevBoard.map((r) => r.map((c) => ({ ...c })));
+      const targetCell = newBoard[row][col];
 
-    setBoard(newBoard);
+      if (targetCell.state === 'closed') {
+        targetCell.state = 'flagged';
+      } else if (targetCell.state === 'flagged') {
+        targetCell.state = 'closed';
+      }
+
+      return newBoard;
+    });
   };
 
   return (

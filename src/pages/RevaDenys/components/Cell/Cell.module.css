@@ -86,3 +86,15 @@
   color: var(--rune-obsidian);
   text-shadow: 0 0 8px var(--rune-obsidian);
 }
+
+.vCellFlaggedWrong {
+  background: #2a1515;
+  border: 1px solid #7f1d1d;
+  cursor: default;
+}
+
+.vCellFlaggedWrong::after {
+  content: '❌';
+  font-size: calc(var(--cell-size, 40px) * 0.52);
+  filter: drop-shadow(0 0 4px #ef4444);
+}

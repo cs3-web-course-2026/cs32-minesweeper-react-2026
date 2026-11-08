@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './Cell.module.css';
 
 export const Cell = ({
@@ -44,6 +45,33 @@ export const Cell = ({
     return '';
   };
 
+  // Generate accessible description for screen readers
+  const getAriaLabel = () => {
+    const coords = `Рядок ${row + 1}, колонка ${col + 1}`;
+
+    if (cell.state === 'flagged') {
+      if (gameStatus === 'lose' && cell.type === 'empty') {
+        return `${coords}: позначено прапорцем неправильно`;
+      }
+      return `${coords}: позначено прапорцем`;
+    }
+
+    if (
+      cell.state === 'opened' ||
+      (gameStatus === 'lose' && cell.type === 'mine')
+    ) {
+      if (cell.type === 'mine') {
+        return `${coords}: міна`;
+      }
+      if (cell.neighborMines > 0) {
+        return `${coords}: відкрито, ${cell.neighborMines} мін поруч`;
+      }
+      return `${coords}: відкрито, порожня клітинка`;
+    }
+
+    return `${coords}: закрито`;
+  };
+
   return (
     <button
       type="button"
@@ -56,6 +84,7 @@ export const Cell = ({
       role="gridcell"
       aria-rowindex={row + 1}
       aria-colindex={col + 1}
+      aria-label={getAriaLabel()}
     >
       {getContent()}
     </button>
