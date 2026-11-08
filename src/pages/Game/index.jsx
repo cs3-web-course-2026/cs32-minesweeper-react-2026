@@ -89,7 +89,8 @@ function Game() {
       difficulty: 'Advanced',
       status: 'Planning',
     },
-    {id: 5,
+    {
+      id: 5,
       title: 'Сапер у стилі мультфільмів 1930-х',
       description:
         'React-версія Сапера з таймером, лічильником мін, прапорцями та flood-fill; «гумові» анімації в дусі старих мультфільмів.',
@@ -108,6 +109,36 @@ function Game() {
     },
     {
       id: 7,
+      title: 'React Minesweeper 90-s style',
+      description: 'Рефакторинг класичного Сапера з використанням React-компонентів, управління станом та CSS Modules.',
+      author: 'Linkov Oleksandr',
+      link: 'linkov-oleksandr',
+      difficulty: 'Beginner',
+      status: 'Complete',
+    },
+    {
+      id: 8,
+      title: 'Minesweeper React',
+      description:
+        'React-версія Сапера з компонентизацією, таймером, лічильником прапорців, підтриманням доступності (ARIA) та клавіатурними скороченнями (клавіша F).',
+      author: 'Kovtun Oleksandra',
+      link: 'kovtun-oleksandra',
+      difficulty: 'Intermediate',
+      status: 'Complete',
+    },
+    {
+      id: 9,
+      title: 'SUPER MEGA Minesweeper',
+      description:
+        'React-версія Сапера з таймером, лічильником прапорців та крутою назвою.',
+      author: 'Ostapenko Rodion',
+      link: 'ostapenko-rodion',
+      difficulty: 'Beginner',
+      status: 'Complete',
+    },
+
+    {
+      id: 10,
       title: 'Класичний Сапер (Minesweeper)',
       description:
         'React-реалізація Сапера з вибором рівня складності, таймером, лічильником прапорців та безпечним першим кліком.',

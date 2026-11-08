@@ -1,0 +1,10 @@
+.board {
+  display: grid;
+  gap: 1px;
+  border-top: 4px solid #7b7b7b;
+  border-left: 4px solid #7b7b7b;
+  border-right: 4px solid #fff;
+  border-bottom: 4px solid #fff;
+  background-color: #7b7b7b;
+  justify-content: center;
+}
