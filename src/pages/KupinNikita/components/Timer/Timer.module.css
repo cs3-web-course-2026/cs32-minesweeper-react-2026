@@ -1,0 +1,10 @@
+.timer {
+  padding: 10px 18px;
+  border: 1px solid #00d9ff;
+  border-radius: 8px;
+  background: #142b48;
+  color: #8ffcff;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 0 10px #00d9ff44;
+}
