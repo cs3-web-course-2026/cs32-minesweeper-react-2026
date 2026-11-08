@@ -137,7 +137,7 @@ function Game() {
       status: 'Complete',
     },
     {
-      id: 9,
+      id: 10,
       title: 'Viking Minesweeper',
       description:
         'React-версія VIKING Сапера з звичайним flood-fill відкриттям, таймером, лічильником прапорців та повною підтримкою доступності й клавіатури.',
