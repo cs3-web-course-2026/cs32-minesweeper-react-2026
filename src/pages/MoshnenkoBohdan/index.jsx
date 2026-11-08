@@ -139,7 +139,7 @@ export default function MinesweeperGame() {
     };
   }, [gameState.status]);
 
-  // Підрахунок кількості прапорців та безпечних клітинок
+  // Підрахунок кількості прапорців та безпечних клітинок (для відображення в шапці)
   const currentMinesLeft = board.reduce(
     (acc, row) => acc + row.filter((cell) => cell.state === CELL_STATE.FLAGGED).length,
     0
@@ -148,17 +148,6 @@ export default function MinesweeperGame() {
   const safeCellsLeft = board.flat().filter(
     (cell) => cell.type === CELL_TYPE.EMPTY && cell.state !== CELL_STATE.OPEN
   ).length;
-
-  useEffect(() => {
-    if (gameState.status === GAME_STATUS.PROCESS && safeCellsLeft === 0) {
-      setGameState((prev) => ({ ...prev, status: GAME_STATUS.WIN }));
-      setModal({
-        isOpen: true,
-        title: '🎉 Victory!',
-        message: `You successfully cleared the minefield in ${gameState.gameTime} seconds!`,
-      });
-    }
-  }, [safeCellsLeft, gameState.status, gameState.gameTime]);
 
   // Обробка кліку по клітинці
   const handleCellClick = (r, c) => {
@@ -216,8 +205,23 @@ export default function MinesweeperGame() {
     };
 
     floodFill(r, c);
+
+    // Перевірка на перемогу безпосередньо в обробнику події (уникнення setState всередині useEffect)
+    const hasWon = newBoard.flat().every(
+      (cell) => cell.type === CELL_TYPE.MINE || cell.state === CELL_STATE.OPEN
+    );
+
     setBoard(newBoard);
-    setGameState((prev) => ({ ...prev, status: currentStatus }));
+    if (hasWon) {
+      setGameState((prev) => ({ ...prev, status: GAME_STATUS.WIN }));
+      setModal({
+        isOpen: true,
+        title: '🎉 Victory!',
+        message: `You successfully cleared the minefield in ${gameState.gameTime} seconds!`,
+      });
+    } else {
+      setGameState((prev) => ({ ...prev, status: currentStatus }));
+    }
   };
 
   // Встановлення прапорця (права кнопка миші)
@@ -225,7 +229,7 @@ export default function MinesweeperGame() {
     e.preventDefault();
     if (gameState.status === GAME_STATUS.WIN || gameState.status === GAME_STATUS.GAMEOVER) return;
 
-    const newBoard = board.map((row) => row.map((cell) => ({ ...cell })))[0] ? board.map((row) => row.map((cell) => ({ ...cell }))) : [];
+    const newBoard = board.map((row) => row.map((cell) => ({ ...cell })));
     const targetCell = newBoard[r][c];
 
     if (targetCell.state === CELL_STATE.OPEN) return;
@@ -288,7 +292,6 @@ export default function MinesweeperGame() {
         {board.map((row, rIdx) =>
           row.map((cell, cIdx) => {
             let content = '';
-            // Виправлено let на const для уникнення зауваження лінтера
             const cellClasses = [styles.cell];
 
             if (cell.state === CELL_STATE.OPEN) {
