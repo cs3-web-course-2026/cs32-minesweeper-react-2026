@@ -1,0 +1,10 @@
+.gameMessage {
+  min-height: 1.5em;
+  margin: 12px 0 0;
+  color: #ffcf68;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 0 0 8px #e8a638;
+}

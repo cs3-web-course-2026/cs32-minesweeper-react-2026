@@ -9,6 +9,8 @@ import KarpovaBohdana from './pages/KarpovaBohdana';
 import LinkovOleksandr from './pages/LinkovOleksandr';
 import OstapenkoRodion from './pages/OstapenkoRodion';
 import KovtunOleksandra from './pages/KovtunOleksandra';
+import RevaDenys from './pages/RevaDenys';
+
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
         <Route path="linkov-oleksandr" element={<LinkovOleksandr />} />
         <Route path="ostapenko-rodion" element={<OstapenkoRodion />} />
         <Route path="kovtun-oleksandra" element={<KovtunOleksandra />} />
+        <Route path="reva-denys" element={<RevaDenys />} />
       </Route>
     </Routes>
   );
