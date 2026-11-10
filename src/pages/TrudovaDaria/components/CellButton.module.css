@@ -21,14 +21,6 @@
     transform var(--transition-duration) ease;
 }
 
-.cell:hover:not(:disabled, .open, .flagged) {
-  filter: brightness(1.2);
-}
-
-.cell:active:not(:disabled, .open) {
-  transform: scale(0.92);
-}
-
 .cell:focus-visible {
   outline: 2px solid var(--color-focus);
   outline-offset: 1px;
@@ -36,6 +28,14 @@
 
 .cell:disabled {
   cursor: default;
+}
+
+.cell:hover:not(:disabled, .open, .flagged) {
+  filter: brightness(1.2);
+}
+
+.cell:active:not(:disabled, .open) {
+  transform: scale(0.92);
 }
 
 .open {
