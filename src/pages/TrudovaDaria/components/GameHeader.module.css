@@ -1,0 +1,22 @@
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 1px solid var(--color-line);
+  border-radius: 0.9rem;
+  background: var(--color-panel);
+}
+
+.controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+@media (width <= 28rem) {
+  .header {
+    gap: 0.5rem;
+  }
+}

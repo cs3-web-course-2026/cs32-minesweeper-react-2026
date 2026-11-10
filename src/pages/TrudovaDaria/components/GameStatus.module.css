@@ -1,0 +1,17 @@
+.message {
+  min-height: 2.8em;
+  margin: 1rem 0 0;
+  color: var(--color-muted);
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.win {
+  color: var(--color-success);
+}
+
+.lose {
+  color: var(--color-danger);
+}

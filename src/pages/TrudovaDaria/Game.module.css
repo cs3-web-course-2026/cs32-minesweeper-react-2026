@@ -1,0 +1,41 @@
+.game {
+  --cell-size: 2.1rem;
+  --cell-font-size: 1.1rem;
+  --game-width: 27rem;
+  --transition-duration: 0.12s;
+  --color-text: #e8eaff;
+  --color-muted: #9aa0cf;
+  --color-card: #14172a;
+  --color-panel: #0c0e1b;
+  --color-line: #2a2f58;
+  --color-tile: #3b3f86;
+  --color-tile-hover: #4d52a6;
+  --color-tile-open: #161933;
+  --color-gold: #e8c250;
+  --color-gold-soft: rgb(232 194 80 / 22%);
+  --color-focus: #f5d56a;
+  --color-danger: #ff6b6b;
+  --color-danger-strong: #b91c1c;
+  --color-success: #4ade80;
+
+  width: min(100%, var(--game-width));
+  margin: 1.5rem auto;
+  padding: 1rem;
+  border: 1px solid var(--color-line);
+  border-radius: 1.25rem;
+  background: linear-gradient(180deg, #181b33, var(--color-card));
+  box-shadow:
+    0 1.5rem 3rem rgb(0 0 0 / 45%),
+    inset 0 1px 0 rgb(255 255 255 / 6%);
+  color: var(--color-text);
+  font-family: inherit;
+}
+
+@media (width <= 28rem) {
+  .game {
+    --cell-size: 1.9rem;
+    --cell-font-size: 1rem;
+
+    padding: 0.75rem;
+  }
+}

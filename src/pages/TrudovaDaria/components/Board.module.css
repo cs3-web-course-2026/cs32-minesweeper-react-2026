@@ -1,0 +1,11 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(var(--board-columns), var(--cell-size));
+  gap: 0.2rem;
+  justify-content: safe center;
+  overflow: auto;
+  padding: 0.5rem;
+  border: 1px solid var(--color-line);
+  border-radius: 0.9rem;
+  background: var(--color-panel);
+}

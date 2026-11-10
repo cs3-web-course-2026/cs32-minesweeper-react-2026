@@ -89,6 +89,16 @@ function Game() {
       difficulty: 'Advanced',
       status: 'Planning',
     },
+    {
+      id: 5,
+      title: 'React Minesweeper',
+      description:
+        'Minesweeper на React: компонентна архітектура, useReducer, CSS Modules, режим прапорця та таймер.',
+      author: 'Trudova Daria',
+      link: 'trudova-daria',
+      difficulty: 'Intermediate',
+      status: 'Complete',
+    },
   ];
 
   return (
