@@ -50,7 +50,7 @@ export const placeMinesAndCalculate = (rows, cols, minesCount, clickedRow, click
     const randomRow = Math.floor(Math.random() * rows);
     const randomCol = Math.floor(Math.random() * cols);
 
-    // Забезпечуємо безпечний перший клік (не ставимо міну на клітинку кліку та навколо неї)
+    // Безпечний перший клік (не ставимо міну навколо кліку)
     const isNearStart = Math.abs(randomRow - clickedRow) <= 1 && Math.abs(randomCol - clickedCol) <= 1;
 
     if (newBoard[randomRow][randomCol].type !== CELL_TYPE.MINE && !isNearStart) {
@@ -59,7 +59,6 @@ export const placeMinesAndCalculate = (rows, cols, minesCount, clickedRow, click
     }
   }
 
-  // Підрахунок кількості мін навколо кожної клітинки
   for (let row = 0; row < rows; row++) {
     for (let col = 0; col < cols; col++) {
       if (newBoard[row][col].type === CELL_TYPE.MINE) continue;
@@ -111,7 +110,6 @@ export const applyFloodFill = (board, rowIdx, colIdx, rows, cols) => {
   return newBoard;
 };
 
-// Перевірка на перемогу
 export const checkGameWon = (board) => {
   return board.flat().every(
     (cell) => cell.type === CELL_TYPE.MINE || cell.state === CELL_STATE.OPEN

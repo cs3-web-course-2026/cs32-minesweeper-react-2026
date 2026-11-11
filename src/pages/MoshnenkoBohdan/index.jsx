@@ -11,6 +11,139 @@ import {
   checkGameWon,
 } from './gameUtils';
 
+// Презентаційний компонент: Вибір складності
+function DifficultyControls({ currentDifficulty, onSelectDifficulty }) {
+  return (
+    <div className={styles.difficultyButtons}>
+      {Object.entries(DIFFICULTIES).map(([key, item]) => (
+        <button
+          key={key}
+          type="button"
+          className={`${styles.diffBtn} ${currentDifficulty === key ? styles.active : ''}`}
+          onClick={() => onSelectDifficulty(key)}
+        >
+          {item.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+// Презентаційний компонент: Статус гри та таймер
+function StatusPanel({ minesLeft, onRestart, gameTime, safeCellsLeft }) {
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  };
+
+  return (
+    <div className={styles.gameHeader}>
+      <div className={styles.infoBox}>
+        <span className={styles.infoLabel}>Mines:</span> {minesLeft}
+      </div>
+      <button type="button" className={styles.btnRestart} onClick={onRestart}>
+        Restart
+      </button>
+      <div className={styles.infoBox}>
+        <span className={styles.infoLabel}>Time:</span> {formatTime(gameTime)}
+      </div>
+      <div className={styles.infoBox}>
+        <span className={styles.infoLabel}>Safe:</span> {safeCellsLeft}
+      </div>
+    </div>
+  );
+}
+
+// Презентаційний компонент: Ігрове поле з accessibility
+function GameBoard({ board, cols, onCellClick, onCellContextMenu }) {
+  return (
+    <div
+      className={styles.board}
+      style={{ gridTemplateColumns: `repeat(${cols}, var(--cell-size))` }}
+    >
+      {board.map((row, rIdx) =>
+        row.map((cell, cIdx) => {
+          let content = '';
+          const cellClasses = [styles.cell];
+
+          let ariaLabel = `Row ${rIdx + 1}, Column ${cIdx + 1}, `;
+          if (cell.state === CELL_STATE.CLOSED) {
+            ariaLabel += 'Closed cell';
+          } else if (cell.state === CELL_STATE.FLAGGED) {
+            ariaLabel += 'Flagged cell';
+            cellClasses.push(styles.flagged);
+            content = '🚩';
+          } else if (cell.state === CELL_STATE.OPEN) {
+            cellClasses.push(styles.revealed);
+            if (cell.type === CELL_TYPE.MINE) {
+              ariaLabel += 'Revealed mine';
+              content = '💣';
+            } else if (cell.neighborMines > 0) {
+              ariaLabel += `Revealed cell, ${cell.neighborMines} adjacent mines`;
+              content = cell.neighborMines;
+              cellClasses.push(styles[`number${cell.neighborMines}`]);
+            } else {
+              ariaLabel += 'Revealed empty cell';
+            }
+          }
+
+          return (
+            <button
+              key={`${rIdx}-${cIdx}`}
+              type="button"
+              className={cellClasses.join(' ')}
+              aria-label={ariaLabel}
+              onClick={() => onCellClick(rIdx, cIdx)}
+              onContextMenu={(e) => onCellContextMenu(e, rIdx, cIdx)}
+            >
+              {content}
+            </button>
+          );
+        })
+      )}
+    </div>
+  );
+}
+
+// Презентаційний компонент: Доступне модальне вікно з фокусом
+function ResultModal({ modal, onRestart }) {
+  const buttonRef = useRef(null);
+
+  useEffect(() => {
+    if (modal.isOpen && buttonRef.current) {
+      buttonRef.current.focus();
+    }
+  }, [modal.isOpen]);
+
+  if (!modal.isOpen) return null;
+
+  return (
+    <div className={styles.modalOverlay}>
+      <div
+        className={styles.modalCard}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+      >
+        <h2 id="modal-title">{modal.title}</h2>
+        <div role="status" aria-live="polite">
+          <p>{modal.message}</p>
+        </div>
+        <button
+          ref={buttonRef}
+          type="button"
+          className={styles.btnAction}
+          onClick={onRestart}
+        >
+          Play Again
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// Головний контейнерний компонент
 export default function MinesweeperGame() {
   const [currentDifficulty, setCurrentDifficulty] = useState('easy');
   const { rows, cols, mines } = DIFFICULTIES[currentDifficulty];
@@ -19,7 +152,7 @@ export default function MinesweeperGame() {
   const [modal, setModal] = useState({ isOpen: false, title: '', message: '' });
 
   const timerRef = useRef(null);
-  const boardElementRef = useRef(null);
+  const startTimeRef = useRef(null);
 
   const [gameState, setGameState] = useState({
     rows,
@@ -29,7 +162,6 @@ export default function MinesweeperGame() {
     gameTime: 0,
   });
 
-  // Ініціалізація / рестарт гри
   const initGame = useCallback((difficultyKey) => {
     const diff = DIFFICULTIES[difficultyKey];
     setCurrentDifficulty(difficultyKey);
@@ -42,16 +174,21 @@ export default function MinesweeperGame() {
       gameTime: 0,
     });
     setModal({ isOpen: false, title: '', message: '' });
+    startTimeRef.current = null;
     if (timerRef.current) {
       clearInterval(timerRef.current);
     }
   }, []);
 
-  // Керування таймером
+  // Точний таймер на основі міток часу (захист від троттлінгу)
   useEffect(() => {
     if (gameState.status === GAME_STATUS.PROCESS) {
+      if (!startTimeRef.current) {
+        startTimeRef.current = Date.now() - gameState.gameTime * 1000;
+      }
       timerRef.current = setInterval(() => {
-        setGameState((prev) => ({ ...prev, gameTime: prev.gameTime + 1 }));
+        const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
+        setGameState((prev) => ({ ...prev, gameTime: elapsed }));
       }, 1000);
     } else {
       if (timerRef.current) {
@@ -65,17 +202,18 @@ export default function MinesweeperGame() {
     };
   }, [gameState.status]);
 
-  // Підрахунок прапорців
   const currentMinesLeft = board.reduce(
     (acc, row) => acc + row.filter((cell) => cell.state === CELL_STATE.FLAGGED).length,
     0
   );
 
-  const safeCellsLeft = board.flat().filter(
-    (cell) => cell.type === CELL_TYPE.EMPTY && cell.state !== CELL_STATE.OPEN
+  // Правильний розрахунок залишкових безпечних клітинок
+  const totalSafeCells = rows * cols - mines;
+  const openedSafeCells = board.flat().filter(
+    (cell) => cell.type === CELL_TYPE.EMPTY && cell.state === CELL_STATE.OPEN
   ).length;
+  const safeCellsLeft = totalSafeCells - openedSafeCells;
 
-  // Обробка кліку по клітинці
   const handleCellClick = (r, c) => {
     if (gameState.status === GAME_STATUS.WIN || gameState.status === GAME_STATUS.GAMEOVER) return;
 
@@ -85,13 +223,13 @@ export default function MinesweeperGame() {
     if (currentStatus === GAME_STATUS.IDLE) {
       workingBoard = placeMinesAndCalculate(rows, cols, mines, r, c, board);
       currentStatus = GAME_STATUS.PROCESS;
+      startTimeRef.current = Date.now();
     }
 
     const targetCell = workingBoard[r][c];
     if (targetCell.state === CELL_STATE.FLAGGED || targetCell.state === CELL_STATE.OPEN) return;
 
     if (targetCell.type === CELL_TYPE.MINE) {
-      // Поразка: відкриваємо всі міни
       const revealedBoard = workingBoard.map((row) =>
         row.map((cell) => (cell.type === CELL_TYPE.MINE ? { ...cell, state: CELL_STATE.OPEN } : cell))
       );
@@ -105,7 +243,6 @@ export default function MinesweeperGame() {
       return;
     }
 
-    // Відкриття порожніх клітинок за допомогою винесеної утиліти
     const newBoard = applyFloodFill(workingBoard, r, c, rows, cols);
     const hasWon = checkGameWon(newBoard);
 
@@ -122,7 +259,6 @@ export default function MinesweeperGame() {
     }
   };
 
-  // Встановлення прапорця (права кнопка миші)
   const handleContextMenu = (e, r, c) => {
     e.preventDefault();
     if (gameState.status === GAME_STATUS.WIN || gameState.status === GAME_STATUS.GAMEOVER) return;
@@ -142,93 +278,32 @@ export default function MinesweeperGame() {
     setBoard(newBoard);
   };
 
-  const formatTime = (seconds) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-  };
-
   return (
     <div className={styles.gameContainer}>
       <div className={styles.topBar}>
-        <div className={styles.difficultyButtons}>
-          {Object.entries(DIFFICULTIES).map(([key, item]) => (
-            <button
-              key={key}
-              type="button"
-              className={`${styles.diffBtn} ${currentDifficulty === key ? styles.active : ''}`}
-              onClick={() => initGame(key)}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
-
-        <div className={styles.gameHeader}>
-          <div className={styles.infoBox}>
-            <span className={styles.infoLabel}>Mines:</span> {mines - currentMinesLeft}
-          </div>
-          <button type="button" className={styles.btnRestart} onClick={() => initGame(currentDifficulty)}>
-            Restart
-          </button>
-          <div className={styles.infoBox}>
-            <span className={styles.infoLabel}>Time:</span> {formatTime(gameState.gameTime)}
-          </div>
-          <div className={styles.infoBox}>
-            <span className={styles.infoLabel}>Safe:</span> {safeCellsLeft}
-          </div>
-        </div>
+        <DifficultyControls
+          currentDifficulty={currentDifficulty}
+          onSelectDifficulty={initGame}
+        />
+        <StatusPanel
+          minesLeft={mines - currentMinesLeft}
+          onRestart={() => initGame(currentDifficulty)}
+          gameTime={gameState.gameTime}
+          safeCellsLeft={safeCellsLeft}
+        />
       </div>
 
-      <div
-        ref={boardElementRef}
-        className={styles.board}
-        style={{ gridTemplateColumns: `repeat(${gameState.cols}, var(--cell-size))` }}
-      >
-        {board.map((row, rIdx) =>
-          row.map((cell, cIdx) => {
-            let content = '';
-            const cellClasses = [styles.cell];
+      <GameBoard
+        board={board}
+        cols={gameState.cols}
+        onCellClick={handleCellClick}
+        onCellContextMenu={handleContextMenu}
+      />
 
-            if (cell.state === CELL_STATE.OPEN) {
-              cellClasses.push(styles.revealed);
-              if (cell.type === CELL_TYPE.MINE) {
-                content = '💣';
-              } else if (cell.neighborMines > 0) {
-                content = cell.neighborMines;
-                cellClasses.push(styles[`number${cell.neighborMines}`]);
-              }
-            } else if (cell.state === CELL_STATE.FLAGGED) {
-              cellClasses.push(styles.flagged);
-              content = '🚩';
-            }
-
-            return (
-              <button
-                key={`${rIdx}-${cIdx}`}
-                type="button"
-                className={cellClasses.join(' ')}
-                onClick={() => handleCellClick(rIdx, cIdx)}
-                onContextMenu={(e) => handleContextMenu(e, rIdx, cIdx)}
-              >
-                {content}
-              </button>
-            );
-          })
-        )}
-      </div>
-
-      {modal.isOpen && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modalCard}>
-            <h2>{modal.title}</h2>
-            <p>{modal.message}</p>
-            <button type="button" className={styles.btnAction} onClick={() => initGame(currentDifficulty)}>
-              Play Again
-            </button>
-          </div>
-        </div>
-      )}
+      <ResultModal
+        modal={modal}
+        onRestart={() => initGame(currentDifficulty)}
+      />
     </div>
   );
 }
