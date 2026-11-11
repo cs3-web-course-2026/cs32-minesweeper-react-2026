@@ -1,89 +1,15 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import styles from './Game.module.css';
-
-// Константи та доменні значення згідно з вимогами курсу
-const DIFFICULTIES = {
-  easy: { rows: 9, cols: 9, mines: 10, label: 'Easy' },
-  medium: { rows: 16, cols: 16, mines: 40, label: 'Medium' },
-  hard: { rows: 16, cols: 30, mines: 99, label: 'Hard' },
-};
-
-const CELL_TYPE = {
-  EMPTY: 'empty',
-  MINE: 'mine',
-};
-
-const CELL_STATE = {
-  CLOSED: 'closed',
-  OPEN: 'open',
-  FLAGGED: 'flagged',
-};
-
-const GAME_STATUS = {
-  IDLE: 'idle',
-  PROCESS: 'process',
-  WIN: 'win',
-  GAMEOVER: 'gameover',
-};
-
-// Чисті функції для бізнес-логіки гри (без прямої залежності від React)
-const createEmptyBoard = (rows, cols) => {
-  const newBoard = [];
-  for (let r = 0; r < rows; r++) {
-    newBoard[r] = [];
-    for (let c = 0; c < cols; c++) {
-      newBoard[r][c] = {
-        row: r,
-        col: c,
-        type: CELL_TYPE.EMPTY,
-        state: CELL_STATE.CLOSED,
-        neighborMines: 0,
-      };
-    }
-  }
-  return newBoard;
-};
-
-const placeMinesAndCalculate = (rows, cols, minesCount, clickedRow, clickedCol, currentBoard) => {
-  const newBoard = currentBoard.map((row) => row.map((cell) => ({ ...cell })));
-  let planted = 0;
-
-  while (planted < minesCount) {
-    const randomRow = Math.floor(Math.random() * rows);
-    const randomCol = Math.floor(Math.random() * cols);
-
-    // Забезпечуємо безпечний перший клік (не ставимо міну на клітинку кліку та навколо неї)
-    const isNearStart = Math.abs(randomRow - clickedRow) <= 1 && Math.abs(randomCol - clickedCol) <= 1;
-
-    if (newBoard[randomRow][randomCol].type !== CELL_TYPE.MINE && !isNearStart) {
-      newBoard[randomRow][randomCol].type = CELL_TYPE.MINE;
-      planted++;
-    }
-  }
-
-  // Підрахунок сусідніх мін
-  for (let row = 0; row < rows; row++) {
-    for (let col = 0; col < cols; col++) {
-      if (newBoard[row][col].type === CELL_TYPE.MINE) continue;
-      let counter = 0;
-      const left = Math.max(0, col - 1);
-      const right = Math.min(cols - 1, col + 1);
-      const high = Math.max(0, row - 1);
-      const low = Math.min(rows - 1, row + 1);
-
-      for (let nr = high; nr <= low; nr++) {
-        for (let nc = left; nc <= right; nc++) {
-          if (newBoard[nr][nc].type === CELL_TYPE.MINE) {
-            counter++;
-          }
-        }
-      }
-      newBoard[row][col].neighborMines = counter;
-    }
-  }
-
-  return newBoard;
-};
+import {
+  DIFFICULTIES,
+  CELL_TYPE,
+  CELL_STATE,
+  GAME_STATUS,
+  createEmptyBoard,
+  placeMinesAndCalculate,
+  applyFloodFill,
+  checkGameWon,
+} from './gameUtils';
 
 export default function MinesweeperGame() {
   const [currentDifficulty, setCurrentDifficulty] = useState('easy');
@@ -139,7 +65,7 @@ export default function MinesweeperGame() {
     };
   }, [gameState.status]);
 
-  // Підрахунок кількості прапорців та безпечних клітинок (для відображення в шапці)
+  // Підрахунок прапорців
   const currentMinesLeft = board.reduce(
     (acc, row) => acc + row.filter((cell) => cell.state === CELL_STATE.FLAGGED).length,
     0
@@ -179,37 +105,9 @@ export default function MinesweeperGame() {
       return;
     }
 
-    // Рекурсивне відкриття порожніх клітинок (Flood fill)
-    const newBoard = workingBoard.map((row) => row.map((cell) => ({ ...cell })));
-    const floodFill = (rowIdx, colIdx) => {
-      const stack = [[rowIdx, colIdx]];
-      while (stack.length > 0) {
-        const [curR, curC] = stack.pop();
-        const cell = newBoard[curR][curC];
-
-        if (cell.state === CELL_STATE.CLOSED) {
-          cell.state = CELL_STATE.OPEN;
-          if (cell.neighborMines === 0) {
-            for (let dr = -1; dr <= 1; dr++) {
-              for (let dc = -1; dc <= 1; dc++) {
-                const nr = curR + dr;
-                const nc = curC + dc;
-                if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && newBoard[nr][nc].state === CELL_STATE.CLOSED) {
-                  stack.push([nr, nc]);
-                }
-              }
-            }
-          }
-        }
-      }
-    };
-
-    floodFill(r, c);
-
-    // Перевірка на перемогу безпосередньо в обробнику події (уникнення setState всередині useEffect)
-    const hasWon = newBoard.flat().every(
-      (cell) => cell.type === CELL_TYPE.MINE || cell.state === CELL_STATE.OPEN
-    );
+    // Відкриття порожніх клітинок за допомогою винесеної утиліти
+    const newBoard = applyFloodFill(workingBoard, r, c, rows, cols);
+    const hasWon = checkGameWon(newBoard);
 
     setBoard(newBoard);
     if (hasWon) {
@@ -252,7 +150,6 @@ export default function MinesweeperGame() {
 
   return (
     <div className={styles.gameContainer}>
-      {/* Панель вибору складності */}
       <div className={styles.topBar}>
         <div className={styles.difficultyButtons}>
           {Object.entries(DIFFICULTIES).map(([key, item]) => (
@@ -283,7 +180,6 @@ export default function MinesweeperGame() {
         </div>
       </div>
 
-      {/* Ігрове поле */}
       <div
         ref={boardElementRef}
         className={styles.board}
@@ -322,7 +218,6 @@ export default function MinesweeperGame() {
         )}
       </div>
 
-      {/* Модальне вікно результату гри */}
       {modal.isOpen && (
         <div className={styles.modalOverlay}>
           <div className={styles.modalCard}>
