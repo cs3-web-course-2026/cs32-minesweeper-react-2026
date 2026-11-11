@@ -58,12 +58,14 @@ function Cell({
           ? cell.neighborMines
           : undefined
       }
-      onClick={() => onOpen(row, col)}
+      onClick={() => {
+        if (!isOpen) onOpen(row, col);
+      }}
       onContextMenu={event => {
         event.preventDefault();
-        onFlag(row, col);
+        if (!isOpen) onFlag(row, col);
       }}
-      disabled={disabled || isOpen}
+      disabled={disabled}
       aria-label={`Row ${row + 1}, column ${col + 1}, ${stateLabel}`}
     >
       {content}
