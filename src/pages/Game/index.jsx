@@ -152,7 +152,7 @@ function Game() {
       difficulty: 'Intermediate',
       status: 'Complete',
    },
-   ];
+    ];
 
   return (
     <div className={styles.gameContainer}>
