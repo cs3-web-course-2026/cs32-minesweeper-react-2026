@@ -119,8 +119,7 @@ function Game() {
     {
       id: 8,
       title: 'Minesweeper React',
-      description:
-        'React-версія Сапера з компонентизацією, таймером, лічильником прапорців, підтриманням доступності (ARIA) та клавіатурними скороченнями (клавіша F).',
+      description: 'React-версія Сапера з компонентизацією, таймером, лічильником прапорців, підтриманням доступності (ARIA) та клавіатурними скороченнями (клавіша F).',
       author: 'Kovtun Oleksandra',
       link: 'kovtun-oleksandra',
       difficulty: 'Intermediate',
@@ -129,8 +128,7 @@ function Game() {
     {
       id: 9,
       title: 'SUPER MEGA Minesweeper',
-      description:
-        'React-версія Сапера з таймером, лічильником прапорців та крутою назвою.',
+      description: 'React-версія Сапера з таймером, лічильником прапорців та крутою назвою.',
       author: 'Ostapenko Rodion',
       link: 'ostapenko-rodion',
       difficulty: 'Beginner',
@@ -138,15 +136,23 @@ function Game() {
     },
     {
       id: 10,
+      title: 'Minesweeper by Oleksii Khomiakov',
+      description: 'A React implementation with component architecture, modular CSS, and state management.',
+      author: 'Oleksii Khomiakov',
+      link: 'khomiakov-oleksii',
+      difficulty: 'Beginner',
+      status: 'Complete',
+   },
+   {
+      id: 11
       title: '🌸 Pinky Minesweeper 🌸',
-      description:
-        'Adaptive React-version of the Minesweeper game with a timer, mine counter, flags, and using CSS Modules.',
+      description: 'Adaptive React-version of the Minesweeper game with a timer, mine counter, flags, and using CSS Modules.',
       author: 'Uskova Olexandra',
       link: 'uskova-olexandra',
       difficulty: 'Intermediate',
       status: 'Complete',
-    },
-  ];
+   },
+   ];
 
   return (
     <div className={styles.gameContainer}>
