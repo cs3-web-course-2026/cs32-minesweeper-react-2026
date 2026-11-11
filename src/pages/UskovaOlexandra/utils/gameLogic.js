@@ -206,12 +206,13 @@ export function finalizeBoard(board, status) {
   );
 }
 
-export function generateMinePositions(rows, cols, minesCount, safeRow, safeCol) {
+// Generates random mine positions avoiding the safe cell using a pure approach
+export function generateMinePositions(rows, cols, minesCount, safeRow, safeCol, randomFn = Math.random) {
   const minePositionsSet = new Set();
   
   while (minePositionsSet.size < minesCount) {
-    const mineRow = Math.floor(Math.random() * rows);
-    const mineCol = Math.floor(Math.random() * cols);
+    const mineRow = Math.floor(randomFn() * rows);
+    const mineCol = Math.floor(randomFn() * cols);
 
     if (!(mineRow === safeRow && mineCol === safeCol)) {
       minePositionsSet.add(`${mineRow},${mineCol}`);
