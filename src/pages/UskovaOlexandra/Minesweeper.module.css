@@ -9,7 +9,7 @@
 
 /* Main container of the game */
 .game {
-  --cell-size: clamp(30px, 7vw, 60px);
+  --cell-size: clamp(26px, 6vw, 60px);
 
   width: 100%;
   position: relative;
@@ -19,10 +19,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 55px;
+  padding: 10px;
   box-sizing: border-box;
   background-color: #f9e9ed;
-  overflow-x: hidden;
+  overflow-x: auto;
   color: #531616;
 
   /* Main font */
