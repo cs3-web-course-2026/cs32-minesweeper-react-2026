@@ -119,8 +119,7 @@ function Game() {
     {
       id: 8,
       title: 'Minesweeper React',
-      description:
-        'React-версія Сапера з компонентизацією, таймером, лічильником прапорців, підтриманням доступності (ARIA) та клавіатурними скороченнями (клавіша F).',
+      description: 'React-версія Сапера з компонентизацією, таймером, лічильником прапорців, підтриманням доступності (ARIA) та клавіатурними скороченнями (клавіша F).',
       author: 'Kovtun Oleksandra',
       link: 'kovtun-oleksandra',
       difficulty: 'Intermediate',
@@ -129,13 +128,21 @@ function Game() {
     {
       id: 9,
       title: 'SUPER MEGA Minesweeper',
-      description:
-        'React-версія Сапера з таймером, лічильником прапорців та крутою назвою.',
+      description: 'React-версія Сапера з таймером, лічильником прапорців та крутою назвою.',
       author: 'Ostapenko Rodion',
       link: 'ostapenko-rodion',
       difficulty: 'Beginner',
       status: 'Complete',
     },
+    {
+      id: 10,
+      title: 'Minesweeper by Oleksii Khomiakov',
+      description: 'A React implementation with component architecture, modular CSS, and state management.',
+      author: 'Oleksii Khomiakov',
+      link: 'khomiakov-oleksii',
+      difficulty: 'Beginner',
+      status: 'Complete',
+    }
   ];
 
   return (
