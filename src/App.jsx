@@ -26,6 +26,7 @@ function App() {
         <Route path="linkov-oleksandr" element={<LinkovOleksandr />} />
         <Route path="ostapenko-rodion" element={<OstapenkoRodion />} />
         <Route path="kovtun-oleksandra" element={<KovtunOleksandra />} />
+        <Route path="/SurmachVolodymyr" element={<SurmachVolodymyr />}/>
       </Route>
     </Routes>
   );
