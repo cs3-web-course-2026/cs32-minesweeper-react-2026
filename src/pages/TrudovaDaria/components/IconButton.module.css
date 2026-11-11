@@ -7,7 +7,7 @@
   padding: 0;
   border: 1px solid var(--color-line);
   border-radius: 0.9rem;
-  background: #1d2144;
+  background: var(--color-button);
   font-size: 1.35rem;
   line-height: 1;
   cursor: pointer;
@@ -17,7 +17,7 @@
 }
 
 .button:hover {
-  background: #272c5c;
+  background: var(--color-button-hover);
   transform: translateY(-1px);
 }
 

@@ -17,6 +17,17 @@
   --color-danger: #ff6b6b;
   --color-danger-strong: #b91c1c;
   --color-success: #4ade80;
+  --color-mine-bg: #2a1424;
+  --color-button: #1d2144;
+  --color-button-hover: #272c5c;
+  --color-number-1: #6ea8ff;
+  --color-number-2: #4ade80;
+  --color-number-3: #ff6b6b;
+  --color-number-4: #c084fc;
+  --color-number-5: #fb923c;
+  --color-number-6: #2dd4bf;
+  --color-number-7: #f1f5f9;
+  --color-number-8: #94a3b8;
 
   width: min(100%, var(--game-width));
   margin: 1.5rem auto;
