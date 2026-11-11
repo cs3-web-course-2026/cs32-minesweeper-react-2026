@@ -144,7 +144,7 @@ function Game() {
       status: 'Complete',
    },
    {
-      id: 11
+      id: 11,
       title: '🌸 Pinky Minesweeper 🌸',
       description: 'Adaptive React-version of the Minesweeper game with a timer, mine counter, flags, and using CSS Modules.',
       author: 'Uskova Olexandra',
