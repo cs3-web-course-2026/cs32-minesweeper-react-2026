@@ -16,6 +16,7 @@ import {
   revealCells,
   checkWinCondition,
   finalizeBoard,
+  toggleCellFlagLogic,
 } from './utils/gameLogic';
 
 // Game settings
@@ -110,33 +111,14 @@ function Minesweeper() {
       return;
     }
 
-    const cell = board[row][col];
-
-    if (cell.state === CELL_STATE.OPENED) {
+    const result = toggleCellFlagLogic(board, row, col, flagsLeft);
+    if (!result) {
       return;
     }
 
     setHasStartedAction(true);
-    const newBoard = board.map(boardRow =>
-      boardRow.map(item => ({ ...item }))
-    );
-
-    // Place a flag
-    if (cell.state === CELL_STATE.CLOSED) {
-      if (flagsLeft <= 0) {
-        return;
-      }
-
-      newBoard[row][col].state = CELL_STATE.FLAGGED;
-      setBoard(newBoard);
-      setFlagsLeft(prevFlags => prevFlags - 1);
-    }
-    // Remove a flag
-    else if (cell.state === CELL_STATE.FLAGGED) {
-      newBoard[row][col].state = CELL_STATE.CLOSED;
-      setBoard(newBoard);
-      setFlagsLeft(prevFlags => prevFlags + 1);
-    }
+    setBoard(result.newBoard);
+    setFlagsLeft(result.newFlagsLeft);
   }
 
   // Restarting the game

@@ -223,3 +223,31 @@ export function generateMinePositions(rows, cols, minesCount, safeRow, safeCol, 
     pos.split(',').map(Number)
   );
 }
+
+// Pure function for handling flag transitions
+export function toggleCellFlagLogic(board, row, col, flagsLeft) {
+  const cell = board[row][col];
+
+  if (cell.state === CELL_STATE.OPENED) {
+    return null;
+  }
+
+  const newBoard = board.map(boardRow =>
+    boardRow.map(item => ({ ...item }))
+  );
+
+  let newFlagsLeft = flagsLeft;
+
+  if (cell.state === CELL_STATE.CLOSED) {
+    if (flagsLeft <= 0) {
+      return null;
+    }
+    newBoard[row][col].state = CELL_STATE.FLAGGED;
+    newFlagsLeft -= 1;
+  } else if (cell.state === CELL_STATE.FLAGGED) {
+    newBoard[row][col].state = CELL_STATE.CLOSED;
+    newFlagsLeft += 1;
+  }
+
+  return { newBoard, newFlagsLeft };
+}
