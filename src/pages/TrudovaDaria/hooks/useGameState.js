@@ -17,13 +17,17 @@ import { revealAllMines, revealCell } from "../utils/reveal";
 
 import { useTimer } from "./useTimer";
 
-function createInitialState() {
+function createNewBoard() {
+  return createBoard(
+    GAME_CONFIG.ROWS,
+    GAME_CONFIG.COLS,
+    GAME_CONFIG.MINE_COUNT,
+  );
+}
+
+function createInitialState(board) {
   return {
-    board: createBoard(
-      GAME_CONFIG.ROWS,
-      GAME_CONFIG.COLS,
-      GAME_CONFIG.MINE_COUNT,
-    ),
+    board,
     gameStatus: GAME_STATUS.IDLE,
     isFlagMode: false,
     isFlagLimitReached: false,
@@ -99,17 +103,15 @@ function gameReducer(state, action) {
     case ACTION_TYPE.TOGGLE_FLAG_MODE:
       return { ...state, isFlagMode: !state.isFlagMode };
     case ACTION_TYPE.RESTART:
-      return createInitialState();
+      return createInitialState(action.board);
     default:
       return state;
   }
 }
 
 export function useGameState() {
-  const [state, dispatch] = useReducer(
-    gameReducer,
-    undefined,
-    createInitialState,
+  const [state, dispatch] = useReducer(gameReducer, undefined, () =>
+    createInitialState(createNewBoard()),
   );
   const { board, gameStatus, isFlagMode, isFlagLimitReached } = state;
 
@@ -139,7 +141,7 @@ export function useGameState() {
   }, []);
 
   const handleRestart = useCallback(() => {
-    dispatch({ type: ACTION_TYPE.RESTART });
+    dispatch({ type: ACTION_TYPE.RESTART, board: createNewBoard() });
     resetTimer();
   }, [resetTimer]);
 
