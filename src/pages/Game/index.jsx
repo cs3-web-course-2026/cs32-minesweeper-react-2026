@@ -142,7 +142,7 @@ function Game() {
       link: 'khomiakov-oleksii',
       difficulty: 'Beginner',
       status: 'Complete',
-    },
+    }
   ];
   
   return (
