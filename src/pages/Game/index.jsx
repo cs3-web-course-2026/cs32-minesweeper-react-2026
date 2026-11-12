@@ -152,6 +152,16 @@ function Game() {
       difficulty: 'Beginner',
       status: 'Complete',
     },
+    {
+      id: 12,
+      title: 'Класичний Сапер',
+      description:
+        'Гра Сапер, реалізована на React. Має таймер, лічильник прапорців, безпечний перший клік, автоматичне відкриття порожніх клітинок та визначення перемоги й поразки.',
+      author: 'Pogorelets Elizaveta',
+      link: 'pogorelets-elizaveta',
+      difficulty: 'Intermediate',
+      status: 'Complete',
+    },
   ];
 
   return (
