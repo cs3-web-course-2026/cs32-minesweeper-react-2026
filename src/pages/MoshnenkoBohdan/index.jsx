@@ -11,7 +11,6 @@ import {
   checkGameWon,
 } from './gameUtils';
 
-// Презентаційний компонент: Вибір складності
 function DifficultyControls({ currentDifficulty, onSelectDifficulty }) {
   return (
     <div className={styles.difficultyButtons}>
@@ -29,7 +28,6 @@ function DifficultyControls({ currentDifficulty, onSelectDifficulty }) {
   );
 }
 
-// Презентаційний компонент: Статус гри та таймер
 function StatusPanel({ minesLeft, onRestart, gameTime, safeCellsLeft }) {
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -55,58 +53,58 @@ function StatusPanel({ minesLeft, onRestart, gameTime, safeCellsLeft }) {
   );
 }
 
-// Презентаційний компонент: Ігрове поле з accessibility
 function GameBoard({ board, cols, onCellClick, onCellContextMenu }) {
   return (
-    <div
-      className={styles.board}
-      style={{ gridTemplateColumns: `repeat(${cols}, var(--cell-size))` }}
-    >
-      {board.map((row, rIdx) =>
-        row.map((cell, cIdx) => {
-          let content = '';
-          const cellClasses = [styles.cell];
+    <div className={styles.boardWrapper}>
+      <div
+        className={styles.board}
+        style={{ gridTemplateColumns: `repeat(${cols}, var(--cell-size))` }}
+      >
+        {board.map((row, rowIndex) =>
+          row.map((cell, colIndex) => {
+            let content = '';
+            const cellClasses = [styles.cell];
 
-          let ariaLabel = `Row ${rIdx + 1}, Column ${cIdx + 1}, `;
-          if (cell.state === CELL_STATE.CLOSED) {
-            ariaLabel += 'Closed cell';
-          } else if (cell.state === CELL_STATE.FLAGGED) {
-            ariaLabel += 'Flagged cell';
-            cellClasses.push(styles.flagged);
-            content = '🚩';
-          } else if (cell.state === CELL_STATE.OPEN) {
-            cellClasses.push(styles.revealed);
-            if (cell.type === CELL_TYPE.MINE) {
-              ariaLabel += 'Revealed mine';
-              content = '💣';
-            } else if (cell.neighborMines > 0) {
-              ariaLabel += `Revealed cell, ${cell.neighborMines} adjacent mines`;
-              content = cell.neighborMines;
-              cellClasses.push(styles[`number${cell.neighborMines}`]);
-            } else {
-              ariaLabel += 'Revealed empty cell';
+            let ariaLabel = `Row ${rowIndex + 1}, Column ${colIndex + 1}, `;
+            if (cell.state === CELL_STATE.CLOSED) {
+              ariaLabel += 'Closed cell';
+            } else if (cell.state === CELL_STATE.FLAGGED) {
+              ariaLabel += 'Flagged cell';
+              cellClasses.push(styles.flagged);
+              content = '🚩';
+            } else if (cell.state === CELL_STATE.OPEN) {
+              cellClasses.push(styles.revealed);
+              if (cell.type === CELL_TYPE.MINE) {
+                ariaLabel += 'Revealed mine';
+                content = '💣';
+              } else if (cell.neighborMines > 0) {
+                ariaLabel += `Revealed cell, ${cell.neighborMines} adjacent mines`;
+                content = cell.neighborMines;
+                cellClasses.push(styles[`number${cell.neighborMines}`]);
+              } else {
+                ariaLabel += 'Revealed empty cell';
+              }
             }
-          }
 
-          return (
-            <button
-              key={`${rIdx}-${cIdx}`}
-              type="button"
-              className={cellClasses.join(' ')}
-              aria-label={ariaLabel}
-              onClick={() => onCellClick(rIdx, cIdx)}
-              onContextMenu={(e) => onCellContextMenu(e, rIdx, cIdx)}
-            >
-              {content}
-            </button>
-          );
-        })
-      )}
+            return (
+              <button
+                key={`${rowIndex}-${colIndex}`}
+                type="button"
+                className={cellClasses.join(' ')}
+                aria-label={ariaLabel}
+                onClick={() => onCellClick(rowIndex, colIndex)}
+                onContextMenu={(eventObject) => onCellContextMenu(eventObject, rowIndex, colIndex)}
+              >
+                {content}
+              </button>
+            );
+          })
+        )}
+      </div>
     </div>
   );
 }
 
-// Презентаційний компонент: Доступне модальне вікно з фокусом
 function ResultModal({ modal, onRestart }) {
   const buttonRef = useRef(null);
 
@@ -143,7 +141,6 @@ function ResultModal({ modal, onRestart }) {
   );
 }
 
-// Головний контейнерний компонент
 export default function MinesweeperGame() {
   const [currentDifficulty, setCurrentDifficulty] = useState('easy');
   const { rows, cols, mines } = DIFFICULTIES[currentDifficulty];
@@ -180,11 +177,10 @@ export default function MinesweeperGame() {
     }
   }, []);
 
-  // Точний таймер на основі міток часу (захист від троттлінгу)
   useEffect(() => {
     if (gameState.status === GAME_STATUS.PROCESS) {
       if (!startTimeRef.current) {
-        startTimeRef.current = Date.now() - gameState.gameTime * 1000;
+        startTimeRef.current = Date.now();
       }
       timerRef.current = setInterval(() => {
         const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
@@ -207,26 +203,25 @@ export default function MinesweeperGame() {
     0
   );
 
-  // Правильний розрахунок залишкових безпечних клітинок
   const totalSafeCells = rows * cols - mines;
   const openedSafeCells = board.flat().filter(
     (cell) => cell.type === CELL_TYPE.EMPTY && cell.state === CELL_STATE.OPEN
   ).length;
   const safeCellsLeft = totalSafeCells - openedSafeCells;
 
-  const handleCellClick = (r, c) => {
+  const handleCellClick = (rowIndex, colIndex) => {
     if (gameState.status === GAME_STATUS.WIN || gameState.status === GAME_STATUS.GAMEOVER) return;
 
     let workingBoard = board;
     let currentStatus = gameState.status;
 
     if (currentStatus === GAME_STATUS.IDLE) {
-      workingBoard = placeMinesAndCalculate(rows, cols, mines, r, c, board);
+      workingBoard = placeMinesAndCalculate(rows, cols, mines, rowIndex, colIndex, board);
       currentStatus = GAME_STATUS.PROCESS;
       startTimeRef.current = Date.now();
     }
 
-    const targetCell = workingBoard[r][c];
+    const targetCell = workingBoard[rowIndex][colIndex];
     if (targetCell.state === CELL_STATE.FLAGGED || targetCell.state === CELL_STATE.OPEN) return;
 
     if (targetCell.type === CELL_TYPE.MINE) {
@@ -243,7 +238,7 @@ export default function MinesweeperGame() {
       return;
     }
 
-    const newBoard = applyFloodFill(workingBoard, r, c, rows, cols);
+    const newBoard = applyFloodFill(workingBoard, rowIndex, colIndex, rows, cols);
     const hasWon = checkGameWon(newBoard);
 
     setBoard(newBoard);
@@ -259,12 +254,12 @@ export default function MinesweeperGame() {
     }
   };
 
-  const handleContextMenu = (e, r, c) => {
-    e.preventDefault();
+  const handleCellContextMenu = (eventObject, rowIndex, colIndex) => {
+    eventObject.preventDefault();
     if (gameState.status === GAME_STATUS.WIN || gameState.status === GAME_STATUS.GAMEOVER) return;
 
     const newBoard = board.map((row) => row.map((cell) => ({ ...cell })));
-    const targetCell = newBoard[r][c];
+    const targetCell = newBoard[rowIndex][colIndex];
 
     if (targetCell.state === CELL_STATE.OPEN) return;
 
@@ -297,7 +292,7 @@ export default function MinesweeperGame() {
         board={board}
         cols={gameState.cols}
         onCellClick={handleCellClick}
-        onCellContextMenu={handleContextMenu}
+        onCellContextMenu={handleCellContextMenu}
       />
 
       <ResultModal

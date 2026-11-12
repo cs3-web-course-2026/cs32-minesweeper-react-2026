@@ -1,4 +1,3 @@
-// Константи та правила гри
 export const DIFFICULTIES = {
   easy: { rows: 9, cols: 9, mines: 10, label: 'Easy' },
   medium: { rows: 16, cols: 16, mines: 40, label: 'Medium' },
@@ -23,15 +22,14 @@ export const GAME_STATUS = {
   GAMEOVER: 'gameover',
 };
 
-// Створення порожньої ігрової дошки
-export const createEmptyBoard = (rows, cols) => {
+export const createEmptyBoard = (rowCount, colCount) => {
   const newBoard = [];
-  for (let r = 0; r < rows; r++) {
-    newBoard[r] = [];
-    for (let c = 0; c < cols; c++) {
-      newBoard[r][c] = {
-        row: r,
-        col: c,
+  for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
+    newBoard[rowIndex] = [];
+    for (let colIndex = 0; colIndex < colCount; colIndex++) {
+      newBoard[rowIndex][colIndex] = {
+        row: rowIndex,
+        col: colIndex,
         type: CELL_TYPE.EMPTY,
         state: CELL_STATE.CLOSED,
         neighborMines: 0,
@@ -41,16 +39,14 @@ export const createEmptyBoard = (rows, cols) => {
   return newBoard;
 };
 
-// Розміщення мін та підрахунок сусідніх значень після першого кліку
-export const placeMinesAndCalculate = (rows, cols, minesCount, clickedRow, clickedCol, currentBoard) => {
+export const placeMinesAndCalculate = (rowCount, colCount, minesCount, clickedRow, clickedCol, currentBoard) => {
   const newBoard = currentBoard.map((row) => row.map((cell) => ({ ...cell })));
   let planted = 0;
 
   while (planted < minesCount) {
-    const randomRow = Math.floor(Math.random() * rows);
-    const randomCol = Math.floor(Math.random() * cols);
+    const randomRow = Math.floor(Math.random() * rowCount);
+    const randomCol = Math.floor(Math.random() * colCount);
 
-    // Безпечний перший клік (не ставимо міну навколо кліку)
     const isNearStart = Math.abs(randomRow - clickedRow) <= 1 && Math.abs(randomCol - clickedCol) <= 1;
 
     if (newBoard[randomRow][randomCol].type !== CELL_TYPE.MINE && !isNearStart) {
@@ -59,47 +55,52 @@ export const placeMinesAndCalculate = (rows, cols, minesCount, clickedRow, click
     }
   }
 
-  for (let row = 0; row < rows; row++) {
-    for (let col = 0; col < cols; col++) {
-      if (newBoard[row][col].type === CELL_TYPE.MINE) continue;
+  for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
+    for (let colIndex = 0; colIndex < colCount; colIndex++) {
+      if (newBoard[rowIndex][colIndex].type === CELL_TYPE.MINE) continue;
       let counter = 0;
-      const left = Math.max(0, col - 1);
-      const right = Math.min(cols - 1, col + 1);
-      const high = Math.max(0, row - 1);
-      const low = Math.min(rows - 1, row + 1);
+      const left = Math.max(0, colIndex - 1);
+      const right = Math.min(colCount - 1, colIndex + 1);
+      const high = Math.max(0, rowIndex - 1);
+      const low = Math.min(rowCount - 1, rowIndex + 1);
 
-      for (let nr = high; nr <= low; nr++) {
-        for (let nc = left; nc <= right; nc++) {
-          if (newBoard[nr][nc].type === CELL_TYPE.MINE) {
+      for (let neighborRow = high; neighborRow <= low; neighborRow++) {
+        for (let neighborCol = left; neighborCol <= right; neighborCol++) {
+          if (newBoard[neighborRow][neighborCol].type === CELL_TYPE.MINE) {
             counter++;
           }
         }
       }
-      newBoard[row][col].neighborMines = counter;
+      newBoard[rowIndex][colIndex].neighborMines = counter;
     }
   }
 
   return newBoard;
 };
 
-// Рекурсивне відкриття порожніх клітинок (Flood fill)
-export const applyFloodFill = (board, rowIdx, colIdx, rows, cols) => {
+export const applyFloodFill = (board, startRow, startCol, rowCount, colCount) => {
   const newBoard = board.map((row) => row.map((cell) => ({ ...cell })));
-  const stack = [[rowIdx, colIdx]];
+  const stack = [[startRow, startCol]];
 
   while (stack.length > 0) {
-    const [curR, curC] = stack.pop();
-    const cell = newBoard[curR][curC];
+    const [currentRow, currentCol] = stack.pop();
+    const cell = newBoard[currentRow][currentCol];
 
     if (cell.state === CELL_STATE.CLOSED) {
       cell.state = CELL_STATE.OPEN;
       if (cell.neighborMines === 0) {
-        for (let dr = -1; dr <= 1; dr++) {
-          for (let dc = -1; dc <= 1; dc++) {
-            const nr = curR + dr;
-            const nc = curC + dc;
-            if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && newBoard[nr][nc].state === CELL_STATE.CLOSED) {
-              stack.push([nr, nc]);
+        for (let deltaRow = -1; deltaRow <= 1; deltaRow++) {
+          for (let deltaCol = -1; deltaCol <= 1; deltaCol++) {
+            const neighborRow = currentRow + deltaRow;
+            const neighborCol = currentCol + deltaCol;
+            if (
+              neighborRow >= 0 &&
+              neighborRow < rowCount &&
+              neighborCol >= 0 &&
+              neighborCol < colCount &&
+              newBoard[neighborRow][neighborCol].state === CELL_STATE.CLOSED
+            ) {
+              stack.push([neighborRow, neighborCol]);
             }
           }
         }
