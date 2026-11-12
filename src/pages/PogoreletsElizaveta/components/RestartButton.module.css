@@ -1,0 +1,20 @@
+.button {
+  width: 42px;
+  height: 42px;
+  font-size: 22px;
+  background-color: #bdbdbd;
+  border: 3px solid #fff;
+  border-right-color: #7b7b7b;
+  border-bottom-color: #7b7b7b;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: border-color var(--press-duration);
+}
+
+.button:active {
+  border: 3px solid #7b7b7b;
+  border-right-color: #fff;
+  border-bottom-color: #fff;
+}
