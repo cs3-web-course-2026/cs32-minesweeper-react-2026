@@ -1,0 +1,59 @@
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  background-color: #bdbdbd;
+  border: 3px solid #fff;
+  border-right-color: #7b7b7b;
+  border-bottom-color: #7b7b7b;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  padding: 0;
+}
+
+.cell:disabled {
+  cursor: default;
+}
+
+.cell:focus-visible {
+  outline: 2px solid #000;
+  outline-offset: -4px;
+}
+
+.cell:hover:not(.reveal, :disabled) {
+  background-color: #d0d0d0;
+}
+
+.reveal {
+  background-color: #e0e0e0;
+  border: 1px solid #9e9e9e;
+}
+
+.num1 { color: #00f; }
+.num2 { color: #008000; }
+.num3 { color: #f00; }
+.num4 { color: #000080; }
+.num5 { color: #800000; }
+.num6 { color: #008080; }
+.num7 { color: #000; }
+.num8 { color: #808080; }
+
+.flag {
+  font-size: 16px;
+}
+
+.mine {
+  background-color: #e0e0e0;
+  border: 1px solid #9e9e9e;
+  font-size: 18px;
+}
+
+.exploded {
+  background-color: #ff4d4d;
+  border: 1px solid #b30000;
+}
