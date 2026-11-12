@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import Board from "./components/Board";
 import GameHeader from "./components/GameHeader";
@@ -114,23 +113,24 @@ export default function PogoreletsElizaveta() {
   };
 
   const handleToggleFlag = (row, col) => {
-  if (status !== GAME_STATUS.PROCESS) return;
+    if (status !== GAME_STATUS.PROCESS) return;
 
-  const result = toggleFlagOnCell(
-    board,
-    row,
-    col,
-    flagsCount
-  );
+    const result = toggleFlagOnCell(
+      board,
+      row,
+      col,
+      flagsCount
+    );
 
-  if (checkWinCondition(result.board)) {
+    // Защита от срабатывания победы до генерации поля (на пустом стартовом борде)
+    if (!isFirstClick && checkWinCondition(result.board)) {
+      setFlagsCount(result.flagsCount);
+      finishGame(true, result.board);
+      return;
+    }
+
+    setBoard(result.board);
     setFlagsCount(result.flagsCount);
-    finishGame(true, result.board);
-    return;
-  }
-
-  setBoard(result.board);
-  setFlagsCount(result.flagsCount);
   };
 
   const handleRestart = () => {

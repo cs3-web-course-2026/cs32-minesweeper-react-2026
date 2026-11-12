@@ -49,13 +49,15 @@ export function revealCell(board, row, col) {
 }
 
 export function checkWinCondition(board) {
-  return board
-    .flat()
-    .every(
-      (cell) =>
-        cell.type !== CELL_TYPE.MINE ||
-        cell.state === CELL_STATE.FLAGGED
-    );
+  const flatBoard = board.flat();
+  
+  // Победа, если все ячейки, которые НЕ являются минами, открыты
+  return flatBoard.every((cell) => {
+    if (cell.type === CELL_TYPE.MINE) {
+      return true; // Мины не обязательно должны быть зафлажкованы
+    }
+    return cell.state === CELL_STATE.OPENED;
+  });
 }
 
 export function toggleFlagOnCell(board, row, col, flagsCount) {
