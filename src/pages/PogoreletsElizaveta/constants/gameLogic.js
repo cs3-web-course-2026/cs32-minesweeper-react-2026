@@ -53,8 +53,8 @@ export function checkWinCondition(board) {
     .flat()
     .every(
       (cell) =>
-        cell.type === CELL_TYPE.MINE ||
-        cell.state === CELL_STATE.OPENED
+        cell.type !== CELL_TYPE.MINE ||
+        cell.state === CELL_STATE.FLAGGED
     );
 }
 

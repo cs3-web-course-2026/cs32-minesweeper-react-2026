@@ -114,17 +114,23 @@ export default function PogoreletsElizaveta() {
   };
 
   const handleToggleFlag = (row, col) => {
-    if (status !== GAME_STATUS.PROCESS) return;
+  if (status !== GAME_STATUS.PROCESS) return;
 
-    const result = toggleFlagOnCell(
-      board,
-      row,
-      col,
-      flagsCount
-    );
+  const result = toggleFlagOnCell(
+    board,
+    row,
+    col,
+    flagsCount
+  );
 
-    setBoard(result.board);
+  if (checkWinCondition(result.board)) {
     setFlagsCount(result.flagsCount);
+    finishGame(true, result.board);
+    return;
+  }
+
+  setBoard(result.board);
+  setFlagsCount(result.flagsCount);
   };
 
   const handleRestart = () => {
