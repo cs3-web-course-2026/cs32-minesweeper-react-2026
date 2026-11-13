@@ -153,17 +153,26 @@ function Game() {
       difficulty: 'Intermediate',
       status: 'Complete',
     },
-   {
+    {
       id: 12,
+      title: 'Classic Minesweeper',
+      description: 'Classic 10x10 Minesweeper with 15 mines, safe first move, flags and timer.',
+      author: 'Surmach Volodymyr',
+      link: 'surmach-volodymyr',
+      difficulty: 'Beginner',
+      status: 'Complete',
+    },
+    {
+      id: 13,
       title: '🌸 Pinky Minesweeper 🌸',
       description: 'Adaptive React-version of the Minesweeper game with a timer, mine counter, flags, and using CSS Modules.',
       author: 'Uskova Olexandra',
       link: 'uskova-olexandra',
       difficulty: 'Intermediate',
       status: 'Complete',
-   },
+    },
   ];
-  
+
   return (
     <div className={styles.gameContainer}>
       <div className={styles.gameHeader}>

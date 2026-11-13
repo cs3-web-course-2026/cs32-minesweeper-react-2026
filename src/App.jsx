@@ -12,6 +12,7 @@ import LinkovOleksandr from './pages/LinkovOleksandr';
 import OstapenkoRodion from './pages/OstapenkoRodion';
 import KovtunOleksandra from './pages/KovtunOleksandra';
 import PogoreletsElizaveta from './pages/PogoreletsElizaveta'
+import SurmachVolodymyr from './pages/SurmachVolodymyr';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="ostapenko-rodion" element={<OstapenkoRodion />} />
         <Route path="kovtun-oleksandra" element={<KovtunOleksandra />} />
         <Route path="pogorelets-elizaveta" element={<PogoreletsElizaveta />} />
+        <Route path="surmach-volodymyr" element={<SurmachVolodymyr />} />
       </Route>
     </Routes>
   );
