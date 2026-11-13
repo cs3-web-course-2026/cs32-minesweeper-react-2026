@@ -142,7 +142,7 @@ function Game() {
       link: 'khomiakov-oleksii',
       difficulty: 'Beginner',
       status: 'Complete',
-    },
+   },
     {
       id: 11,
       title: 'Класичний Сапер',
@@ -161,7 +161,16 @@ function Game() {
       link: 'surmach-volodymyr',
       difficulty: 'Beginner',
       status: 'Complete',
-    }
+    },
+    {
+      id: 13,
+      title: '🌸 Pinky Minesweeper 🌸',
+      description: 'Adaptive React-version of the Minesweeper game with a timer, mine counter, flags, and using CSS Modules.',
+      author: 'Uskova Olexandra',
+      link: 'uskova-olexandra',
+      difficulty: 'Intermediate',
+      status: 'Complete',
+    },
   ];
 
   return (
