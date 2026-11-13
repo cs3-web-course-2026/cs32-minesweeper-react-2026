@@ -10,7 +10,7 @@ import KhomiakovOleksii from './pages/KhomiakovOleksii';
 import LinkovOleksandr from './pages/LinkovOleksandr';
 import OstapenkoRodion from './pages/OstapenkoRodion';
 import KovtunOleksandra from './pages/KovtunOleksandra';
-import PogoreletsElizaveta from './pages/PogoreletsElizaveta';
+import PogoreletsElizaveta from './pages/PogoreletsElizaveta'
 import SurmachVolodymyr from './pages/SurmachVolodymyr';
 
 function App() {
