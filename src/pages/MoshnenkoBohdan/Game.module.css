@@ -1,4 +1,3 @@
-
 .gameContainer {
     --cell-size: 38px;
 
@@ -90,10 +89,12 @@
 
 .boardWrapper {
     width: 100%;
+    max-width: 100%;
     overflow-x: auto;
     display: flex;
     justify-content: center;
-    padding-bottom: 10px;
+    padding: 10px 0;
+    box-sizing: border-box;
 }
 
 .board {
@@ -104,6 +105,7 @@
     border-radius: 16px;
     border: 1px solid rgb(255 255 255 / 10%);
     box-shadow: 0 12px 40px rgb(0 0 0 / 40%);
+    width: max-content;
 }
 
 .cell {
@@ -138,6 +140,12 @@
     background: rgb(239 68 68 / 20%) !important;
     border-color: rgb(239 68 68 / 50%);
     box-shadow: 0 0 10px rgb(239 68 68 / 30%);
+}
+
+.exploded {
+    background: rgb(239 68 68 / 80%) !important;
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 20px rgb(239 68 68 / 80%) !important;
 }
 
 /* Кольори чисел */

@@ -13,6 +13,7 @@ export const CELL_STATE = {
   CLOSED: 'closed',
   OPEN: 'open',
   FLAGGED: 'flagged',
+  EXPLODED: 'exploded',
 };
 
 export const GAME_STATUS = {

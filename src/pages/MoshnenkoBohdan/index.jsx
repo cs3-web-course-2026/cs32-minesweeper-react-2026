@@ -72,6 +72,10 @@ function GameBoard({ board, cols, onCellClick, onCellContextMenu }) {
               ariaLabel += 'Flagged cell';
               cellClasses.push(styles.flagged);
               content = '🚩';
+            } else if (cell.state === CELL_STATE.EXPLODED) {
+              cellClasses.push(styles.exploded);
+              ariaLabel += 'Exploded mine that triggered game over';
+              content = '💥';
             } else if (cell.state === CELL_STATE.OPEN) {
               cellClasses.push(styles.revealed);
               if (cell.type === CELL_TYPE.MINE) {
@@ -225,8 +229,16 @@ export default function MinesweeperGame() {
     if (targetCell.state === CELL_STATE.FLAGGED || targetCell.state === CELL_STATE.OPEN) return;
 
     if (targetCell.type === CELL_TYPE.MINE) {
-      const revealedBoard = workingBoard.map((row) =>
-        row.map((cell) => (cell.type === CELL_TYPE.MINE ? { ...cell, state: CELL_STATE.OPEN } : cell))
+      const revealedBoard = workingBoard.map((row, rIdx) =>
+        row.map((cell, cIdx) => {
+          if (rIdx === rowIndex && cIdx === colIndex) {
+            return { ...cell, state: CELL_STATE.EXPLODED };
+          }
+          if (cell.type === CELL_TYPE.MINE) {
+            return { ...cell, state: CELL_STATE.OPEN };
+          }
+          return cell;
+        })
       );
       setBoard(revealedBoard);
       setGameState((prev) => ({ ...prev, status: GAME_STATUS.GAMEOVER }));
