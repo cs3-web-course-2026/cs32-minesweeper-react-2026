@@ -110,23 +110,31 @@ function GameBoard({ board, cols, onCellClick, onCellContextMenu }) {
 }
 
 function ResultModal({ modal, onRestart }) {
+  const modalRef = useRef(null);
   const buttonRef = useRef(null);
 
   useEffect(() => {
-    if (modal.isOpen && buttonRef.current) {
-      buttonRef.current.focus();
+    if (modal.isOpen) {
+      // Переносим фокус на карточку модального окна или кнопку
+      if (buttonRef.current) {
+        buttonRef.current.focus();
+      } else if (modalRef.current) {
+        modalRef.current.focus();
+      }
     }
   }, [modal.isOpen]);
 
   if (!modal.isOpen) return null;
 
   return (
-    <div className={styles.modalOverlay}>
+    <div className={styles.modalOverlay} aria-hidden={!modal.isOpen}>
       <div
+        ref={modalRef}
         className={styles.modalCard}
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
+        tabIndex={-1}
       >
         <h2 id="modal-title">{modal.title}</h2>
         <div role="status" aria-live="polite">
