@@ -11,6 +11,7 @@ import KhomiakovOleksii from './pages/KhomiakovOleksii';
 import LinkovOleksandr from './pages/LinkovOleksandr';
 import OstapenkoRodion from './pages/OstapenkoRodion';
 import KovtunOleksandra from './pages/KovtunOleksandra';
+import MoshnenkoBohdanGame from './pages/MoshnenkoBohdan';
 import PogoreletsElizaveta from './pages/PogoreletsElizaveta'
 import SurmachVolodymyr from './pages/SurmachVolodymyr';
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="linkov-oleksandr" element={<LinkovOleksandr />} />
         <Route path="ostapenko-rodion" element={<OstapenkoRodion />} />
         <Route path="kovtun-oleksandra" element={<KovtunOleksandra />} />
+        <Route path="moshnenko-bohdan" element={<MoshnenkoBohdanGame />} />
         <Route path="pogorelets-elizaveta" element={<PogoreletsElizaveta />} />
         <Route path="surmach-volodymyr" element={<SurmachVolodymyr />} />
       </Route>
