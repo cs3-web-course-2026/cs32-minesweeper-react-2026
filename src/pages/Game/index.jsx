@@ -152,9 +152,18 @@ function Game() {
       link: 'pogorelets-elizaveta',
       difficulty: 'Intermediate',
       status: 'Complete',
+    },
+    {
+      id: 12,
+      title: 'Classic Minesweeper',
+      description: 'Classic 10x10 Minesweeper with 15 mines, safe first move, flags and timer.',
+      author: 'Surmach Volodymyr',
+      link: 'surmach-volodymyr',
+      difficulty: 'Beginner',
+      status: 'Complete',
     }
   ];
-  
+
   return (
     <div className={styles.gameContainer}>
       <div className={styles.gameHeader}>
