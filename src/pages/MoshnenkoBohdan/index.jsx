@@ -110,26 +110,19 @@ function GameBoard({ board, cols, onCellClick, onCellContextMenu }) {
 }
 
 function ResultModal({ modal, onRestart }) {
-  const modalRef = useRef(null);
   const buttonRef = useRef(null);
 
   useEffect(() => {
     if (modal.isOpen) {
-      // Переносим фокус на карточку модального окна или кнопку
-      if (buttonRef.current) {
-        buttonRef.current.focus();
-      } else if (modalRef.current) {
-        modalRef.current.focus();
-      }
+      buttonRef.current?.focus();
     }
   }, [modal.isOpen]);
 
   if (!modal.isOpen) return null;
 
   return (
-    <div className={styles.modalOverlay} aria-hidden={!modal.isOpen}>
+    <div className={styles.modalOverlay}>
       <div
-        ref={modalRef}
         className={styles.modalCard}
         role="dialog"
         aria-modal="true"
@@ -137,9 +130,9 @@ function ResultModal({ modal, onRestart }) {
         tabIndex={-1}
       >
         <h2 id="modal-title">{modal.title}</h2>
-        <div role="status" aria-live="polite">
-          <p>{modal.message}</p>
-        </div>
+        <p role="status" aria-live="polite">
+          {modal.message}
+        </p>
         <button
           ref={buttonRef}
           type="button"
@@ -294,31 +287,37 @@ export default function MinesweeperGame() {
   };
 
   return (
-    <div className={styles.gameContainer}>
-      <div className={styles.topBar}>
-        <DifficultyControls
-          currentDifficulty={currentDifficulty}
-          onSelectDifficulty={initGame}
-        />
-        <StatusPanel
-          minesLeft={mines - currentMinesLeft}
-          onRestart={() => initGame(currentDifficulty)}
-          gameTime={gameState.gameTime}
-          safeCellsLeft={safeCellsLeft}
+    <>
+      <div
+        className={styles.gameContainer}
+        aria-hidden={modal.isOpen}
+        inert={modal.isOpen}
+      >
+        <div className={styles.topBar}>
+          <DifficultyControls
+            currentDifficulty={currentDifficulty}
+            onSelectDifficulty={initGame}
+          />
+          <StatusPanel
+            minesLeft={mines - currentMinesLeft}
+            onRestart={() => initGame(currentDifficulty)}
+            gameTime={gameState.gameTime}
+            safeCellsLeft={safeCellsLeft}
+          />
+        </div>
+
+        <GameBoard
+          board={board}
+          cols={gameState.cols}
+          onCellClick={handleCellClick}
+          onCellContextMenu={handleCellContextMenu}
         />
       </div>
-
-      <GameBoard
-        board={board}
-        cols={gameState.cols}
-        onCellClick={handleCellClick}
-        onCellContextMenu={handleCellContextMenu}
-      />
 
       <ResultModal
         modal={modal}
         onRestart={() => initGame(currentDifficulty)}
       />
-    </div>
+    </>
   );
 }
