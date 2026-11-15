@@ -1,9 +1,14 @@
 
-import CellButton from './CellButton.jsx';
+import CellButton from './CellButton';
 
 import styles from '../Minesweeper.module.css';
 
-export default function Board({ board, onReveal, onFlag }) {
+export default function Board({
+                                board,
+                                explodedCell,
+                                onReveal,
+                                onFlag,
+                              }) {
   return (
     <div
       className={styles.grid}
@@ -17,6 +22,10 @@ export default function Board({ board, onReveal, onFlag }) {
             cell={cell}
             row={row}
             col={col}
+            isExploded={
+              explodedCell?.row === row &&
+              explodedCell?.col === col
+            }
             onReveal={onReveal}
             onFlag={onFlag}
           />

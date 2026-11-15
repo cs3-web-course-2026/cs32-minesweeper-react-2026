@@ -10,6 +10,7 @@ export function useGameState() {
   const [board, setBoard] = useState(createBoard);
   const [gameStatus, setGameStatus] = useState(GAME_STATUS.READY);
   const [gameNumber, setGameNumber] = useState(0);
+  const [explodedCell, setExplodedCell] = useState(null);
 
   const flagsPlaced = board.flat().filter(cell => cell.flagged).length;
   const minesRemaining = GAME_CONFIG.MINES - flagsPlaced;
@@ -18,6 +19,7 @@ export function useGameState() {
     setBoard(createBoard());
     setGameStatus(GAME_STATUS.READY);
     setGameNumber(previousNumber => previousNumber + 1);
+    setExplodedCell(null);
   }, []);
 
   const handleCellClick = useCallback((row, col) => {
@@ -40,6 +42,7 @@ export function useGameState() {
     }
 
     if (nextBoard[row][col].mine) {
+      setExplodedCell({ row, col });
       setBoard(revealAllMines(nextBoard));
       setGameStatus(GAME_STATUS.LOST);
       return;
@@ -89,6 +92,7 @@ export function useGameState() {
     board,
     gameStatus,
     gameNumber,
+    explodedCell,
     minesRemaining,
     handleRestart,
     handleCellClick,

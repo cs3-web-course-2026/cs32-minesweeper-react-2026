@@ -1,6 +1,6 @@
 
-import Board from './components/Board.jsx';
-import GameStatus from './components/GameStatus.jsx';
+import Board from './components/Board';
+import GameStatus from './components/GameStatus';
 import RestartButton from './components/RestartButton';
 import Timer from './components/Timer';
 
@@ -14,6 +14,7 @@ export default function Minesweeper() {
     board,
     gameStatus,
     gameNumber,
+    explodedCell,
     minesRemaining,
     handleRestart,
     handleCellClick,
@@ -52,6 +53,7 @@ export default function Minesweeper() {
 
       <Board
         board={board}
+        explodedCell={explodedCell}
         onReveal={handleCellClick}
         onFlag={handleCellRightClick}
       />

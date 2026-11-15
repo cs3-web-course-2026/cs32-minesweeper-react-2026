@@ -104,7 +104,7 @@
     outline-offset: 2px;
 }
 
-.cell:hover:not(.revealed) {
+.cell:hover:not(.revealed, .exploded) {
     background: #7209b7;
 }
 
@@ -120,6 +120,12 @@
 
 .flagged {
     background: #560bad;
+}
+
+.exploded {
+    background: #ffb703;
+    border: 2px solid #fff;
+    box-shadow: inset 0 0 8px rgb(255 255 255 / 50%);
 }
 
 .message {

@@ -7,6 +7,7 @@ export default function CellButton({
                                      cell,
                                      row,
                                      col,
+                                     isExploded,
                                      onReveal,
                                      onFlag,
                                    }) {
@@ -15,6 +16,7 @@ export default function CellButton({
     cell.opened ? styles.revealed : '',
     cell.opened && cell.mine ? styles.mine : '',
     cell.flagged ? styles.flagged : '',
+    isExploded ? styles.exploded : '',
   ].filter(Boolean).join(' ');
 
   let cellState = CELL_STATE.CLOSED;
@@ -25,8 +27,8 @@ export default function CellButton({
     cellState = CELL_STATE.OPEN;
 
     if (cell.mine) {
-      description = 'Відкрита міна';
-      content = '💣';
+      description = isExploded ? 'Міна, що вибухнула' : 'Відкрита міна';
+      content = isExploded ? '💥' : '💣';
     } else {
       description = `Відкрито, сусідніх мін: ${cell.count}`;
       content = cell.count || '';
