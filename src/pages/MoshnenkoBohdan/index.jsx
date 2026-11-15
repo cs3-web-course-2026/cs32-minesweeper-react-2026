@@ -36,7 +36,7 @@ function StatusPanel({ minesLeft, onRestart, gameTime, safeCellsLeft, restartBut
   };
 
   return (
-    <div className={styles.gameHeader}>
+    <header className={styles.gameHeader}>
       <div className={styles.infoBox}>
         <span className={styles.infoLabel}>Mines:</span> {minesLeft}
       </div>
@@ -54,7 +54,7 @@ function StatusPanel({ minesLeft, onRestart, gameTime, safeCellsLeft, restartBut
       <div className={styles.infoBox}>
         <span className={styles.infoLabel}>Safe:</span> {safeCellsLeft}
       </div>
-    </div>
+    </header>
   );
 }
 
@@ -302,7 +302,7 @@ export default function MinesweeperGame() {
 
   return (
     <>
-      <div
+      <main
         className={styles.gameContainer}
         aria-hidden={modal.isOpen}
         inert={modal.isOpen}
@@ -327,7 +327,7 @@ export default function MinesweeperGame() {
           onCellClick={handleCellClick}
           onCellContextMenu={handleCellContextMenu}
         />
-      </div>
+      </main>
 
       <ResultModal
         modal={modal}
