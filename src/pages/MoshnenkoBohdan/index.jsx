@@ -209,10 +209,8 @@ export default function MinesweeperGame() {
         const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
         setGameState((prev) => ({ ...prev, gameTime: elapsed }));
       }, 1000);
-    } else {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-      }
+    } else if (timerRef.current) {
+      clearInterval(timerRef.current);
     }
     return () => {
       if (timerRef.current) {
