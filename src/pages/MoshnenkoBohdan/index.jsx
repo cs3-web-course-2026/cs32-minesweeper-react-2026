@@ -28,7 +28,7 @@ function DifficultyControls({ currentDifficulty, onSelectDifficulty }) {
   );
 }
 
-function StatusPanel({ minesLeft, onRestart, gameTime, safeCellsLeft }) {
+function StatusPanel({ minesLeft, onRestart, gameTime, safeCellsLeft, restartButtonRef }) {
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -40,7 +40,12 @@ function StatusPanel({ minesLeft, onRestart, gameTime, safeCellsLeft }) {
       <div className={styles.infoBox}>
         <span className={styles.infoLabel}>Mines:</span> {minesLeft}
       </div>
-      <button type="button" className={styles.btnRestart} onClick={onRestart}>
+      <button
+        ref={restartButtonRef}
+        type="button"
+        className={styles.btnRestart}
+        onClick={onRestart}
+      >
         Restart
       </button>
       <div className={styles.infoBox}>
@@ -155,6 +160,8 @@ export default function MinesweeperGame() {
 
   const timerRef = useRef(null);
   const startTimeRef = useRef(null);
+  const restartButtonRef = useRef(null);
+  const wasModalOpenRef = useRef(false);
 
   const [gameState, setGameState] = useState({
     rows,
@@ -181,6 +188,13 @@ export default function MinesweeperGame() {
       clearInterval(timerRef.current);
     }
   }, []);
+
+  useEffect(() => {
+    if (wasModalOpenRef.current && !modal.isOpen) {
+      restartButtonRef.current?.focus();
+    }
+    wasModalOpenRef.current = modal.isOpen;
+  }, [modal.isOpen]);
 
   useEffect(() => {
     if (gameState.status === GAME_STATUS.PROCESS) {
@@ -303,6 +317,7 @@ export default function MinesweeperGame() {
             onRestart={() => initGame(currentDifficulty)}
             gameTime={gameState.gameTime}
             safeCellsLeft={safeCellsLeft}
+            restartButtonRef={restartButtonRef}
           />
         </div>
 
