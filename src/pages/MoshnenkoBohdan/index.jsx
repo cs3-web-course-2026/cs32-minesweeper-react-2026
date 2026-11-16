@@ -303,10 +303,7 @@ export default function MinesweeperGame() {
   };
 
   return (
-    <main
-      className={styles.gameContainer}
-      aria-hidden={modal.isOpen}
-    >
+    <main className={styles.gameContainer}>
       <div className={styles.topBar}>
         <DifficultyControls
           currentDifficulty={currentDifficulty}

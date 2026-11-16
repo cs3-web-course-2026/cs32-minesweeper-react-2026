@@ -92,7 +92,7 @@
     max-width: 100%;
     overflow-x: auto;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 10px 0;
     box-sizing: border-box;
 }
@@ -106,6 +106,7 @@
     border: 1px solid rgb(255 255 255 / 10%);
     box-shadow: 0 12px 40px rgb(0 0 0 / 40%);
     width: max-content;
+    margin: 0 auto;
 }
 
 .cell {
