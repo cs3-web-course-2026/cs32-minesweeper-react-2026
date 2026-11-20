@@ -134,6 +134,17 @@ function Game() {
       difficulty: 'Beginner',
       status: 'Complete',
     },
+
+    {
+      id: 20,
+      title: 'Класичний Сапер (Minesweeper)',
+      description:
+        'React-реалізація Сапера з вибором рівня складності, таймером, лічильником прапорців та безпечним першим кліком.',
+      author: 'Moshnenko Bohdan',
+      link: 'moshnenko-bohdan',
+      difficulty: 'Intermediate',
+      status: 'Complete',
+    },
     {
       id: 10,
       title: 'Minesweeper by Oleksii Khomiakov',
