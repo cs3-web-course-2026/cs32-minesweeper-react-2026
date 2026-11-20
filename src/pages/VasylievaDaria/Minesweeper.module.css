@@ -1,0 +1,158 @@
+
+.game {
+    --cell-size: min(8vw, 35px);
+
+    width: fit-content;
+    max-width: 100%;
+    margin: 30px auto;
+    padding: 20px;
+    background: #1e0f3c;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgb(0 0 0 / 50%);
+    color: #fff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.game * {
+    box-sizing: border-box;
+}
+
+.title {
+    margin: 0 0 20px;
+    font-size: 32px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.stat {
+    min-width: 65px;
+    font-size: 20px;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+}
+
+.restart {
+    padding: 10px 15px;
+    background: linear-gradient(135deg, #7b2cbf, #9d4edd);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.action {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 12px;
+    background: linear-gradient(135deg, #9d4edd, #e5007d);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.restart:hover,
+.action:hover {
+    filter: brightness(1.15);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(10, var(--cell-size));
+    gap: 2px;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 5px;
+    background: #3c096c;
+    border-radius: 6px;
+}
+
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--cell-size);
+    height: var(--cell-size);
+    padding: 0;
+    background: #560bad;
+    border: 1px solid #8440d1;
+    border-radius: 3px;
+    color: white;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    appearance: none;
+}
+
+.cell:focus-visible,
+.restart:focus-visible,
+.action:focus-visible {
+    outline: 3px solid #f5c542;
+    outline-offset: 2px;
+}
+
+.cell:hover:not(.revealed, .exploded) {
+    background: #7209b7;
+}
+
+.revealed {
+    background: #240046;
+    border-color: #3c096c;
+    cursor: default;
+}
+
+.mine {
+    background: #d90429;
+}
+
+.flagged {
+    background: #560bad;
+}
+
+.exploded {
+    background: #ffb703;
+    border: 2px solid #fff;
+    box-shadow: inset 0 0 8px rgb(255 255 255 / 50%);
+}
+
+.message {
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.message:empty {
+    display: none;
+}
+
+@media (width <= 420px) {
+    .game {
+        padding: 12px;
+    }
+
+    .stat {
+        min-width: 50px;
+        font-size: 16px;
+    }
+
+    .header {
+        gap: 6px;
+    }
+
+    .cell {
+        font-size: 14px;
+    }
+}

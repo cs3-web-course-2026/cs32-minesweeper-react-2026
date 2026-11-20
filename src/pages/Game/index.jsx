@@ -171,6 +171,16 @@ function Game() {
       difficulty: 'Intermediate',
       status: 'Complete',
     },
+    {
+      id: 14,
+      title: '💜 Purple Minesweeper',
+      description:
+        'Фіолетовий Сапер на React з таймером, лічильником прапорців, автоматичним відкриттям порожніх клітинок та визначенням перемоги й поразки.',
+      author: 'Vasylieva Daria',
+      link: 'vasylieva-daria',
+      difficulty: 'Intermediate',
+      status: 'Complete',
+    },
   ];
 
   return (
