@@ -15,6 +15,7 @@ import MoshnenkoBohdanGame from './pages/MoshnenkoBohdan';
 import PogoreletsElizaveta from './pages/PogoreletsElizaveta'
 import SurmachVolodymyr from './pages/SurmachVolodymyr';
 import VasylievaDaria from './pages/VasylievaDaria';
+import ProkopenkoYevgeniy from './pages/ProkopenkoYevgeniy';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path="pogorelets-elizaveta" element={<PogoreletsElizaveta />} />
         <Route path="surmach-volodymyr" element={<SurmachVolodymyr />} />
         <Route path="vasylieva-daria" element={<VasylievaDaria />} />
+        <Route path="prokopenko-yevgeniy" element={<ProkopenkoYevgeniy />} />
       </Route>
     </Routes>
   );
