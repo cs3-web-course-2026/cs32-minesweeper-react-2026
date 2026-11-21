@@ -192,6 +192,16 @@ function Game() {
       difficulty: 'Intermediate',
       status: 'Complete',
     },
+    {
+      id: 15,
+      title: 'Класичний Сапер 16×16',
+      description:
+        'React-міграція класичного Сапера 16×16 (40 мін) у ретро-стилі: безпечний перший клік, flood-fill, цифрові лічильники, таймер, підтримка клавіатури (клавіша F) та CSS Modules.',
+      author: 'Prokopenko Yevgeniy',
+      link: 'prokopenko-yevgeniy',
+      difficulty: 'Intermediate',
+      status: 'Complete',
+    },
   ];
 
   return (

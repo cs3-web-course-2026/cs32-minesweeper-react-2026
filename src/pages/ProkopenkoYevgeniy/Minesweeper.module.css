@@ -1,0 +1,94 @@
+.pageWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 0.75rem 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pageTitle {
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  text-align: center;
+  color: var(--color-text);
+}
+
+.minesweeperContainer {
+  --cell-size: 26px;
+  --cols-count: 16;
+
+  box-sizing: border-box;
+  background-color: #bdbdbd;
+  padding: 16px;
+  border-top: 4px solid #fff;
+  border-left: 4px solid #fff;
+  border-right: 4px solid #7b7b7b;
+  border-bottom: 4px solid #7b7b7b;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  overflow-x: auto;
+  user-select: none;
+  box-shadow: var(--shadow-md);
+}
+
+.gameHeader {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: #bdbdbd;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-top: 3px solid #7b7b7b;
+  border-left: 3px solid #7b7b7b;
+  border-right: 3px solid #fff;
+  border-bottom: 3px solid #fff;
+}
+
+.boardSection {
+  display: flex;
+  justify-content: center;
+}
+
+.controlsHint {
+  margin: 0;
+  font-size: 0.875rem;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+@media (width <= 540px) {
+  .minesweeperContainer {
+    --cell-size: 22px;
+
+    padding: 12px;
+  }
+}
+
+@media (width <= 440px) {
+  .minesweeperContainer {
+    --cell-size: 19px;
+
+    padding: 8px;
+  }
+
+  .gameHeader {
+    padding: 6px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (width <= 360px) {
+  .minesweeperContainer {
+    --cell-size: 16.5px;
+
+    padding: 6px;
+  }
+}
+
