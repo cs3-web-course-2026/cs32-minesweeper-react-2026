@@ -114,7 +114,6 @@ function CellButton({
   return (
     <button
       type="button"
-      role="gridcell"
       className={cellClassName}
       aria-label={ariaLabel}
       onClick={handleClick}

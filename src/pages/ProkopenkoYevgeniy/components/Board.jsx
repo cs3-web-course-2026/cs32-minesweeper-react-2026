@@ -13,11 +13,11 @@ function Board({ board, gameStatus, explodedCell, onReveal, onFlag }) {
     <div
       className={styles.board}
       style={{ '--cols-count': colsCount }}
-      role="grid"
+      role="group"
       aria-label="Ігрове поле Сапера"
     >
       {board.map((boardRow, row) => (
-        <div key={`row-${row}`} role="row" className={styles.boardRow}>
+        <div key={`row-${row}`} className={styles.boardRow}>
           {boardRow.map((cell, col) => {
             const isExploded =
               explodedCell?.row === row && explodedCell?.col === col;

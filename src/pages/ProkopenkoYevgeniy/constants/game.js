@@ -37,6 +37,12 @@ export const COUNTER_LIMITS = {
 
 export const TIMER_INTERVAL_MS = 1000;
 
+export const PRNG_CONFIG = {
+  MODULUS: 2147483647,
+  MULTIPLIER: 16807,
+  DEFAULT_SEED: 1,
+};
+
 export const FLAG_TRIGGER_KEYS = new Set(['f', 'F', 'а', 'А']);
 
 export const DIRECTIONS = [

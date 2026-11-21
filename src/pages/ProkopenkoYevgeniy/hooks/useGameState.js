@@ -6,6 +6,7 @@ import {
   GAME_ACTION,
   GAME_CONFIG,
   GAME_STATUS,
+  PRNG_CONFIG,
 } from '../constants/game';
 import { createEmptyBoard, isInBounds, placeMines } from '../utils/board';
 import { checkWinCondition, countPlacedFlags } from '../utils/checks';
@@ -32,7 +33,7 @@ function isGameOver(gameStatus) {
 }
 
 
-function handleRevealAction(state, row, col) {
+function handleRevealAction(state, row, col, seed) {
   if (isGameOver(state.gameStatus)) {
     return state;
   }
@@ -52,7 +53,7 @@ function handleRevealAction(state, row, col) {
 
   const workingBoard = state.hasMinesPlaced
     ? state.board
-    : placeMines(state.board, GAME_CONFIG.MINES_COUNT, row, col);
+    : placeMines(state.board, GAME_CONFIG.MINES_COUNT, row, col, seed);
 
   if (workingBoard[row][col].type === CELL_TYPE.MINE) {
     return {
@@ -116,7 +117,7 @@ function handleToggleFlagAction(state, row, col) {
 function gameReducer(state, action) {
   switch (action.type) {
     case GAME_ACTION.REVEAL_CELL:
-      return handleRevealAction(state, action.row, action.col);
+      return handleRevealAction(state, action.row, action.col, action.seed);
 
     case GAME_ACTION.TOGGLE_FLAG:
       return handleToggleFlagAction(state, action.row, action.col);
@@ -137,7 +138,11 @@ export function useGameState() {
   const remainingMines = GAME_CONFIG.MINES_COUNT - placedFlags;
 
   const handleCellClick = useCallback((row, col) => {
-    dispatch({ type: GAME_ACTION.REVEAL_CELL, row, col });
+    const seed =
+      Math.floor(Math.random() * (PRNG_CONFIG.MODULUS - 1)) +
+      PRNG_CONFIG.DEFAULT_SEED;
+
+    dispatch({ type: GAME_ACTION.REVEAL_CELL, row, col, seed });
   }, []);
 
   const handleCellFlag = useCallback((row, col) => {

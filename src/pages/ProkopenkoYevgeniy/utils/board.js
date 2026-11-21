@@ -1,4 +1,23 @@
-import { CELL_STATE, CELL_TYPE, DIRECTIONS } from '../constants/game';
+import {
+  CELL_STATE,
+  CELL_TYPE,
+  DIRECTIONS,
+  PRNG_CONFIG,
+} from '../constants/game';
+
+function createSeededRandom(seed) {
+  const normalizedSeed = Math.abs(Math.floor(seed)) % PRNG_CONFIG.MODULUS;
+  let currentSeed =
+    normalizedSeed === 0 ? PRNG_CONFIG.DEFAULT_SEED : normalizedSeed;
+
+  return () => {
+    currentSeed =
+      (currentSeed * PRNG_CONFIG.MULTIPLIER) % PRNG_CONFIG.MODULUS;
+
+    return (currentSeed - 1) / (PRNG_CONFIG.MODULUS - 1);
+  };
+}
+
 
 export function isInBounds(row, col, rows, cols) {
   return row >= 0 && row < rows && col >= 0 && col < cols;
@@ -57,7 +76,13 @@ export function calculateNeighborMines(board) {
 }
 
 
-export function placeMines(board, minesCount, excludedRow, excludedCol) {
+export function placeMines(
+  board,
+  minesCount,
+  excludedRow,
+  excludedCol,
+  seed = PRNG_CONFIG.DEFAULT_SEED,
+) {
   const rows = board.length;
   const cols = rows > 0 ? board[0].length : 0;
   const candidatePositions = [];
@@ -72,8 +97,10 @@ export function placeMines(board, minesCount, excludedRow, excludedCol) {
     }
   }
 
+  const nextRandom = createSeededRandom(seed);
+
   for (let index = candidatePositions.length - 1; index > 0; index -= 1) {
-    const randomIndex = Math.floor(Math.random() * (index + 1));
+    const randomIndex = Math.floor(nextRandom() * (index + 1));
     const temporaryPosition = candidatePositions[index];
     candidatePositions[index] = candidatePositions[randomIndex];
     candidatePositions[randomIndex] = temporaryPosition;
