@@ -89,8 +89,7 @@ function Game() {
       difficulty: 'Advanced',
       status: 'Planning',
     },
-    {
-      id: 5,
+    {id: 5,
       title: 'Сапер у стилі мультфільмів 1930-х',
       description:
         'React-версія Сапера з таймером, лічильником мін, прапорцями та flood-fill; «гумові» анімації в дусі старих мультфільмів.',
@@ -113,6 +112,8 @@ function Game() {
       description: 'React implementation of Minesweeper game',
       author: 'Pavlova Sofiia',
       link: 'pavlova-sofiia',
+      difficulty: 'Beginner',
+      status: 'Planning',
     },
   ];
 
