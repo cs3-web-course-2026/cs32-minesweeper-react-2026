@@ -6,3 +6,14 @@
   grid-template-columns: repeat(8, 25px);
   gap: 1px;
 }
+
+.cell {
+  width: 25px;
+  height: 25px;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}

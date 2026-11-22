@@ -3,14 +3,11 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-
   width: 30px;
   height: 30px;
-
   background-color: #ab63d16f;
   border: 1px solid #672b878f;
   border-radius: 4px;
-
   transition: all 0.2s;
 }
 
