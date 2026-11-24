@@ -1,0 +1,12 @@
+.display {
+  background-color: #000;
+  color: #f00;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 28px;
+  font-weight: bold;
+  padding: 2px 8px;
+  border: 2px inset #7b7b7b;
+  min-width: 65px;
+  text-align: center;
+  letter-spacing: 2px;
+}

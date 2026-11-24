@@ -1,0 +1,23 @@
+.restartButton {
+  --duration-fast: 0.1s;
+  --duration-medium: 0.2s;
+  
+  background-color: #c55d78;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color var(--duration-medium) ease,
+              transform var(--duration-fast) ease;
+}
+
+.restartButton:hover {
+  background-color: #a84b63;
+}
+
+.restartButton:active {
+  transform: scale(0.98);
+}
