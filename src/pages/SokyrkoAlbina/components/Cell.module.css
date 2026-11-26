@@ -1,58 +1,58 @@
 .cell {
-    position: relative;
-    background-color: var(--cell-closed);
-    border: 3px outset var(--border-light);
-    font-size: 1.2rem;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    user-select: none;
-    color: var(--border-dark);
-    width: 100%;
-    aspect-ratio: 1 / 1;
-  }
-  
-  .cell:not(.open):hover {
-    filter: brightness(1.1);
-  }
-  
-  .cell:not(.open):active {
-    border-style: inset;
-  }
-  
-  .cell:focus-visible {
-    outline: 3px solid var(--display-text);
-    outline-offset: 2px;
-    z-index: 1;
-  }
-  
-  .open {
-    background-color: var(--cell-open-bg);
-    border: 1px solid rgb(139 90 43 / 30%);
-    cursor: default;
-    box-shadow: inset 0 0 5px rgb(0 0 0 / 10%);
-  }
-  
-  .falseFlag::after {
-    content: '❌';
-    position: absolute;
-    font-size: 1.5rem;
-    opacity: 0.8;
-  }
-  
-  .exploded {
-    background-color: #8b0000;
-    border-color: #4a0000;
-  }
-  
-  .number1 { color: #005f73; }
-  .number2 { color: #386641; }
-  .number3 { color: #bc4749; }
-  .number4 { color: #2a0080; }
-  .number5 { color: #7f4f24; }
-  .number6 { color: #0081a7; }
-  .number7 { color: #1a1a1a; }
-  .number8 { color: #6c757d; }
+  position: relative;
+  background-color: var(--cell-closed);
+  border: 3px outset var(--border-light);
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  user-select: none;
+  color: var(--border-dark);
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.cell:focus-visible {
+  outline: 3px solid var(--display-text);
+  outline-offset: 2px;
+  z-index: 1;
+}
+
+.cell:not(.open):hover {
+  filter: brightness(1.1);
+}
+
+.cell:not(.open):active {
+  border-style: inset;
+}
+
+.open {
+  background-color: var(--cell-open-bg);
+  border: 1px solid rgb(139 90 43 / 30%);
+  cursor: default;
+  box-shadow: inset 0 0 5px rgb(0 0 0 / 10%);
+}
+
+.falseFlag::after {
+  content: '❌';
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0.8;
+}
+
+.exploded {
+  background-color: #8b0000;
+  border-color: #4a0000;
+}
+
+.number1 { color: #005f73; }
+.number2 { color: #386641; }
+.number3 { color: #bc4749; }
+.number4 { color: #2a0080; }
+.number5 { color: #7f4f24; }
+.number6 { color: #0081a7; }
+.number7 { color: #1a1a1a; }
+.number8 { color: #6c757d; }

@@ -2,28 +2,22 @@ import { useEffect, useRef, useState } from 'react';
 import { MODAL_DELAY_MS, STATUS } from '../constants/gameConfig';
 import styles from './GameModal.module.css';
 
-export default function GameModal({ gameStatus, isOpen, onClose }) {
+function GameModalDialog({ gameStatus, onClose }) {
   const [isVisible, setIsVisible] = useState(false);
   const confirmBtnRef = useRef(null);
   const previousFocusRef = useRef(null);
 
   useEffect(() => {
-    if (!isOpen) {
-      setIsVisible(false);
-      if (previousFocusRef.current) {
-        previousFocusRef.current.focus();
-        previousFocusRef.current = null;
-      }
-      return undefined;
-    }
-
     previousFocusRef.current = document.activeElement;
     const timeoutId = setTimeout(() => {
       setIsVisible(true);
     }, MODAL_DELAY_MS);
 
-    return () => clearTimeout(timeoutId);
-  }, [isOpen]);
+    return () => {
+      clearTimeout(timeoutId);
+      previousFocusRef.current?.focus();
+    };
+  }, []);
 
   useEffect(() => {
     if (!isVisible) return undefined;
@@ -34,7 +28,6 @@ export default function GameModal({ gameStatus, isOpen, onClose }) {
       if (event.key === 'Escape') {
         onClose();
       } else if (event.key === 'Tab') {
-        // Утримання фокуса всередині модального вікна (focus trap)
         event.preventDefault();
         confirmBtnRef.current?.focus();
       }
@@ -44,7 +37,7 @@ export default function GameModal({ gameStatus, isOpen, onClose }) {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [isVisible, onClose]);
 
-  if (!isOpen || !isVisible) return null;
+  if (!isVisible) return null;
 
   const isWinner = gameStatus === STATUS.WIN;
   const title = isWinner ? 'Перемога! 🎉' : 'Поразка! 💥';
@@ -81,4 +74,10 @@ export default function GameModal({ gameStatus, isOpen, onClose }) {
       </div>
     </div>
   );
+}
+
+export default function GameModal({ gameStatus, isOpen, onClose }) {
+  if (!isOpen) return null;
+
+  return <GameModalDialog gameStatus={gameStatus} onClose={onClose} />;
 }
