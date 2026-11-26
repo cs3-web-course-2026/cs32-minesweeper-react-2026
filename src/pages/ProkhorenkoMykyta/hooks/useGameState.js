@@ -12,13 +12,23 @@ import { getFlagsLeft, isWinCondition } from '../utils/checks';
 import { openCell, toggleFlag } from '../utils/reveal';
 
 
-function createInitialState(config) {
+function createFreshBoard(config) {
+  return generateField(config.rows, config.cols, config.minesCount);
+}
+
+
+function createGameState(config, board) {
   return {
     config,
-    board: generateField(config.rows, config.cols, config.minesCount),
+    board,
     status: GAME_STATUS.IDLE,
     gameTime: 0,
   };
+}
+
+
+function createInitialState(config) {
+  return createGameState(config, createFreshBoard(config));
 }
 
 
@@ -77,7 +87,7 @@ function gameReducer(state, action) {
     case GAME_ACTION.TICK:
       return { ...state, gameTime: state.gameTime + 1 };
     case GAME_ACTION.RESTART:
-      return createInitialState(state.config);
+      return createGameState(state.config, action.board);
     default:
       return state;
   }
@@ -97,8 +107,9 @@ export function useGameState(config = DEFAULT_CONFIG) {
   );
   const tick = useCallback(() => dispatch({ type: GAME_ACTION.TICK }), []);
   const restart = useCallback(
-    () => dispatch({ type: GAME_ACTION.RESTART }),
-    [],
+    () =>
+      dispatch({ type: GAME_ACTION.RESTART, board: createFreshBoard(config) }),
+    [config],
   );
 
   return {
