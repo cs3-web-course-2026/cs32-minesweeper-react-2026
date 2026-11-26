@@ -1,0 +1,16 @@
+.message {
+  margin: 0;
+  font-size: var(--message-font-size);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.win {
+  font-weight: 700;
+  color: var(--color-success);
+}
+
+.lose {
+  font-weight: 700;
+  color: var(--color-danger);
+}

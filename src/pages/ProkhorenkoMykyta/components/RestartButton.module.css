@@ -1,0 +1,23 @@
+.restartButton {
+  padding: 0.5rem 1.125rem;
+  border: none;
+  border-radius: var(--radius-btn);
+  font-family: inherit;
+  font-size: var(--button-font-size);
+  font-weight: 700;
+  color: var(--color-on-accent);
+  background: var(--gradient-gold);
+  box-shadow: var(--shadow-gold);
+  cursor: pointer;
+  transition: transform var(--transition-duration) ease;
+}
+
+.restartButton:hover {
+  background: var(--gradient-gold-hover);
+  transform: translateY(-1px);
+}
+
+.restartButton:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}

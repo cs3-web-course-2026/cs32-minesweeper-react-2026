@@ -202,6 +202,16 @@ function Game() {
       difficulty: 'Beginner',
       status: 'Complete',
     },
+    {
+      id: 16,
+      title: 'Сапер (Minesweeper) на React',
+      description:
+        'React-версія Сапера 10×10 з 15 мінами: рекурсивне відкриття порожніх областей, прапорці, таймер, лічильник прапорців і підтримка екранних зчитувачів. Кольори підлаштовуються під теми сайту.',
+      author: 'Prokhorenko Mykyta',
+      link: 'prokhorenko-mykyta',
+      difficulty: 'Beginner',
+      status: 'Complete',
+    },
   ];
 
   return (
