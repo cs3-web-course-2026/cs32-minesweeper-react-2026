@@ -1,0 +1,112 @@
+.cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  padding: 0;
+  border: 1px solid var(--cell-border);
+  border-radius: var(--cell-radius);
+  font-family: var(--font-mono);
+  font-size: var(--cell-font-size);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-text);
+  cursor: pointer;
+  transition:
+    background var(--transition-duration) ease,
+    transform var(--transition-duration) ease;
+}
+
+.cell:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.closed,
+.flagged {
+  background: linear-gradient(
+    to bottom,
+    var(--cell-hidden-top),
+    var(--cell-hidden-bottom)
+  );
+}
+
+.closed:hover,
+.flagged:hover {
+  background: linear-gradient(
+    to bottom,
+    var(--cell-hidden-hover-top),
+    var(--cell-hidden-hover-bottom)
+  );
+}
+
+.opened {
+  background: var(--cell-revealed);
+  cursor: default;
+}
+
+.mine {
+  background: color-mix(in srgb, var(--cell-mine) 18%, var(--cell-revealed));
+  cursor: default;
+}
+
+.exploded {
+  background: var(--cell-mine);
+  cursor: default;
+}
+
+.wrongFlag {
+  background: color-mix(in srgb, var(--cell-mine) 25%, var(--cell-revealed));
+  cursor: default;
+}
+
+.wrongFlag::after {
+  position: absolute;
+  inset: 20%;
+  content: '';
+  background: linear-gradient(
+    to top right,
+    transparent calc(50% - 1.5px),
+    var(--cell-mine) calc(50% - 1.5px),
+    var(--cell-mine) calc(50% + 1.5px),
+    transparent calc(50% + 1.5px)
+  );
+}
+
+.finished {
+  cursor: default;
+}
+
+.number1 {
+  color: var(--color-num-1);
+}
+
+.number2 {
+  color: var(--color-num-2);
+}
+
+.number3 {
+  color: var(--color-num-3);
+}
+
+.number4 {
+  color: var(--color-num-4);
+}
+
+.number5 {
+  color: var(--color-num-5);
+}
+
+.number6 {
+  color: var(--color-num-6);
+}
+
+.number7 {
+  color: var(--color-num-7);
+}
+
+.number8 {
+  color: var(--color-num-8);
+}

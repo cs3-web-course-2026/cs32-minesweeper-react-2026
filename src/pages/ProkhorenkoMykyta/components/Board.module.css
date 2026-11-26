@@ -1,0 +1,11 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(var(--board-columns), var(--cell-size));
+  gap: var(--cell-gap);
+  padding: var(--board-padding);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  background: var(--card-bg);
+  box-shadow: var(--shadow-md);
+  user-select: none;
+}

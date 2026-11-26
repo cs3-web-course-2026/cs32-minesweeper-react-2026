@@ -1,0 +1,23 @@
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--counter-font-size);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.value {
+  min-width: 3ch;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
