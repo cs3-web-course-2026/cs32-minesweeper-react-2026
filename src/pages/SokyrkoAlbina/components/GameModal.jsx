@@ -20,24 +20,27 @@ function GameModalDialog({ gameStatus, onClose }) {
   }, []);
 
   useEffect(() => {
-    if (!isVisible) return undefined;
-
-    confirmBtnRef.current?.focus();
-
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        onClose();
-      } else if (event.key === 'Tab') {
-        event.preventDefault();
-        confirmBtnRef.current?.focus();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isVisible, onClose]);
+    if (isVisible) {
+      confirmBtnRef.current?.focus();
+    }
+  }, [isVisible]);
 
   if (!isVisible) return null;
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Escape') {
+      onClose();
+    } else if (event.key === 'Tab') {
+      event.preventDefault();
+      confirmBtnRef.current?.focus();
+    }
+  };
+
+  const handleButtonBlur = () => {
+    setTimeout(() => {
+      confirmBtnRef.current?.focus();
+    }, 0);
+  };
 
   const isWinner = gameStatus === STATUS.WIN;
   const title = isWinner ? 'Перемога! 🎉' : 'Поразка! 💥';
@@ -68,6 +71,8 @@ function GameModalDialog({ gameStatus, onClose }) {
           type="button"
           className={styles.modalBtn}
           onClick={onClose}
+          onKeyDown={handleKeyDown}
+          onBlur={handleButtonBlur}
         >
           Зрозуміло
         </button>

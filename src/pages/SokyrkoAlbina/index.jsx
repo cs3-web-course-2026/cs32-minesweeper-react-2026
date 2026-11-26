@@ -5,10 +5,13 @@ import GameModal from './components/GameModal';
 import { CELL_STATE, GAME_CONFIG, MAX_TIME, STATUS } from './constants/gameConfig';
 import {
   checkWin,
+  countFlaggedCells,
   createEmptyBoard,
+  explodeCell,
   generateMinesOnBoard,
   isInside,
   revealCells,
+  toggleCellFlag,
 } from './utils/boardUtils';
 import styles from './Game.module.css';
 
@@ -21,9 +24,7 @@ export default function SokyrkoAlbina() {
   const [isFirstClick, setIsFirstClick] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const flagsCount = board
-    .flat()
-    .filter((cell) => cell.state === CELL_STATE.FLAGGED).length;
+  const flagsCount = countFlaggedCells(board);
 
   useEffect(() => {
     if (gameStatus !== STATUS.PROCESS || isFirstClick) {
@@ -64,12 +65,7 @@ export default function SokyrkoAlbina() {
 
       const clickedCell = activeBoard[row][col];
       if (clickedCell.type === 'mine') {
-        const explodedBoard = activeBoard.map((r) =>
-          r.map((c) =>
-            c.row === row && c.col === col ? { ...c, state: CELL_STATE.EXPLODED } : c
-          )
-        );
-        setBoard(explodedBoard);
+        setBoard(explodeCell(activeBoard, row, col));
         setGameStatus(STATUS.LOSE);
         setIsModalOpen(true);
         return;
@@ -88,28 +84,16 @@ export default function SokyrkoAlbina() {
 
   const handleToggleFlag = useCallback(
     (row, col) => {
-      if (gameStatus !== STATUS.PROCESS || !isInside(row, col, rows, cols)) {
+      if (gameStatus !== STATUS.PROCESS) {
         return;
       }
 
-      const cell = board[row][col];
-      if (cell.state === CELL_STATE.CLOSED && flagsCount >= minesCount) {
-        return;
+      const nextBoard = toggleCellFlag(board, row, col, minesCount);
+      if (nextBoard) {
+        setBoard(nextBoard);
       }
-      if (cell.state !== CELL_STATE.CLOSED && cell.state !== CELL_STATE.FLAGGED) {
-        return;
-      }
-
-      const nextState =
-        cell.state === CELL_STATE.CLOSED ? CELL_STATE.FLAGGED : CELL_STATE.CLOSED;
-
-      setBoard((prevBoard) =>
-        prevBoard.map((r) =>
-          r.map((c) => (c.row === row && c.col === col ? { ...c, state: nextState } : c))
-        )
-      );
     },
-    [board, flagsCount, gameStatus, minesCount, rows, cols]
+    [board, gameStatus, minesCount]
   );
 
   const handleCloseModal = useCallback(() => {

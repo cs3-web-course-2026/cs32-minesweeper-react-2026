@@ -34,7 +34,6 @@ export function generateMinesOnBoard(currentBoard, minesCount, excludeRow, exclu
     throw new RangeError('Кількість мін перевищує доступну кількість клітинок');
   }
 
-  // Глибока копія зі збереженням уже встановлених прапорців
   const nextBoard = currentBoard.map((row) =>
     row.map((cell) => ({
       ...cell,
@@ -71,6 +70,48 @@ export function generateMinesOnBoard(currentBoard, minesCount, excludeRow, exclu
   }
 
   return nextBoard;
+}
+
+export function explodeCell(currentBoard, targetRow, targetCol) {
+  return currentBoard.map((row) =>
+    row.map((cell) =>
+      cell.row === targetRow && cell.col === targetCol
+        ? { ...cell, state: CELL_STATE.EXPLODED }
+        : cell
+    )
+  );
+}
+
+export function countFlaggedCells(board) {
+  return board.flat().filter((cell) => cell.state === CELL_STATE.FLAGGED).length;
+}
+
+export function toggleCellFlag(currentBoard, targetRow, targetCol, minesCount) {
+  const rows = currentBoard.length;
+  const cols = currentBoard[0].length;
+  if (!isInside(targetRow, targetCol, rows, cols)) {
+    return null;
+  }
+
+  const targetCell = currentBoard[targetRow][targetCol];
+  if (targetCell.state !== CELL_STATE.CLOSED && targetCell.state !== CELL_STATE.FLAGGED) {
+    return null;
+  }
+
+  if (targetCell.state === CELL_STATE.CLOSED && countFlaggedCells(currentBoard) >= minesCount) {
+    return null;
+  }
+
+  const nextState =
+    targetCell.state === CELL_STATE.CLOSED ? CELL_STATE.FLAGGED : CELL_STATE.CLOSED;
+
+  return currentBoard.map((row) =>
+    row.map((cell) =>
+      cell.row === targetRow && cell.col === targetCol
+        ? { ...cell, state: nextState }
+        : cell
+    )
+  );
 }
 
 export function revealCells(currentBoard, startRow, startCol) {
