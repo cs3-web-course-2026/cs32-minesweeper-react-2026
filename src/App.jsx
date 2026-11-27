@@ -17,6 +17,7 @@ import SurmachVolodymyr from './pages/SurmachVolodymyr';
 import VasylievaDaria from './pages/VasylievaDaria';
 import KoptiaievaKateryna from './pages/KoptiaievaKateryna';
 import SokyrkoAlbina from './pages/SokyrkoAlbina';
+import ProkopenkoYevgeniy from './pages/ProkopenkoYevgeniy';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="vasylieva-daria" element={<VasylievaDaria />} />
         <Route path="koptiaieva-kateryna" element={<KoptiaievaKateryna />} />
         <Route path="sokyrko-albina" element={<SokyrkoAlbina />} />
+        <Route path="prokopenko-yevgeniy" element={<ProkopenkoYevgeniy />} />
       </Route>
     </Routes>
   );
