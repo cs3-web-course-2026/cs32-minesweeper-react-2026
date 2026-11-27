@@ -1,0 +1,46 @@
+.pageWrapper {
+    --bg-main: #13242c;
+    --board-bg: #d4b886;
+    --border-light: #deb887;
+    --border-dark: #4a2e15;
+    --cell-closed: #8b5a2b;
+    --cell-open-bg: #f5deb3;
+    --display-bg: #2e1a0f;
+    --display-text: #ffd700;
+    --anim-duration: 0.1s;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 75vh;
+    padding: 20px;
+    font-family: Georgia, 'Times New Roman', serif;
+  }
+  
+  .gameContainer {
+    box-sizing: border-box;
+    background-color: var(--board-bg);
+    padding: 15px;
+    border: 6px solid var(--border-dark);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 15px 30px rgb(0 0 0 / 80%);
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgb(0 0 0 / 3%) 10px,
+      rgb(0 0 0 / 3%) 20px
+    );
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+  }
+  
+  .gameContainer *,
+  .gameContainer *::before,
+  .gameContainer *::after {
+    box-sizing: border-box;
+  }

@@ -202,6 +202,16 @@ function Game() {
       difficulty: 'Beginner',
       status: 'Complete',
     },
+    {
+      id: 16,
+      title: ' Pirate Minesweeper',
+      description:
+        'Сапер у піратському дерев’яному стилі на React: безпечний перший клік зі збереженням прапорців, рекурсивне відкриття порожніх клітинок, таймер, лічильник прапорців та доступне модальне вікно результату.',
+      author: 'Sokyrko Albina',
+      link: 'sokyrko-albina',
+      difficulty: 'Beginner',
+      status: 'Complete',
+    },
   ];
 
   return (
