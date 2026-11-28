@@ -18,6 +18,7 @@ import VasylievaDaria from './pages/VasylievaDaria';
 import KoptiaievaKateryna from './pages/KoptiaievaKateryna';
 import SokyrkoAlbina from './pages/SokyrkoAlbina';
 import ProkopenkoYevgeniy from './pages/ProkopenkoYevgeniy';
+import RevaDenys from './pages/RevaDenys';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Route path="koptiaieva-kateryna" element={<KoptiaievaKateryna />} />
         <Route path="sokyrko-albina" element={<SokyrkoAlbina />} />
         <Route path="prokopenko-yevgeniy" element={<ProkopenkoYevgeniy />} />
+        <Route path="reva-denys" element={<RevaDenys />} />
       </Route>
     </Routes>
   );

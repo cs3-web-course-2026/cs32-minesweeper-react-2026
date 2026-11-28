@@ -1,0 +1,156 @@
+/* ==========================================================================
+   Нордична колірна палітра та змінні компонента
+   ========================================================================== */
+.vikingFrame {
+  /* Змінні локалізовані всередині головного контейнера */
+  --stone-dark: #191c1e;
+  --stone-mid: #2c3338;
+  --stone-light: #47535b;
+  --stone-carved: #14181a;
+  --iron-border: #52473d;
+  --iron-highlight: #8d7d6f;
+  --wood-bg: #1c140e;
+  --gold-glow: #e8a638;
+  --gold-runic: #ffcf68;
+
+  --rune-blue: #38bdf8;
+  --rune-green: #4ade80;
+  --rune-amber: #fbbf24;
+  --rune-purple: #c084fc;
+  --rune-crimson: #f87171;
+  --rune-cyan: #2dd4bf;
+  --rune-silver: #e2e8f0;
+  --rune-obsidian: #94a3b8;
+
+  --cell-size: clamp(32px, 8.5vw, 54px);
+  --frame-padding: clamp(10px, 2.5vw, 24px);
+
+  position: relative;
+  background: linear-gradient(145deg, #261f1a, #16120e);
+  padding: var(--frame-padding);
+  border: 4px solid var(--iron-border);
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 3px #0d0a08,
+    0 15px 40px rgb(0 0 0 / 90%),
+    inset 0 0 15px rgb(0 0 0 / 80%);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 2vw, 18px);
+  max-width: 98vw;
+  margin: 0 auto;
+  font-family: MedievalSharp, cursive, serif;
+  color: #e5e5e5;
+  user-select: none;
+  animation: frame-appear 0.5s ease-out;
+}
+
+/* Декоративні кутові руни */
+.runeCorner {
+  position: absolute;
+  font-size: 1.1rem;
+  color: var(--iron-highlight);
+  text-shadow: 0 0 4px var(--gold-glow);
+  opacity: 0.7;
+}
+
+.topLeft {
+  top: 6px;
+  left: 8px;
+}
+
+.topRight {
+  top: 6px;
+  right: 8px;
+}
+
+.bottomLeft {
+  bottom: 6px;
+  left: 8px;
+}
+
+.bottomRight {
+  bottom: 6px;
+  right: 8px;
+}
+
+.gameTitle {
+  font-family: 'Cinzel Decorative', serif;
+  text-align: center;
+  font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+  letter-spacing: 3px;
+  color: var(--gold-runic);
+  text-shadow:
+    0 0 10px rgb(232 166 56 / 40%),
+    2px 2px 4px #000;
+}
+
+/* ==========================================================================
+   Хедер та трекери
+   ========================================================================== */
+.vikingHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(180deg, #13171a, #20262b);
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 2px solid var(--stone-light);
+  box-shadow: inset 0 3px 6px rgb(0 0 0 / 80%);
+}
+
+.stoneTracker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #0d1013;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--iron-border);
+  box-shadow: inset 0 2px 5px rgb(0 0 0 / 90%);
+}
+
+.trackerIcon {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  filter: drop-shadow(0 0 3px var(--gold-glow));
+}
+
+.trackerValue {
+  font-family: 'Cinzel Decorative', monospace;
+  font-size: clamp(1.1rem, 2.8vw, 1.5rem);
+  font-weight: 700;
+  color: var(--gold-runic);
+  letter-spacing: 2px;
+  text-shadow: 0 0 8px rgb(255 207 104 / 60%);
+}
+
+.gameMessage {
+  min-height: 1.5em;
+  margin: 12px 0 0;
+  color: var(--gold-runic);
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 0 0 8px var(--gold-glow);
+}
+
+.vikingFooter {
+  text-align: center;
+  font-size: clamp(0.75rem, 2vw, 0.95rem);
+  color: #8d7d6f;
+  letter-spacing: 1.5px;
+  text-shadow: 1px 1px 2px #000;
+}
+
+@keyframes frame-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(8px);
+  }
+  
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

@@ -134,7 +134,6 @@ function Game() {
       difficulty: 'Beginner',
       status: 'Complete',
     },
-
     {
       id: 20,
       title: 'Класичний Сапер (Minesweeper)',
@@ -222,6 +221,16 @@ function Game() {
       difficulty: 'Intermediate',
       status: 'Complete',
     },
+    {
+      id: 18,
+      title: 'Viking Minesweeper',
+      description:
+        'React-версія VIKING Сапера з звичайним flood-fill відкриттям, таймером, лічильником прапорців та повною підтримкою доступності й клавіатури.',
+      author: 'Reva Denys',
+      link: 'reva-denys',
+      status: 'Complete',
+      difficulty: 'Beginner'
+    }
   ];
 
   return (

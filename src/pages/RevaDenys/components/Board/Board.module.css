@@ -1,0 +1,16 @@
+.vikingGrid {
+  display: grid;
+  grid-template-columns: repeat(8, auto);
+  grid-auto-rows: auto;
+  gap: 2px;
+  background-color: #0c0e11;
+  padding: 5px;
+  border-radius: 8px;
+  border: 6px solid var(--iron-border);
+  box-shadow: inset 0 0 16px rgb(0 0 0 / 95%);
+  margin: 0 auto;
+}
+
+.vikingGrid [role='row'] {
+  display: contents;
+}

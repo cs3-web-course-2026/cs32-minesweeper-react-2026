@@ -1,0 +1,24 @@
+.stoneTracker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #0d1013;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #52473d;
+  box-shadow: inset 0 2px 5px rgb(0 0 0 / 90%);
+}
+
+.trackerIcon {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  filter: drop-shadow(0 0 3px #e8a638);
+}
+
+.trackerValue {
+  font-family: 'Cinzel Decorative', monospace;
+  font-size: clamp(1.1rem, 2.8vw, 1.5rem);
+  font-weight: 700;
+  color: #ffcf68;
+  letter-spacing: 2px;
+  text-shadow: 0 0 8px rgb(255 207 104 / 60%);
+}
