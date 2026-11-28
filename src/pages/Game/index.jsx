@@ -119,8 +119,7 @@ function Game() {
     {
       id: 8,
       title: 'Minesweeper React',
-      description:
-        'React-версія Сапера з компонентизацією, таймером, лічильником прапорців, підтриманням доступності (ARIA) та клавіатурними скороченнями (клавіша F).',
+      description: 'React-версія Сапера з компонентизацією, таймером, лічильником прапорців, підтриманням доступності (ARIA) та клавіатурними скороченнями (клавіша F).',
       author: 'Kovtun Oleksandra',
       link: 'kovtun-oleksandra',
       difficulty: 'Intermediate',
@@ -129,15 +128,101 @@ function Game() {
     {
       id: 9,
       title: 'SUPER MEGA Minesweeper',
-      description:
-        'React-версія Сапера з таймером, лічильником прапорців та крутою назвою.',
+      description: 'React-версія Сапера з таймером, лічильником прапорців та крутою назвою.',
       author: 'Ostapenko Rodion',
       link: 'ostapenko-rodion',
       difficulty: 'Beginner',
       status: 'Complete',
     },
     {
+      id: 20,
+      title: 'Класичний Сапер (Minesweeper)',
+      description:
+        'React-реалізація Сапера з вибором рівня складності, таймером, лічильником прапорців та безпечним першим кліком.',
+      author: 'Moshnenko Bohdan',
+      link: 'moshnenko-bohdan',
+      difficulty: 'Intermediate',
+      status: 'Complete',
+    },
+    {
       id: 10,
+      title: 'Minesweeper by Oleksii Khomiakov',
+      description: 'A React implementation with component architecture, modular CSS, and state management.',
+      author: 'Oleksii Khomiakov',
+      link: 'khomiakov-oleksii',
+      difficulty: 'Beginner',
+      status: 'Complete',
+   },
+    {
+      id: 11,
+      title: 'Класичний Сапер',
+      description:
+        'Гра Сапер, реалізована на React. Має таймер, лічильник прапорців, безпечний перший клік, автоматичне відкриття порожніх клітинок та визначення перемоги й поразки.',
+      author: 'Pogorelets Elizaveta',
+      link: 'pogorelets-elizaveta',
+      difficulty: 'Intermediate',
+      status: 'Complete',
+    },
+    {
+      id: 12,
+      title: 'Classic Minesweeper',
+      description: 'Classic 10x10 Minesweeper with 15 mines, safe first move, flags and timer.',
+      author: 'Surmach Volodymyr',
+      link: 'surmach-volodymyr',
+      difficulty: 'Beginner',
+      status: 'Complete',
+    },
+    {
+      id: 13,
+      title: '🌸 Pinky Minesweeper 🌸',
+      description: 'Adaptive React-version of the Minesweeper game with a timer, mine counter, flags, and using CSS Modules.',
+      author: 'Uskova Olexandra',
+      link: 'uskova-olexandra',
+      difficulty: 'Intermediate',
+      status: 'Complete',
+    },
+    {
+      id: 14,
+      title: '💜 Purple Minesweeper',
+      description:
+        'Фіолетовий Сапер на React з таймером, лічильником прапорців, автоматичним відкриттям порожніх клітинок та визначенням перемоги й поразки.',
+      author: 'Vasylieva Daria',
+      link: 'vasylieva-daria',
+      difficulty: 'Intermediate',
+      status: 'Complete',
+    },
+    {
+      id: 15,
+      title: 'Pink Skull Minesweeper',
+      description:
+        'React-версія Сапера в рожево-фіолетовому стилі: черепи замість мін, сердечка-прапорці, безпечний перший хід, flood-fill, таймер і керування з клавіатури (F — прапорець).',
+      author: 'Koptiaieva Kateryna',
+      link: 'koptiaieva-kateryna',
+      difficulty: 'Beginner',
+      status: 'Complete',
+    },
+    {
+      id: 16,
+      title: ' Pirate Minesweeper',
+      description:
+        'Сапер у піратському дерев’яному стилі на React: безпечний перший клік зі збереженням прапорців, рекурсивне відкриття порожніх клітинок, таймер, лічильник прапорців та доступне модальне вікно результату.',
+      author: 'Sokyrko Albina',
+      link: 'sokyrko-albina',
+      difficulty: 'Beginner',
+      status: 'Complete',
+    },
+    {
+      id: 17,
+      title: 'Класичний Сапер 16×16',
+      description:
+        'React-міграція класичного Сапера 16×16 (40 мін) у ретро-стилі: безпечний перший клік, flood-fill, цифрові лічильники, таймер, підтримка клавіатури (клавіша F) та CSS Modules.',
+      author: 'Prokopenko Yevgeniy',
+      link: 'prokopenko-yevgeniy',
+      difficulty: 'Intermediate',
+      status: 'Complete',
+    },
+    {
+      id: 18,
       title: 'Viking Minesweeper',
       description:
         'React-версія VIKING Сапера з звичайним flood-fill відкриттям, таймером, лічильником прапорців та повною підтримкою доступності й клавіатури.',
@@ -146,7 +231,6 @@ function Game() {
       status: 'Complete',
       difficulty: 'Beginner'
     }
-
   ];
 
   return (

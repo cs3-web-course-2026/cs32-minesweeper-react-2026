@@ -1,0 +1,8 @@
+.gameBoard {
+    display: grid;
+    grid-template-columns: repeat(var(--board-width, 8), 1fr);
+    border: 4px solid var(--border-dark);
+    background-color: var(--border-dark);
+    gap: 2px;
+  }
+  

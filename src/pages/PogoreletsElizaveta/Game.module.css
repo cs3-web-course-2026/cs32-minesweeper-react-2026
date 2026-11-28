@@ -1,0 +1,61 @@
+.page {
+  --board-size: 10;
+  --cell-size: 40px;
+  --mobile-cell-size: 32px;
+  --press-duration: 0.1s;
+
+  min-height: 100vh;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+}
+
+.page *,
+.page *::before,
+.page *::after {
+  box-sizing: border-box;
+}
+
+.gameContainer {
+  background-color: #bdbdbd;
+  padding: 20px;
+  border: 3px solid #fff;
+  border-right-color: #7b7b7b;
+  border-bottom-color: #7b7b7b;
+  box-shadow: 0 10px 25px rgb(0 0 0 / 20%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #333;
+  margin: 0 0 15px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+@media (width <= 480px) {
+  .page {
+    --cell-size: 25px;
+
+    padding: 10px;
+  }
+
+  .gameContainer {
+    padding: 12px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+}

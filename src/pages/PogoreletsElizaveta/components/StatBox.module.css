@@ -1,0 +1,17 @@
+.statBox {
+  background-color: #000;
+  color: #f00;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 22px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 2px solid #7b7b7b;
+}
+
+.statLabel {
+  font-size: 18px;
+}

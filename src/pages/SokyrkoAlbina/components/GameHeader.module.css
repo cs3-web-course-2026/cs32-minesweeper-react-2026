@@ -1,0 +1,48 @@
+.gameHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--cell-open-bg);
+    padding: 10px;
+    border: 3px solid var(--border-dark);
+    border-radius: 5px;
+  }
+  
+  .display {
+    background-color: var(--display-bg);
+    color: var(--display-text);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 5px 10px;
+    border: 2px inset var(--border-dark);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: inset 0 0 10px #000;
+  }
+  
+  .startBtn {
+    font-size: 1.8rem;
+    cursor: pointer;
+    background-color: var(--cell-open-bg);
+    border: 3px outset var(--border-light);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform var(--anim-duration);
+  }
+  
+  .startBtn:active {
+    border-style: inset;
+    transform: scale(0.95);
+  }
+  
+  .startBtn:focus-visible {
+    outline: 3px solid var(--display-text);
+    outline-offset: 2px;
+  }

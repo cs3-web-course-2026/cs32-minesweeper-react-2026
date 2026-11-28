@@ -1,0 +1,130 @@
+.cell {
+  box-sizing: border-box;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  background-color: #bdbdbd;
+  color: #000;
+  border-top: 3px solid #fff;
+  border-left: 3px solid #fff;
+  border-right: 3px solid #7b7b7b;
+  border-bottom: 3px solid #7b7b7b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: inherit;
+  font-size: calc(var(--cell-size) * 0.58);
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 1;
+  transition: none;
+}
+
+.cell:hover {
+  background-color: #c7c7c7;
+  border-color: #fff #7b7b7b #7b7b7b #fff;
+  transform: none;
+}
+
+.cell:not(.open, .flagged):active {
+  border: 1px solid #7b7b7b;
+  border-top: none;
+  border-left: none;
+  padding-top: 2px;
+  padding-left: 2px;
+}
+
+.open {
+  border: 1px solid #7b7b7b;
+  border-top: none;
+  border-left: none;
+  background-color: #bdbdbd;
+  cursor: default;
+}
+
+.open:hover {
+  background-color: #bdbdbd;
+  border-color: #7b7b7b;
+  transform: none;
+}
+
+.flagged {
+  font-size: calc(var(--cell-size) * 0.55);
+}
+
+.falseFlag {
+  position: relative;
+  font-size: calc(var(--cell-size) * 0.55);
+}
+
+.falseFlag::after {
+  content: '✕';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #f00;
+  font-size: calc(var(--cell-size) * 0.85);
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.mine {
+  font-size: calc(var(--cell-size) * 0.55);
+}
+
+.exploded {
+  background-color: #f00;
+}
+
+.exploded:hover {
+  background-color: #f00;
+  border-color: #7b7b7b;
+  transform: none;
+}
+
+.number1 {
+  color: #00f;
+}
+
+.number2 {
+  color: #008000;
+}
+
+.number3 {
+  color: #f00;
+}
+
+.number4 {
+  color: #000080;
+}
+
+.number5 {
+  color: #800000;
+}
+
+.number6 {
+  color: #008080;
+}
+
+.number7 {
+  color: #000;
+}
+
+.number8 {
+  color: #808080;
+}
+
+@media (width <= 440px) {
+  .cell {
+    border-width: 2px;
+  }
+
+  .open {
+    border-width: 1px;
+  }
+}
+

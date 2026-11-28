@@ -1,0 +1,206 @@
+.pageWrapper {
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(43 43 43);
+  font-family: Arial, sans-serif;
+}
+
+.minesweeperApp {
+  width: min(100%, 520px);
+  max-width: 520px;
+  padding: 12px;
+  background-color: rgb(189 189 189);
+  border: 4px solid;
+  border-color: rgb(255 255 255) rgb(123 123 123) rgb(123 123 123) rgb(255 255 255);
+  overflow: hidden;
+}
+
+.gameHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  margin-bottom: 12px;
+  background-color: rgb(189 189 189);
+  border: 3px solid;
+  border-color: rgb(123 123 123) rgb(255 255 255) rgb(255 255 255) rgb(123 123 123);
+}
+
+.counter {
+  flex: 1;
+  min-width: 0;
+  padding: 4px 6px;
+  background-color: rgb(0 0 0);
+  color: rgb(255 0 0);
+  font-family: "Courier New", monospace;
+  font-size: clamp(18px, 6vw, 30px);
+  font-weight: bold;
+  text-align: center;
+}
+
+.resetBtn {
+  flex: 0 0 clamp(38px, 12vw, 52px);
+  width: clamp(38px, 12vw, 52px);
+  height: clamp(38px, 12vw, 52px);
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(189 189 189);
+  border: 3px solid;
+  border-color: rgb(255 255 255) rgb(123 123 123) rgb(123 123 123) rgb(255 255 255);
+  font-size: clamp(20px, 7vw, 32px);
+  cursor: pointer;
+}
+
+.resetBtn:active {
+  border-color: rgb(123 123 123) rgb(255 255 255) rgb(255 255 255) rgb(123 123 123);
+}
+
+.gameStatusMessage {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: rgb(34 48 60);
+  min-height: 20px;
+}
+
+.gameBoard {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  border: 3px solid;
+  border-color: rgb(123 123 123) rgb(255 255 255) rgb(255 255 255) rgb(123 123 123);
+  overflow: hidden;
+}
+
+.boardRow {
+  display: grid;
+  grid-template-columns: repeat(var(--board-size, 9), minmax(0, 1fr));
+}
+
+.cell {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(189 189 189);
+  border: 3px solid;
+  border-color: rgb(255 255 255) rgb(123 123 123) rgb(123 123 123) rgb(255 255 255);
+  font-family: Arial, sans-serif;
+  font-size: clamp(11px, 4vw, 24px);
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+}
+
+.cell:disabled {
+  cursor: default;
+}
+
+.cell:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.cellOpened {
+  background-color: rgb(209 209 209);
+  border: 1px solid rgb(138 138 138);
+}
+
+.cellFlagged {
+  color: rgb(0 0 0);
+}
+
+.cellExploded {
+  background-color: rgb(255 77 77) !important;
+  border-color: rgb(255 77 77) !important;
+  color: rgb(0 0 0);
+}
+
+.number1 { color: rgb(0 0 255); }
+.number2 { color: rgb(0 128 0); }
+.number3 { color: rgb(255 0 0); }
+.number4 { color: rgb(0 0 128); }
+.number5 { color: rgb(128 0 0); }
+.number6 { color: rgb(0 128 128); }
+.number7 { color: rgb(0 0 0); }
+.number8 { color: rgb(102 102 102); }
+
+@media (width <= 400px) {
+  .pageWrapper {
+    padding: 8px;
+  }
+
+  .minesweeperApp {
+    width: 100%;
+    padding: 8px;
+  }
+
+  .gameHeader {
+    padding: 6px;
+    gap: 5px;
+    margin-bottom: 8px;
+  }
+
+  .counter {
+    font-size: 20px;
+  }
+
+  .resetBtn {
+    flex-basis: 40px;
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+  }
+
+  .cell {
+    border-width: 2px;
+    font-size: 14px;
+  }
+
+  .cellOpened {
+    border-width: 1px;
+  }
+}
+
+@media (width <= 300px) {
+  .pageWrapper {
+    padding: 4px;
+  }
+
+  .minesweeperApp {
+    padding: 5px;
+  }
+
+  .gameHeader {
+    padding: 4px;
+  }
+
+  .counter {
+    font-size: 17px;
+    padding: 3px;
+  }
+
+  .resetBtn {
+    flex-basis: 34px;
+    width: 34px;
+    height: 34px;
+    font-size: 19px;
+  }
+
+  .cell {
+    border-width: 1px;
+    font-size: 11px;
+  }
+}

@@ -1,0 +1,36 @@
+.restartButton {
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: var(--panel-border);
+  border-radius: 50%;
+  font-size: 1.5rem;
+  background: var(--restart-button-background);
+  cursor: pointer;
+  transition: transform var(--transition-duration);
+}
+
+.restartButton::after {
+  content: '🎀';
+  position: absolute;
+  top: -0.75rem;
+  right: -0.5rem;
+  font-size: 1.25rem;
+  transform: rotate(20deg);
+}
+
+.restartButton:hover {
+  transform: scale(1.08) rotate(-8deg);
+}
+
+.restartButton:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .restartButton {
+    transition: none;
+  }
+}
